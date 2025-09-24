@@ -1,0 +1,34 @@
+[
+    {
+        "id": 1,
+        "title": "The Power of UX Storytelling",
+        "date": "2024-10-26",
+        "author": "Mohineesh Sharma",
+        "summary": "Discover how crafting compelling narratives around user experiences can align teams and drive product success.",
+        "content": "<h1>The Power of UX Storytelling</h1><p>In the world of UX, we often get lost in the data, the wireframes, and the prototypes. But one of the most powerful tools in our arsenal is storytelling. A well-crafted story can transform complex user research into a memorable and persuasive narrative that resonates with stakeholders, from developers to CEOs.</p><p>It's about more than just presenting findings; it's about building empathy. When you tell the story of a user struggling with an interface, you're not just listing pain points—you're making the problem real and relatable. This emotional connection is crucial for getting buy-in and aligning the entire team around a common, human-centered goal.</p>"
+    },
+    {
+        "id": 2,
+        "title": "Designing for Delight: Small Details, Big Impact",
+        "date": "2024-10-15",
+        "author": "Mohineesh Sharma",
+        "summary": "It's the little things that count. Learn how micro-interactions and thoughtful details can elevate a good user experience to a great one.",
+        "content": "<h1>Designing for Delight</h1><p>Content for the second blog post goes here...</p>"
+    },
+    {
+        "id": 3,
+        "title": "The ROI of a Strong Design System",
+        "date": "2024-10-02",
+        "author": "Mohineesh Sharma",
+        "summary": "A design system isn't just a style guide; it's a powerful tool for efficiency, consistency, and scalability. Here's why it's a smart investment.",
+        "content": "<h1>The ROI of a Strong Design System</h1><p>Content for the third blog post goes here...</p>"
+    },
+    {
+        "id": 4,
+        "title": "From Data to Design: A Guide to User Research",
+        "date": "2024-09-20",
+        "author": "Mohineesh Sharma",
+        "summary": "User research is the foundation of human-centered design. This post breaks down the process of turning raw data into actionable design insights.",
+        "content": "<h1>From Data to Design</h1><p>Content for the fourth blog post goes here...</p>"
+    }
+]

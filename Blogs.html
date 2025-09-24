@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Mohaneesh Sharma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .bg-primary { background-color: #6a82fb; }
+        .bg-secondary { background-color: #f7d75b; }
+        .text-primary { color: #6a82fb; }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- Header -->
+    <header class="bg-primary text-white p-6 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-bold">Mohaneesh Sharma</a>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
+                    <li><a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
+                    <li><a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
+                    <li><a href="#contact" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+        <section id="blogs">
+            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">From My Blog</h2>
+            <div id="blogs-container" class="space-y-8 max-w-4xl mx-auto">
+                <!-- Blog posts will be loaded here by JavaScript -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-6 text-gray-500 text-sm">
+        <p>&copy; 2024 Mohaneesh Sharma. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('Blogs.json')
+                .then(response => response.json())
+                .then(posts => {
+                    const container = document.getElementById('blogs-container');
+                    posts.forEach(post => {
+                        const postCard = `
+                            <div class="bg-white rounded-3xl shadow-lg p-8">
+                                <p class="text-sm text-gray-500 mb-2">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                <h3 class="text-2xl font-bold text-gray-900 mb-2">${post.title}</h3>
+                                <p class="text-gray-700 leading-relaxed mb-4">${post.summary}</p>
+                                <a href="Detailed_blog.html?id=${post.id}" class="text-primary font-semibold hover:underline">Read More &rarr;</a>
+                            </div>`;
+                        container.innerHTML += postCard;
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

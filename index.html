@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mohaneesh Sharma | UI/UX Designer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Very light grey-blue for background */
+        }
+        .bg-primary {
+            background-color: #6a82fb; /* Royal Blue Pastel */
+        }
+        .bg-secondary {
+            background-color: #f7d75b; /* Yellow Pastel */
+        }
+        /* Blog Slider Animation */
+        .slider-container {
+            overflow: hidden;
+            position: relative;
+            width: 100%;
+        }
+        .slider-track {
+            display: flex;
+            animation: scroll 40s linear infinite;
+        }
+        .slider-container:hover .slider-track {
+            animation-play-state: paused;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- Header -->
+    <header class="bg-primary text-white p-6 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold">Mohaneesh Sharma</h1>
+            <nav>
+                <ul class="flex space-x-6">
+                    <li><a href="#about" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
+                    <li><a href="#projects" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
+                    <li><a href="#contact" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+
+        <!-- Hero Section -->
+        <section id="hero" class="text-center mb-24">
+            <h2 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">UI/UX Designer | Product Experience Specialist</h2>
+            <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">I am a research-driven UI/UX designer who mentors, simplifies, and creates impact. Hire me to align user needs with your business goals.</p>
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                <a href="Projects.html" class="px-8 py-3 bg-primary text-white font-semibold rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">View My Work</a>
+                <a href="Mohaneesh_UX_Designer.pdf" download class="px-8 py-3 bg-white text-primary font-semibold border-2 border-primary rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">Download CV</a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="bg-white rounded-3xl shadow-lg p-8 md:p-12 mb-16">
+            <div class="flex flex-col md:flex-row items-center md:space-x-12">
+                <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
+                    <img src="Mohaneesh_Sharma.png" alt="Mohaneesh Sharma Profile Photo" class="w-64 h-64 md:w-full md:h-auto rounded-full shadow-lg">
+                </div>
+                <div class="md:w-2/3">
+                    <h3 class="text-3xl font-bold text-gray-900 mb-4">About Me</h3>
+                    <p class="text-gray-700 leading-relaxed mb-4">Hi, I’m Mohineesh Sharma, a passionate UI/UX designer and technology consultant with a focus on creating intuitive, human-centered digital experiences. I thrive at the intersection of design, strategy, and mentorship, helping products not just look good but feel seamless and impactful.</p>
+                    <p class="text-gray-700 leading-relaxed mb-4">With experience in EdTech, B2B platforms, and corporate design projects, I specialize in user research, prototyping, design systems, and UX storytelling. Beyond designing, I mentor aspiring designers, guiding them to solve real-world problems and build portfolios that stand out.</p>
+                    <p class="text-gray-700 leading-relaxed mb-4">I believe every design should solve a problem, delight users, and drive results. When I’m not crafting experiences, I explore AI-driven design tools, emerging trends, and creative storytelling.</p>
+                    <p class="text-gray-700 leading-relaxed">Let’s create something meaningful together.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="mb-16">
+            <h3 class="text-3xl font-bold text-center text-gray-900 mb-8">My Expertise</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white rounded-xl shadow-md p-6 transform transition-transform duration-300 hover:scale-105">
+                    <h4 class="text-xl font-semibold mb-2 text-primary">UI/UX Design</h4>
+                    <p class="text-gray-600">Figma (UI, Prototyping, Micro-interactions), FigJam (IA, Journey Mapping).</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6 transform transition-transform duration-300 hover:scale-105">
+                    <h4 class="text-xl font-semibold mb-2 text-primary">User Research</h4>
+                    <p class="text-gray-600">Surveys, Heuristic Evaluation, A/B Testing, Heatmaps, Usability Testing.</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6 transform transition-transform duration-300 hover:scale-105">
+                    <h4 class="text-xl font-semibold mb-2 text-primary">Visual Design</h4>
+                    <p class="text-gray-600">CorelDraw, Photoshop, Canva (Brochures, Logos, Presentations).</p>
+                </div>
+                <div class="bg-white rounded-xl shadow-md p-6 transform transition-transform duration-300 hover:scale-105">
+                    <h4 class="text-xl font-semibold mb-2 text-primary">Soft Skills</h4>
+                    <p class="text-gray-600">Leadership & Mentoring, UX Writing, Cross-functional Collaboration.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="mb-16">
+            <h3 class="text-3xl font-bold text-center text-gray-900 mb-8">Featured Projects</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Project 1 -->
+                <div class="bg-white rounded-3xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105">
+                    <div class="bg-secondary rounded-xl p-4 inline-block mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2L1 12h3v8h6v-6h4v6h6v-8h3L12 2zm0 2.236L19.789 12H16v8h-4v-6h-4v6H4.211L12 4.236z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-2">S-touch & Subhartian Apps</h4>
+                    <p class="text-gray-700 leading-relaxed mb-4">Led UX improvements for university apps used by over 30,000 users. My work included usability audits and designing sitemaps, which resulted in a **40% reduction in support queries**.</p>
+                    <a href="#" class="text-primary font-semibold hover:underline">View Case Study &rarr;</a>
+                </div>
+                <!-- Project 2 -->
+                <div class="bg-white rounded-3xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105">
+                    <div class="bg-secondary rounded-xl p-4 inline-block mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1 15h2v-6h-2v6zm0-8h2V7h-2v2z"/>
+                        </svg>
+                    </div>
+                    <h4 class="text-2xl font-bold text-gray-900 mb-2">Mentora (UpGrad Capstone)</h4>
+                    <p class="text-gray-700 leading-relaxed mb-4">Designed a university alumni platform to enable lifelong mentor-mentee connections. I conducted a full-cycle research process to inform the design, including surveys, heatmaps, and journey mapping.</p>
+                    <a href="#" class="text-primary font-semibold hover:underline">View Case Study &rarr;</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- View All Projects Button -->
+        <div class="text-center mb-16">
+            <a href="Projects.html" class="px-8 py-3 bg-primary text-white font-semibold rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">View All Projects</a>
+        </div>
+
+        <!-- Clients Section -->
+        <section id="clients" class="mb-16">
+            <h3 class="text-3xl font-bold text-center text-gray-900 mb-8">Trusted by</h3>
+            <div class="slider-container">
+                <div class="slider-track">
+                    <!-- Logos will be duplicated by JS for infinite scroll effect -->
+                    <div class="flex items-center justify-around w-full flex-shrink-0 space-x-8 md:space-x-12">
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><img src="previous_Experience/svsu_logo.png" alt="Subharti University Logo" class="h-10 w-auto"></div>
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><img src="previous_Experience/download.jpg" alt="010 Softwares Logo" class="h-10 w-auto"></div>
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><img src="https://zen.pactap.com/wp-content/uploads/2024/12/Pactap-Logo-1-1.svg" alt="Pactap Logo" class="h-8 w-auto"></div>
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><h4 class="text-xl font-bold text-primary">Bitcell Systems</h4></div>
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><h4 class="text-xl font-bold text-primary">Namaste Technology</h4></div>
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><h4 class="text-xl font-bold text-primary">Stemstech</h4></div>
+                    </div>
+                    <!-- Duplicate for infinite effect -->
+                    <div class="flex items-center justify-around w-full flex-shrink-0 space-x-8 md:space-x-12">
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><img src="previous_Experience/svsu_logo.png" alt="Subharti University Logo" class="h-10 w-auto"></div>
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><img src="previous_Experience/download.jpg" alt="010 Softwares Logo" class="h-10 w-auto"></div>
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><img src="https://zen.pactap.com/wp-content/uploads/2024/12/Pactap-Logo-1-1.svg" alt="Pactap Logo" class="h-8 w-auto"></div>
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><h4 class="text-xl font-bold text-primary">Bitcell Systems</h4></div>
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><h4 class="text-xl font-bold text-primary">Namaste Technology</h4></div>
+                        <div class="p-4 bg-white rounded-xl shadow-md flex items-center justify-center h-16"><h4 class="text-xl font-bold text-primary">Stemstech</h4></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Blog Section -->
+        <section id="blog" class="mb-16">
+            <h3 class="text-3xl font-bold text-center text-gray-900 mb-8">From My Blog</h3>
+            <div class="slider-container">
+                <div id="blog-slider-track" class="slider-track">
+                    <!-- Blog posts will be loaded here by JavaScript -->
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="Blogs.html" class="px-8 py-3 bg-primary text-white font-semibold rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">View All Posts</a>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-primary text-white rounded-3xl p-8 md:p-12 text-center">
+            <h3 class="text-3xl font-bold mb-4">Let's Connect</h3>
+            <p class="text-lg mb-6">I am currently available for new opportunities. Let's build something amazing together.</p>
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                <a href="mailto:mohaneesh.uiux@gmail.com" class="px-8 py-3 bg-secondary text-primary font-semibold rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">Get in Touch</a>
+                <a href="https://www.linkedin.com/in/mohaneesh/" target="_blank" class="px-8 py-3 bg-white text-primary font-semibold rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">LinkedIn Profile</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-6 text-gray-500 text-sm">
+        <p>&copy; 2024 Mohaneesh Sharma. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('Blogs.json')
+                .then(response => response.json())
+                .then(posts => {
+                    const container = document.getElementById('blog-slider-track');
+                    let postHTML = '';
+                    posts.forEach(post => {
+                        postHTML += `
+                            <div class="flex-shrink-0 w-full md:w-1/2 lg:w-1/4 p-4">
+                                <div class="bg-white rounded-3xl shadow-lg p-6 h-full flex flex-col">
+                                    <p class="text-sm text-gray-500 mb-2">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                                    <h4 class="text-xl font-bold text-gray-900 mb-2">${post.title}</h4>
+                                    <p class="text-gray-700 leading-relaxed mb-4 flex-grow">${post.summary}</p>
+                                    <a href="Detailed_blog.html?id=${post.id}" class="text-primary font-semibold hover:underline self-start">Read More &rarr;</a>
+                                </div>
+                            </div>`;
+                    });
+                    // Duplicate posts for the infinite scroll effect
+                    container.innerHTML = postHTML + postHTML;
+                });
+        });
+    </script>
+
+</body>
+</html>
+                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center h-16">
+                    <img src="previous_Experience/svsu_logo.png" alt="Subharti University Logo" class="h-10 w-auto">
+                </div>
+                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center h-16">
+                    <img src="previous_Experience/download.jpg" alt="010 Softwares Logo" class="h-10 w-auto">
+                </div>
+                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center">
+                    <img src="https://zen.pactap.com/wp-content/uploads/2024/12/Pactap-Logo-1-1.svg" alt="Pactap Logo" class="h-8 w-auto">
+                </div>
+                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center h-16">
+                    <h4 class="text-xl font-bold text-primary">Bitcell Systems</h4>
+                </div>
+                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center h-16">
+                    <h4 class="text-xl font-bold text-primary">Namaste Technology</h4>
+                </div>
+                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center h-16">
+                    <h4 class="text-xl font-bold text-primary">Stemstech</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-primary text-white rounded-3xl p-8 md:p-12 text-center">
+            <h3 class="text-3xl font-bold mb-4">Let's Connect</h3>
+            <p class="text-lg mb-6">I am currently available for new opportunities. Let's build something amazing together.</p>
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                <a href="mailto:mohaneesh.uiux@gmail.com" class="px-8 py-3 bg-secondary text-primary font-semibold rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">Get in Touch</a>
+                <a href="https://www.linkedin.com/in/mohaneesh/" target="_blank" class="px-8 py-3 bg-white text-primary font-semibold rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">LinkedIn Profile</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-6 text-gray-500 text-sm">
+        <p>&copy; 2024 Mohaneesh Sharma. All Rights Reserved.</p>
+    </footer>
+
+</body>
+</html>

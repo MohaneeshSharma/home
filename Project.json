@@ -1,0 +1,18 @@
+[
+    {
+        "id": 1,
+        "title": "S-touch & Subhartian Apps",
+        "short_description": "Led UX improvements for university apps used by over 30,000 users.",
+        "long_description": "Led UX improvements for university apps used by over 30,000 users. My work included usability audits and designing sitemaps, which resulted in a **40% reduction in support queries**. The project involved a deep dive into existing user flows, identifying pain points through heuristic evaluation, and proposing a streamlined information architecture. The final designs were prototyped in Figma and tested with a sample group of students and faculty, leading to significant improvements in user satisfaction.",
+        "image": "path/to/project1-image.png",
+        "tags": ["UX", "Mobile App", "EdTech", "Usability Audit"]
+    },
+    {
+        "id": 2,
+        "title": "Mentora (UpGrad Capstone)",
+        "short_description": "Designed a university alumni platform to enable lifelong mentor-mentee connections.",
+        "long_description": "Designed a university alumni platform to enable lifelong mentor-mentee connections. I conducted a full-cycle research process to inform the design, including surveys, heatmaps, and journey mapping. The goal was to create a self-sustaining community where alumni could easily find and connect with mentors. The final product was a high-fidelity prototype that demonstrated the core user journey from onboarding to finding a mentor and scheduling a meeting.",
+        "image": "path/to/project2-image.png",
+        "tags": ["UX Research", "Prototyping", "Capstone Project", "Community Platform"]
+    }
+]
