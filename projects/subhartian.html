@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subhartian Case Study | Mohaneesh Sharma</title>
+    <meta name="description" content="A detailed case study of the Subhartian Student Companion App for Subharti University, designed by Mohaneesh Sharma.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.x/dist/typography.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .bg-primary { background-color: #6a82fb; }
+        .bg-secondary { background-color: #f7d75b; }
+        .text-primary { color: #6a82fb; }
+        .prose img { @apply rounded-lg shadow-md my-4; }
+        .prose h1, .prose h2, .prose h3 { @apply text-gray-900; }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- Header -->
+    <header class="bg-primary text-white p-6 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../index.html" class="text-3xl font-bold">Mohaneesh Sharma</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="../index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a>
+                <a href="../About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a>
+                <a href="../Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a>
+                <a href="../Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a>
+                <a href="../contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <ul class="flex flex-col items-center mt-4 space-y-4">
+                <li><a href="../index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
+                <li><a href="../About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
+                <li><a href="../Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
+                <li><a href="../Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
+                <li><a href="../contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+        <article class="bg-white rounded-2xl shadow-lg p-6 md:p-10 max-w-4xl mx-auto">
+            <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <h1 class="text-4xl font-extrabold mb-2">Subhartian: Student Companion App</h1>
+                        <p class="text-xl text-gray-600">A Case Study for Subharti University</p>
+                    </div>
+                    <a href="https://play.google.com/store/apps/details?id=org.subharti.erp&hl=en_IN" target="_blank" class="hidden sm:inline-block bg-black text-white font-semibold py-2 px-4 rounded-lg transition hover:bg-gray-800">📲 Download on Play Store</a>
+                </div>
+
+                <h2>📌 Project Overview</h2>
+                <p>Subhartian is a mobile app designed exclusively for Subharti University students. The goal was to create a digital student companion that centralizes campus needs — from grievances and leave applications to notices and event updates. The app was built in collaboration with the IT Department & CTO Sir, while I led the UI/UX design and prototyping.</p>
+
+                <h2>🚀 My Role</h2>
+                <ul>
+                    <li><strong>UI Designer & Prototyper</strong> (Phase 1)</li>
+                    <li><strong>UX Researcher & Design Strategist</strong> (Phase 2 improvements)</li>
+                    <li>Worked with developers & leadership to ensure design feasibility.</li>
+                </ul>
+
+                <h2>🔎 Challenge</h2>
+                <p>University students previously relied on scattered communication — notice boards, emails, and physical applications for grievances or leave. This caused information delays, inefficient processes, and low engagement with campus activities. We needed a single student-first platform that simplified daily interactions and kept students informed in real time.</p>
+
+                <h2>💡 My Process</h2>
+                <h3>1. Research & Insights</h3>
+                <p>I talked with students across hostels, classrooms, and labs to identify key needs: the ability to apply for leave digitally, raise grievances without hesitation, and stay updated on events, exams, and notices.</p>
+                
+                <h3>2. Design Decisions</h3>
+                <p>Based on the research, I made several key design choices:</p>
+                <ul>
+                    <li><strong>Simple Navigation:</strong> Created a 3-core module structure – Grievance, Leave Apply, Notice & Events.</li>
+                    <li><strong>Personalized Dashboard:</strong> Designed so students see the most relevant info upfront.</li>
+                    <li><strong>Quick Actions:</strong> Focused on one-tap leave application and instant grievance submission.</li>
+                    <li><strong>Clean, Youthful UI:</strong> Used bold colors & modern icons for a student-friendly feel.</li>
+                </ul>
+                <img src="../assets/images/subhartian.webp" alt="Subhartian App Screenshots" class="w-full">
+
+                <h3>3. Collaboration & Development</h3>
+                <p>I prototyped the entire flow in Figma for clear design communication and collaborated with IT developers for fast execution, ensuring a smooth integration with existing university systems.</p>
+
+                <h2>📈 Results & Impact</h2>
+                <ul>
+                    <li>Students adopted Subhartian as their primary campus app.</li>
+                    <li>Reduced paperwork & offline processes for grievances and leave.</li>
+                    <li>Higher engagement in university events & notices.</li>
+                    <li>Created a culture of transparency & accessibility.</li>
+                </ul>
+
+                <h2>✨ Why This Project Matters</h2>
+                <p>Subhartian was my first end-to-end student-focused product, proving how user-centric design can transform campus life. It marked a shift from scattered offline processes to a digital-first culture, empowering thousands of students to feel connected, heard, and engaged.</p>
+
+                <div class="mt-12 text-center p-6 bg-gray-50 rounded-xl">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Ready to build something impactful?</h3>
+                    <a href="https://play.google.com/store/apps/details?id=org.subharti.erp&hl=en_IN" target="_blank" class="inline-block bg-black text-white font-semibold py-3 px-6 rounded-lg transition hover:bg-gray-800 mt-4">📲 Download Subhartian on Play Store</a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-6 text-gray-500 text-sm">
+        <p>&copy; <span id="copyright-year"></span> Mohaneesh Sharma. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

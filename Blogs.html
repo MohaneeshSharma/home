@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog | Mohaneesh Sharma</title>
+    <title>Blogs | Mohaneesh Sharma</title>
+    <meta name="description" content="Explore my latest thoughts on UI/UX design, user research, and design systems.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,46 +37,134 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden">
             <ul class="flex flex-col items-center mt-4 space-y-4">
-                    <li><a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
-                    <li><a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
-                    <li><a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
-                    <li><a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
-                    <li><a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+                <li><a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
+                <li><a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
+                <li><a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
+                <li><a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
+                <li><a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
             </ul>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-16">
-        <section id="blogs">
-            <div class="text-center mb-12">
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">From My Blog</h2>
-                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Insights on design, technology, and creative problem-solving.</p>
+        <h1 class="text-4xl font-extrabold text-gray-900 text-center mb-8">My Blogs</h1>
+
+        <!-- Search Bar -->
+        <div class="mb-12 flex justify-center">
+            <input type="text" id="search-bar" placeholder="Search blogs..." class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+        </div>
+
+        <!-- Blog Cards Grid -->
+        <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Blog Card 1 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <img src="/img/blog1.jpg" alt="Spotify Wellness Redesign: A UX Case Study" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Spotify Wellness Redesign: A UX Case Study</h2>
+                    <p class="text-gray-600 mb-4">Reimagining Spotify’s wellness features to improve mindfulness, personalization, and engagement.</p>
+                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                </div>
             </div>
 
-            <!-- Search Bar -->
-            <div class="max-w-xl mx-auto mb-12">
-                <input type="search" id="blog-search" placeholder="Search articles..." class="w-full px-5 py-3 text-lg bg-white border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            <!-- Blog Card 2 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <img src="/img/blog2.jpg" alt="User Persona Demystified – Design Junction FM Episode" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">User Persona Demystified – Design Junction FM Episode</h2>
+                    <p class="text-gray-600 mb-4">A storytelling-based deep dive into creating relatable and actionable user personas.</p>
+                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                </div>
             </div>
 
-            <!-- Blog Grid -->
-            <div id="blogs-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Blog posts will be loaded here by JavaScript -->
+            <!-- Blog Card 3 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <img src="/img/blog3.jpg" alt="Digital Maya, Andhi Rahein – Poem on EMS & Design" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Digital Maya, Andhi Rahein – Poem on EMS & Design</h2>
+                    <p class="text-gray-600 mb-4">A creative reflection on Subharti’s EMS system through poetry and heuristic principles.</p>
+                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                </div>
             </div>
-            <p id="no-results" class="text-center text-gray-500 text-lg mt-8 hidden">No articles found matching your search.</p>
-        </section>
+
+            <!-- Blog Card 4 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <img src="/img/blog4.jpg" alt="LinkedIn Carousels that Convert: UX Writing + AI" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">LinkedIn Carousels that Convert: UX Writing + AI</h2>
+                    <p class="text-gray-600 mb-4">Crafting high-performing carousels with clear microcopy, AI tools, and design psychology.</p>
+                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                </div>
+            </div>
+
+            <!-- Blog Card 5 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <img src="/img/blog5.jpg" alt="Mentora – Connecting Students & Alumni" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Mentora – Connecting Students & Alumni</h2>
+                    <p class="text-gray-600 mb-4">A capstone project that bridges education and career through verified connections and opportunities.</p>
+                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                </div>
+            </div>
+
+            <!-- Blog Card 6 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <img src="/img/blog6.jpg" alt="PacDack – A Sustainable B2B Marketplace" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">PacDack – A Sustainable B2B Marketplace</h2>
+                    <p class="text-gray-600 mb-4">Designing a bidding platform for global packaging manufacturers and clients.</p>
+                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                </div>
+            </div>
+
+            <!-- Blog Card 7 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <img src="/img/blog7.jpg" alt="Amazon B2B Pitch – The 75 Page Design Challenge" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Amazon B2B Pitch – The 75 Page Design Challenge</h2>
+                    <p class="text-gray-600 mb-4">Behind the scenes of delivering a corporate presentation under extreme deadlines.</p>
+                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                </div>
+            </div>
+
+            <!-- Blog Card 8 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <img src="/img/blog8.jpg" alt="Empathize in UX – The Starting Point of Human-Centered Design" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Empathize in UX – The Starting Point of Human-Centered Design</h2>
+                    <p class="text-gray-600 mb-4">Why empathy is the foundation of impactful digital experiences.</p>
+                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                </div>
+            </div>
+
+            <!-- Blog Card 9 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <img src="/img/blog9.jpg" alt="UI/UX Internship Mentorship Journey" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">UI/UX Internship Mentorship Journey</h2>
+                    <p class="text-gray-600 mb-4">Training startup interns on structured design sessions and practical workflows.</p>
+                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                </div>
+            </div>
+
+            <!-- Blog Card 10 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <img src="/img/blog10.jpg" alt="Design Systems for EdTech Platforms" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Design Systems for EdTech Platforms</h2>
+                    <p class="text-gray-600 mb-4">Building scalable and accessible design systems for university-centric apps.</p>
+                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Footer -->
     <footer class="text-center p-6 text-gray-500 text-sm">
-        <p>&copy; <span id="copyright-year">2024</span> Mohaneesh Sharma. All Rights Reserved.</p>
+        <p>&copy; <span id="copyright-year"></span> Mohaneesh Sharma. All Rights Reserved.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            let allPosts = [];
-            const container = document.getElementById('blogs-container');
-            const searchInput = document.getElementById('blog-search');
-            const noResults = document.getElementById('no-results');
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
 
@@ -85,45 +174,21 @@
 
             document.getElementById('copyright-year').textContent = new Date().getFullYear();
 
-            const renderPosts = (posts) => {
-                container.innerHTML = '';
-                if (posts.length === 0) {
-                    noResults.classList.remove('hidden');
-                } else {
-                    noResults.classList.add('hidden');
-                }
-                posts.forEach(post => {
-                    const postCard = `
-                        <a href="Detailed_blog.html?id=${post.id}" class="block bg-white rounded-2xl shadow-lg overflow-hidden transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group">
-                            <img src="${post.thumbnail}" alt="${post.title}" class="w-full h-48 object-cover">
-                            <div class="p-6">
-                                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
-                                    <span>${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
-                                    <span>${post.views.toLocaleString()} views</span>
-                                </div>
-                                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">${post.title}</h3>
-                                <p class="text-gray-700 leading-relaxed mb-4 h-20 overflow-hidden">${post.summary}</p>
-                                <span class="font-semibold text-primary">Read More &rarr;</span>
-                            </div>
-                        </a>`;
-                    container.innerHTML += postCard;
-                });
-            };
+            // Simple search functionality
+            const searchBar = document.getElementById('search-bar');
+            const blogCards = document.querySelectorAll('#blog-grid > div');
 
-            fetch('Blogs.json')
-                .then(response => response.json())
-                .then(posts => {
-                    allPosts = posts;
-                    renderPosts(allPosts);
+            searchBar.addEventListener('input', (e) => {
+                const query = e.target.value.toLowerCase();
+                blogCards.forEach(card => {
+                    const title = card.querySelector('h2').textContent.toLowerCase();
+                    const excerpt = card.querySelector('p').textContent.toLowerCase();
+                    if (title.includes(query) || excerpt.includes(query)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
                 });
-
-            searchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
-                const filteredPosts = allPosts.filter(post => 
-                    post.title.toLowerCase().includes(searchTerm) || 
-                    post.summary.toLowerCase().includes(searchTerm)
-                );
-                renderPosts(filteredPosts);
             });
         });
     </script>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mentora Case Study | Mohaneesh Sharma</title>
+    <meta name="description" content="A detailed case study of the Mentora Student-Alumni Networking App, a capstone project by Mohaneesh Sharma.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/typography@0.5.x/dist/typography.min.js"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .bg-primary { background-color: #6a82fb; }
+        .bg-secondary { background-color: #f7d75b; }
+        .text-primary { color: #6a82fb; }
+        .prose img { @apply rounded-lg shadow-md my-4; }
+        .prose h1, .prose h2, .prose h3 { @apply text-gray-900; }
+    </style>
+</head>
+<body class="text-gray-800">
+    <!-- Header -->
+    <header class="bg-primary text-white p-6 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="../index.html" class="text-3xl font-bold">Mohaneesh Sharma</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="../index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a>
+                <a href="../About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a>
+                <a href="../Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a>
+                <a href="../Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a>
+                <a href="../contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <ul class="flex flex-col items-center mt-4 space-y-4">
+                <li><a href="../index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
+                <li><a href="../About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
+                <li><a href="../Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
+                <li><a href="../Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
+                <li><a href="../contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-16">
+        <article class="bg-white rounded-2xl shadow-lg p-6 md:p-10 max-w-4xl mx-auto">
+            <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+                <div class="flex justify-between items-start mb-8">
+                    <div>
+                        <h1 class="text-4xl font-extrabold mb-2">Mentora: Connecting Students & Alumni</h1>
+                        <p class="text-xl text-gray-600">A Capstone Project for upGrad + KnowledgeHut</p>
+                    </div>
+                    <a href="#" target="_blank" class="hidden sm:inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg transition hover:bg-opacity-90">👉 View Prototype</a>
+                </div>
+
+                <h2>📌 Project Overview</h2>
+                <p>Mentora is a community-driven app designed to connect students and alumni of Subharti University. The vision is to create a digital mentorship ecosystem where students can learn from alumni experiences, find career guidance, discover job opportunities, and build meaningful professional relationships. This was my capstone project during the upGrad + KnowledgeHut UI/UX Bootcamp, where I applied the full user-centered design process — from research to prototyping.</p>
+
+                <h2>🚀 My Role</h2>
+                <ul>
+                    <li>UX Researcher & Designer</li>
+                    <li>Information Architecture & Wireframing</li>
+                    <li>High-Fidelity UI & Prototyping in Figma</li>
+                    <li>Storytelling for product vision & pitch</li>
+                </ul>
+
+                <h2>🔎 Problem Statement</h2>
+                <p>Subharti University students often face challenges such as a lack of structured alumni connections, limited access to career mentorship, and difficulty staying updated about networking opportunities. There was no central platform to bridge students with the vast alumni network.</p>
+
+                <h2>💡 My Process</h2>
+                <h3>1. Research</h3>
+                <p>I conducted Google Form surveys with students & alumni and discovered key pain points: students want career advice & internship opportunities, while alumni want to give back to the university but lack a proper channel.</p>
+
+                <h3>2. Defining the MVP</h3>
+                <p>Based on the research, the core features were defined:</p>
+                <ul>
+                    <li><strong>Verified Connections:</strong> Students can connect only with real alumni.</li>
+                    <li><strong>Career Section:</strong> Jobs, internships, and career blogs curated by alumni.</li>
+                    <li><strong>Events:</strong> University & alumni-hosted sessions.</li>
+                    <li><strong>Blogs & Stories:</strong> Alumni share experiences for student motivation.</li>
+                    <li><strong>Connect Hub:</strong> Direct mentorship via chat/request.</li>
+                </ul>
+
+                <h3>3. Information Architecture & User Flows</h3>
+                <p>I designed persona-driven user journeys for both students and alumni and created task flows for key actions like connection requests, event registrations, and job applications.</p>
+
+                <h3>4. Design Execution</h3>
+                <p>I built wireframes to validate the structure and then designed a high-fidelity prototype in Figma with a modern, minimal UI, focusing on mobile-first accessibility for students.</p>
+                <img src="../assets/images/mentora.webp" alt="Mentora Wireframes and UI" class="w-full">
+
+                <h2>📈 Outcome</h2>
+                <p>The result was a working Figma prototype showcasing the entire student-alumni experience, which received positive feedback from mentors and peers during the bootcamp. The project validated that Mentora has the potential to scale into a real community platform for Subharti University.</p>
+
+                <h2>✨ Why This Project Matters</h2>
+                <p>Mentora reflects my ability to design products from scratch using the full UX process: Research → Insights → Personas → Journeys → Wireframes → UI → Prototype. Unlike other projects, this was built with pure design discipline, without relying on developer shortcuts. It represents my transition from a UI Designer to a full UX Practitioner.</p>
+
+                <div class="mt-12 text-center p-6 bg-gray-50 rounded-xl">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Explore the full experience.</h3>
+                    <a href="#" target="_blank" class="inline-block bg-primary text-white font-semibold py-3 px-6 rounded-lg transition hover:bg-opacity-90 mt-4">👉 View Prototype</a>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-6 text-gray-500 text-sm">
+        <p>&copy; <span id="copyright-year"></span> Mohaneesh Sharma. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        });
+    </script>
+</body>
+</html>

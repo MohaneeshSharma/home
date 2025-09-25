@@ -48,6 +48,225 @@
         "thumbnail": "https://images.unsplash.com/photo-1678483789004-a8e5a031a1d2?q=80&w=2070&auto=format&fit=crop",
         "views": 1850,
         "tags": ["AI", "Prompting", "UX Design", "Productivity", "Workflow"]
+    },
+    {
+        "id": 6,
+        "title": "The Art of Simplicity in UI Design",
+        "date": "2025-08-01",
+        "author": "Mohaneesh Sharma",
+        "summary": "Exploring how minimalism and simplicity can lead to more intuitive and effective user interfaces.",
+        "content": "<h1>The Art of Simplicity in UI Design</h1><p>Simplicity isn't about what you can add, but what you can take away. This post explores how removing clutter leads to better user experiences.</p>",
+        "thumbnail": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Simplicity",
+        "views": 1500,
+        "tags": ["UI", "Minimalism", "Design Principles"]
+    },
+    {
+        "id": 7,
+        "title": "Understanding Color Psychology in Branding",
+        "date": "2025-07-20",
+        "author": "Mohaneesh Sharma",
+        "summary": "How different colors evoke specific emotions and how to use them effectively in your brand's design language.",
+        "content": "<h1>Understanding Color Psychology</h1><p>Colors speak a language of their own. Learn how to leverage color psychology to build a strong brand identity.</p>",
+        "thumbnail": "https://placehold.co/600x400/f7d75b/333?text=Color+Psychology",
+        "views": 2100,
+        "tags": ["Branding", "Color Theory", "Psychology"]
+    },
+    {
+        "id": 8,
+        "title": "Mobile-First Design: Why It Still Matters",
+        "date": "2025-07-10",
+        "author": "Mohaneesh Sharma",
+        "summary": "A look into why designing for mobile first is a crucial strategy for reaching a wider audience and improving UX.",
+        "content": "<h1>Mobile-First Design</h1><p>With the majority of users accessing the web on mobile, a mobile-first approach is no longer optional.</p>",
+        "thumbnail": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Mobile-First",
+        "views": 1800,
+        "tags": ["Mobile", "Responsive Design", "Strategy"]
+    },
+    {
+        "id": 9,
+        "title": "The Importance of Accessibility in Web Design",
+        "date": "2025-06-28",
+        "author": "Mohaneesh Sharma",
+        "summary": "Making the web accessible for everyone is not just a good practice, it's a necessity. Learn the basics of WCAG.",
+        "content": "<h1>Accessibility in Web Design</h1><p>An accessible website is usable by people of all abilities and disabilities. Here's how to get started.</p>",
+        "thumbnail": "https://placehold.co/600x400/f7d75b/333?text=Accessibility",
+        "views": 2500,
+        "tags": ["Accessibility", "WCAG", "Inclusive Design"]
+    },
+    {
+        "id": 10,
+        "title": "Creating Engaging Micro-interactions",
+        "date": "2025-06-15",
+        "author": "Mohaneesh Sharma",
+        "summary": "Small animations and feedback can make a huge difference in user engagement and delight.",
+        "content": "<h1>Engaging Micro-interactions</h1><p>Micro-interactions are the small details that make an application feel alive and responsive.</p>",
+        "thumbnail": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Micro-interactions",
+        "views": 1950,
+        "tags": ["UI", "Animation", "User Experience"]
+    },
+    {
+        "id": 11,
+        "title": "A Guide to Effective A/B Testing",
+        "date": "2025-06-01",
+        "author": "Mohaneesh Sharma",
+        "summary": "How to use A/B testing to make data-driven design decisions and improve conversion rates.",
+        "content": "<h1>Effective A/B Testing</h1><p>Stop guessing and start testing. A/B testing is a powerful tool for optimizing your designs.</p>",
+        "thumbnail": "https://placehold.co/600x400/f7d75b/333?text=A/B+Testing",
+        "views": 1600,
+        "tags": ["UX Research", "Data", "Optimization"]
+    },
+    {
+        "id": 12,
+        "title": "The Future of Voice User Interfaces (VUI)",
+        "date": "2025-05-22",
+        "author": "Mohaneesh Sharma",
+        "summary": "Exploring the rise of voice commands and how to design intuitive voice-based experiences.",
+        "content": "<h1>The Future of VUI</h1><p>Voice is becoming a primary way we interact with technology. Are your designs ready?</p>",
+        "thumbnail": "https://placehold.co/600x400/6a82fb/f0f4f8?text=VUI",
+        "views": 2200,
+        "tags": ["VUI", "Future Tech", "Interaction Design"]
+    },
+    {
+        "id": 13,
+        "title": "How to Conduct a Usability Test on a Budget",
+        "date": "2025-05-10",
+        "author": "Mohaneesh Sharma",
+        "summary": "You don't need a big budget to get valuable user feedback. Here are some guerrilla testing methods.",
+        "content": "<h1>Budget Usability Testing</h1><p>Learn how to gather crucial user insights without breaking the bank.</p>",
+        "thumbnail": "https://placehold.co/600x400/f7d75b/333?text=Usability+Testing",
+        "views": 1450,
+        "tags": ["UX Research", "Testing", "Budget"]
+    },
+    {
+        "id": 14,
+        "title": "Design Thinking vs. Lean UX",
+        "date": "2025-04-28",
+        "author": "Mohaneesh Sharma",
+        "summary": "Understanding the differences between these two popular frameworks and when to use each one.",
+        "content": "<h1>Design Thinking vs. Lean UX</h1><p>Two powerful methodologies, but which one is right for your project? Let's find out.</p>",
+        "thumbnail": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Frameworks",
+        "views": 3100,
+        "tags": ["Design Thinking", "Lean UX", "Methodology"]
+    },
+    {
+        "id": 15,
+        "title": "Building a Component Library from Scratch",
+        "date": "2025-04-15",
+        "author": "Mohaneesh Sharma",
+        "summary": "A step-by-step guide to creating a reusable component library in Figma for consistency and efficiency.",
+        "content": "<h1>Building a Component Library</h1><p>Save time and maintain consistency by building your own component library.</p>",
+        "thumbnail": "https://placehold.co/600x400/f7d75b/333?text=Components",
+        "views": 2800,
+        "tags": ["Figma", "Design System", "UI"]
+    },
+    {
+        "id": 16,
+        "title": "The Ethics of Dark Patterns in UX",
+        "date": "2025-04-02",
+        "author": "Mohaneesh Sharma",
+        "summary": "How to recognize and avoid deceptive design patterns that trick users into unintended actions.",
+        "content": "<h1>The Ethics of Dark Patterns</h1><p>Good design is honest. Learn to spot and avoid manipulative dark patterns.</p>",
+        "thumbnail": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Dark+Patterns",
+        "views": 4500,
+        "tags": ["Ethics", "UX", "Dark Patterns"]
+    },
+    {
+        "id": 17,
+        "title": "How to Present Your Design Work to Stakeholders",
+        "date": "2025-03-20",
+        "author": "Mohaneesh Sharma",
+        "summary": "Tips and tricks for effectively communicating your design decisions and getting buy-in from your team.",
+        "content": "<h1>Presenting Your Design Work</h1><p>A great design is only half the battle. You also need to sell it. Here's how.</p>",
+        "thumbnail": "https://placehold.co/600x400/f7d75b/333?text=Presentation",
+        "views": 2600,
+        "tags": ["Communication", "Soft Skills", "Strategy"]
+    },
+    {
+        "id": 18,
+        "title": "Gamification in UX: More Than Just Points",
+        "date": "2025-03-08",
+        "author": "Mohaneesh Sharma",
+        "summary": "Learn how to apply game mechanics to non-game applications to increase user engagement and motivation.",
+        "content": "<h1>Gamification in UX</h1><p>Go beyond badges and leaderboards to create truly engaging gamified experiences.</p>",
+        "thumbnail": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Gamification",
+        "views": 1850,
+        "tags": ["Gamification", "Engagement", "UX"]
+    },
+    {
+        "id": 19,
+        "title": "The Role of a UX Writer in a Product Team",
+        "date": "2025-02-25",
+        "author": "Mohaneesh Sharma",
+        "summary": "Why the words in your interface are just as important as the pixels, and the value a UX writer brings.",
+        "content": "<h1>The Role of a UX Writer</h1><p>Words matter. Discover why a dedicated UX writer is a crucial part of any product team.</p>",
+        "thumbnail": "https://placehold.co/600x400/f7d75b/333?text=UX+Writing",
+        "views": 1700,
+        "tags": ["UX Writing", "Content Strategy", "Copywriting"]
+    },
+    {
+        "id": 20,
+        "title": "Designing for Cross-Cultural Audiences",
+        "date": "2025-02-10",
+        "author": "Mohaneesh Sharma",
+        "summary": "How to create inclusive designs that resonate with users from different cultural backgrounds.",
+        "content": "<h1>Designing for Cross-Cultural Audiences</h1><p>Design is not universal. Learn to adapt your designs for a global audience.</p>",
+        "thumbnail": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Global+UX",
+        "views": 2300,
+        "tags": ["Inclusivity", "Global UX", "Localization"]
+    },
+    {
+        "id": 21,
+        "title": "How AI is Changing the Landscape of UX Design",
+        "date": "2025-01-28",
+        "author": "Mohaneesh Sharma",
+        "summary": "From generative design to personalized experiences, AI is transforming our workflows and capabilities.",
+        "content": "<h1>AI and the Future of UX</h1><p>AI is not here to replace designers, but to augment their abilities. Explore the possibilities.</p>",
+        "thumbnail": "https://placehold.co/600x400/f7d75b/333?text=AI+in+Design",
+        "views": 3500,
+        "tags": ["AI", "Future Tech", "Workflow"]
+    },
+    {
+        "id": 22,
+        "title": "A Deep Dive into Information Architecture",
+        "date": "2025-01-15",
+        "author": "Mohaneesh Sharma",
+        "summary": "The art and science of organizing and labeling content to support usability and findability.",
+        "content": "<h1>Information Architecture 101</h1><p>Good IA is the backbone of any good user experience. Learn the fundamentals here.</p>",
+        "thumbnail": "https://placehold.co/600x400/6a82fb/f0f4f8?text=IA",
+        "views": 1900,
+        "tags": ["IA", "UX", "Structure"]
+    },
+    {
+        "id": 23,
+        "title": "The Power of Negative Space in Design",
+        "date": "2025-01-02",
+        "author": "Mohaneesh Sharma",
+        "summary": "Why what you leave out is just as important as what you put in. A guide to using whitespace effectively.",
+        "content": "<h1>The Power of Negative Space</h1><p>Whitespace is not empty space. It's a powerful design tool for creating focus and elegance.</p>",
+        "thumbnail": "https://placehold.co/600x400/f7d75b/333?text=Whitespace",
+        "views": 2750,
+        "tags": ["UI", "Visual Design", "Minimalism"]
+    },
+    {
+        "id": 24,
+        "title": "From Wireframe to High-Fidelity Prototype",
+        "date": "2024-12-20",
+        "author": "Mohaneesh Sharma",
+        "summary": "A practical walkthrough of the design process, from low-fidelity sketches to interactive prototypes.",
+        "content": "<h1>From Wireframe to Prototype</h1><p>Follow the journey of an idea from a simple sketch to a fully interactive prototype.</p>",
+        "thumbnail": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Prototyping",
+        "views": 3200,
+        "tags": ["Prototyping", "Figma", "Workflow"]
+    },
+    {
+        "id": 25,
+        "title": "How to Handle Design Feedback Gracefully",
+        "date": "2024-12-05",
+        "author": "Mohaneesh Sharma",
+        "summary": "Criticism is a gift. Learn how to receive and process design feedback to improve your work and grow as a designer.",
+        "content": "<h1>Handling Design Feedback</h1><p>Feedback is essential for growth. Learn how to take it in stride and use it to your advantage.</p>",
+        "thumbnail": "https://placehold.co/600x400/f7d75b/333?text=Feedback",
+        "views": 2150,
+        "tags": ["Soft Skills", "Communication", "Career"]
     }
 ]
-

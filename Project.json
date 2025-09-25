@@ -5,6 +5,7 @@
         "short_description": "A mobile application designed exclusively for Subharti University students to streamline campus life.",
         "long_description": "S-Touch is a mobile application designed exclusively for Subharti University students. It streamlines campus life by providing easy access to notices, events, grievance submission, and leave management. Built with a focus on user-centric design, the app ensures students can interact with university services effortlessly and stay updated in real-time. My role involved mapping user journeys, creating wireframes, and developing high-fidelity prototypes to improve overall usability.",
         "image": "s-touch.webp",
+        "detail_url": "projects/S-touch.html",
         "tags": ["University App", "UX", "Mobile App", "EdTech"]
     },
     {
@@ -12,7 +13,8 @@
         "title": "Subhartian",
         "short_description": "A campus community platform connecting students, alumni, and faculty in a vibrant digital ecosystem.",
         "long_description": "Subhartian connects Subharti University students, alumni, and faculty in a vibrant digital ecosystem. The platform encourages collaboration, networking, and knowledge sharing while offering personalized content, verified connections, and event notifications. The design emphasizes accessibility and intuitive navigation for a seamless campus experience across web and mobile.",
-        "image": "s-touch.webp",
+        "image": "subhartian.webp",
+        "detail_url": "projects/subhartian.html",
         "tags": ["Community Platform", "Networking", "EdTech"]
     },
     {
@@ -20,7 +22,8 @@
         "title": "121Vibes",
         "short_description": "A lifestyle and productivity app to help users track goals, manage tasks, and boost well-being.",
         "long_description": "121Vibes is a lifestyle and productivity app developed by OIO Softwares. It helps users track personal goals, manage tasks, and engage with interactive features designed to boost daily efficiency and well-being. The app combines minimalistic design with powerful functionality, ensuring a smooth and engaging user experience. I contributed to the UI refinement and prototyping phases.",
-        "image": "s-touch.webp",
+        "image": "121vibes.webp",
+        "detail_url": "projects/121vibes.html",
         "tags": ["Productivity", "Lifestyle App", "UI Design"]
     },
     {
@@ -28,7 +31,8 @@
         "title": "Mentora",
         "short_description": "A student-alumni networking app designed to foster mentorship and career growth.",
         "long_description": "Mentora is a mobile app designed to bridge students and alumni of Subharti University, fostering mentorship, knowledge sharing, and career growth. The platform offers blogs, verified connections, job and internship opportunities, events, and a dedicated Connect section. Built with a user-centered design approach as part of the UpGrad + KnowledgeHut Bootcamp, Mentora ensures intuitive navigation, engaging interactions, and meaningful user journeys.",
-        "image": "s-touch.webp",
+        "image": "mentora.webp",
+        "detail_url": "projects/mentora.html",
         "tags": ["UX Research", "Prototyping", "Capstone Project", "Networking"]
     }
 ]
