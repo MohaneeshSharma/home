@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Me | Mohaneesh Sharma</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        .bg-primary { background-color: #6a82fb; } /* Royal Blue Pastel */
+        .bg-secondary { background-color: #f7d75b; } /* Yellow Pastel */
+        .text-primary { color: #6a82fb; }
+        .btn-glow {
+            transition: all 0.3s ease;
+        }
+        .btn-glow:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px -10px var(--glow-color, rgba(0, 0, 0, 0.3));
+        }
+    </style>
+</head>
+<body class="text-gray-800 bg-gradient-to-b from-blue-50 to-white flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="bg-primary text-white p-6 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-3xl font-bold">Mohaneesh Sharma</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a>
+                <a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a>
+                <a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a>
+                <a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a>
+                <a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <ul class="flex flex-col items-center mt-4 space-y-4">
+                    <li><a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
+                    <li><a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
+                    <li><a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
+                    <li><a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
+                    <li><a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-16 flex flex-col items-center justify-center text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-6">Thanks for stopping by ✨</h1>
+        
+        <div class="max-w-3xl mx-auto text-lg text-gray-600 leading-relaxed mb-12 space-y-4">
+            <p>I’m Mohaneesh Sharma, a UI/UX Designer who believes design isn’t just about how things look, but how they make people feel.</p>
+            <p>If you’ve explored my work and feel inspired, let’s take the next step together. Whether you want to discuss a project, hire me, or simply exchange ideas — I’d love to connect.</p>
+            <p>No long forms, no waiting. Just reach out directly — I’m always open for meaningful conversations and exciting opportunities.</p>
+            <p class="font-semibold text-gray-700">Your next idea could be one message away.<br>And yes, I’m waiting for you.</p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-6 mb-16">
+            <!-- WhatsApp -->
+            <a href="https://wa.me/917618187979" target="_blank" class="btn-glow flex items-center justify-center gap-3 w-64 text-white font-bold py-4 px-6 rounded-full bg-[#25D366]" style="--glow-color: #25D366;">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.74.45 3.48 1.34 5l-1.4 5.13 5.26-1.38c1.45.81 3.09 1.25 4.71 1.25h.01c5.46 0 9.9-4.45 9.9-9.9S17.5 2 12.04 2M12.05 3.67c4.55 0 8.23 3.68 8.23 8.23s-3.68 8.23-8.23 8.23c-1.5 0-2.96-.4-4.25-1.14l-.3-.18-3.16.82.84-3.08-.2-.32a8.18 8.18 0 0 1-1.26-4.35c0-4.55 3.68-8.23 8.23-8.23m4.52 10.2c-.25-.12-1.47-.72-1.7-.82s-.39-.12-.55.12c-.16.25-.64.82-.79 1-.15.16-.3.18-.55.06s-1.04-.38-1.98-1.22c-.73-.66-1.22-1.47-1.36-1.72s-.03-.38.11-.51c.13-.12.28-.3.42-.45.14-.15.18-.25.28-.41.09-.17.05-.31-.01-.43s-.55-1.32-.76-1.81c-.2-.48-.4-.42-.55-.42-.15 0-.31-.02-.48-.02s-.44.06-.67.31c-.23.25-.87.85-1.07 2.07s.22 2.4.25 2.57c.03.16.54 2.32 2.6 3.64 1.55.98 2.76 1.3 3.73 1.65.97.35 1.85.3 2.53.18.78-.12 1.47-.5 1.68-1s.2-1.11.14-1.23c-.06-.12-.24-.2-.5-.32Z"/></svg>
+                WhatsApp Me
+            </a>
+            <!-- Call -->
+            <a href="tel:+917618187979" class="btn-glow flex items-center justify-center gap-3 w-64 text-white font-bold py-4 px-6 rounded-full bg-[#3B82F6]" style="--glow-color: #3B82F6;">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.7,12.29a1,1,0,0,0-1.41,0L13,15.59V4a1,1,0,0,0-2,0V15.59l-3.29-3.3a1,1,0,0,0-1.42,1.42l5,5a1,1,0,0,0,1.42,0l5-5A1,1,0,0,0,17.7,12.29Z" transform="rotate(-135 12 12)"/><path d="M20.49,17.51l-2.28-2.28a1.5,1.5,0,0,0-2.12,0l-.71.71a.5.5,0,0,1-.71,0l-4.24-4.24a.5.5,0,0,1,0-.71l.71-.71a1.5,1.5,0,0,0,0-2.12L8.49,3.51a1.5,1.5,0,0,0-2.12,0L3.51,6.37a5.5,5.5,0,0,0,0,7.78l7.78,7.78a5.5,5.5,0,0,0,7.78,0l2.86-2.86A1.5,1.5,0,0,0,20.49,17.51Z"/></svg>
+                Call Me
+            </a>
+            <!-- Email -->
+            <a href="mailto:mohaneesh.uiux@gmail.com" class="btn-glow flex items-center justify-center gap-3 w-64 text-white font-bold py-4 px-6 rounded-full bg-[#F59E0B]" style="--glow-color: #F59E0B;">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M22 6c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6zm-2 0l-8 5-8-5h16zm0 12H4V8l8 5 8-5v10z"/></svg>
+                Email Me
+            </a>
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/mohaneesh/" target="_blank" class="btn-glow flex items-center justify-center gap-3 w-64 text-white font-bold py-4 px-6 rounded-full bg-[#0A66C2]" style="--glow-color: #0A66C2;">
+                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zm-11 5H5v10h3V8zm-1.5-2.25a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM19 8h-2.5A3.5 3.5 0 0 0 13 11.5V18h3v-6.5a.5.5 0 0 1 .5-.5h.5v7H19V8z"/></svg>
+                Connect on LinkedIn
+            </a>
+        </div>
+        
+        <p class="text-gray-500">Let’s create something meaningful together.</p>
+    </main>
+
+    <!-- Footer -->
+    <footer class="text-center p-6 text-gray-500 text-sm">
+        <p>&copy; <span id="copyright-year"></span> Mohaneesh Sharma. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+        });
+    </script>
+
+</body>
+</html>

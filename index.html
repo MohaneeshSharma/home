@@ -27,11 +27,12 @@
         }
         .slider-track {
             display: flex;
-            animation: scroll 40s linear infinite;
+            /* Animation will be controlled by JS */
         }
         .slider-container:hover .slider-track {
             animation-play-state: paused;
         }
+        /* This keyframe is for the logo/blog sliders, not the new project slider */
         @keyframes scroll {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -42,14 +43,29 @@
     <!-- Header -->
     <header class="bg-primary text-white p-6 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-3xl font-bold">Mohaneesh Sharma</h1>
-            <nav>
-                <ul class="flex space-x-6">
-                    <li><a href="#about" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
-                    <li><a href="#projects" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
-                    <li><a href="#contact" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
-                </ul>
+            <a href="index.html" class="text-3xl font-bold">Mohaneesh Sharma</a>
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a>
+                <a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a>
+                <a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a>
+                <a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a>
+                <a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a>
             </nav>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <ul class="flex flex-col items-center mt-4 space-y-4">
+                    <li><a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
+                    <li><a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
+                    <li><a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
+                    <li><a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
+                    <li><a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+            </ul>
         </div>
     </header>
 
@@ -57,7 +73,7 @@
 
         <!-- Hero Section -->
         <section id="hero" class="text-center mb-24">
-            <h2 class="text-5xl md:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">UI/UX Designer | Product Experience Specialist</h2>
+            <h2 class="text-4xl md:text-6xl font-extrabold text-gray-900 mb-4 leading-tight">UI/UX Designer | Product Experience Specialist</h2>
             <p class="text-xl text-gray-600 max-w-3xl mx-auto mb-8">I am a research-driven UI/UX designer who mentors, simplifies, and creates impact. Hire me to align user needs with your business goals.</p>
             <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
                 <a href="Projects.html" class="px-8 py-3 bg-primary text-white font-semibold rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">View My Work</a>
@@ -69,14 +85,13 @@
         <section id="about" class="bg-white rounded-3xl shadow-lg p-8 md:p-12 mb-16">
             <div class="flex flex-col md:flex-row items-center md:space-x-12">
                 <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
-                    <img src="Mohaneesh_Sharma.png" alt="Mohaneesh Sharma Profile Photo" class="w-64 h-64 md:w-full md:h-auto rounded-full shadow-lg">
+                    <img src="Mohaneesh_Sharma.webp" alt="Mohaneesh Sharma Profile Photo" class="w-64 h-64 md:w-full md:h-auto rounded-full shadow-lg">
                 </div>
                 <div class="md:w-2/3">
                     <h3 class="text-3xl font-bold text-gray-900 mb-4">About Me</h3>
                     <p class="text-gray-700 leading-relaxed mb-4">Hi, I’m Mohineesh Sharma, a passionate UI/UX designer and technology consultant with a focus on creating intuitive, human-centered digital experiences. I thrive at the intersection of design, strategy, and mentorship, helping products not just look good but feel seamless and impactful.</p>
-                    <p class="text-gray-700 leading-relaxed mb-4">With experience in EdTech, B2B platforms, and corporate design projects, I specialize in user research, prototyping, design systems, and UX storytelling. Beyond designing, I mentor aspiring designers, guiding them to solve real-world problems and build portfolios that stand out.</p>
-                    <p class="text-gray-700 leading-relaxed mb-4">I believe every design should solve a problem, delight users, and drive results. When I’m not crafting experiences, I explore AI-driven design tools, emerging trends, and creative storytelling.</p>
-                    <p class="text-gray-700 leading-relaxed">Let’s create something meaningful together.</p>
+                    <p class="text-gray-700 leading-relaxed mb-6">With experience in EdTech, B2B platforms, and corporate design projects, I specialize in user research, prototyping, and UX storytelling. I believe every design should solve a problem, delight users, and drive results.</p>
+                    <a href="About.html" class="text-primary font-semibold hover:underline">Read More About Me &rarr;</a>
                 </div>
             </div>
         </section>
@@ -106,33 +121,67 @@
 
         <!-- Projects Section -->
         <section id="projects" class="mb-16">
-            <h3 class="text-3xl font-bold text-center text-gray-900 mb-8">Featured Projects</h3>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Project 1 -->
-                <div class="bg-white rounded-3xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105">
-                    <div class="bg-secondary rounded-xl p-4 inline-block mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2L1 12h3v8h6v-6h4v6h6v-8h3L12 2zm0 2.236L19.789 12H16v8h-4v-6h-4v6H4.211L12 4.236z"/>
-                        </svg>
-                    </div>
-                    <h4 class="text-2xl font-bold text-gray-900 mb-2">S-touch & Subhartian Apps</h4>
-                    <p class="text-gray-700 leading-relaxed mb-4">Led UX improvements for university apps used by over 30,000 users. My work included usability audits and designing sitemaps, which resulted in a **40% reduction in support queries**.</p>
-                    <a href="#" class="text-primary font-semibold hover:underline">View Case Study &rarr;</a>
+            <div class="flex justify-center items-center text-center mb-8">
+                <h3 class="text-3xl font-bold text-gray-900">Featured Projects</h3>
+                <div class="ml-4 flex space-x-2">
+                    <button id="prev-project" class="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                    </button>
+                    <button id="next-project" class="p-2 rounded-full bg-white shadow-md hover:bg-gray-100 transition">
+                        <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </button>
                 </div>
-                <!-- Project 2 -->
-                <div class="bg-white rounded-3xl shadow-lg p-8 transform transition-transform duration-300 hover:scale-105">
-                    <div class="bg-secondary rounded-xl p-4 inline-block mb-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 2c-5.523 0-10 4.477-10 10s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm-1 15h2v-6h-2v6zm0-8h2V7h-2v2z"/>
-                        </svg>
+            </div>
+            <div class="relative overflow-hidden">
+                <div id="project-slider-track" class="flex transition-transform duration-500 ease-in-out -ml-4">
+                    <div class="flex-shrink-0 w-full md:w-1/2 p-4 project-slide-item">
+                        <div class="bg-white rounded-3xl shadow-lg overflow-hidden h-full flex flex-col">
+                            <img src="s-touch.webp" alt="S-Touch App" class="w-full h-56 object-cover">
+                            <div class="p-8 flex flex-col flex-grow">
+                                <p class="text-sm font-semibold text-primary mb-1">University Student App</p>
+                                <h4 class="text-2xl font-bold text-gray-900 mb-2">S-Touch</h4>
+                                <p class="text-gray-700 leading-relaxed mb-4 flex-grow">S-Touch is a mobile application designed exclusively for Subharti University students. It streamlines campus life by providing easy access to notices, events, grievance submission, and leave management.</p>
+                                <a href="Detail_project.html?id=1" class="text-primary font-semibold hover:underline mt-auto self-start">View Case Study &rarr;</a>
+                            </div>
+                        </div>
                     </div>
-                    <h4 class="text-2xl font-bold text-gray-900 mb-2">Mentora (UpGrad Capstone)</h4>
-                    <p class="text-gray-700 leading-relaxed mb-4">Designed a university alumni platform to enable lifelong mentor-mentee connections. I conducted a full-cycle research process to inform the design, including surveys, heatmaps, and journey mapping.</p>
-                    <a href="#" class="text-primary font-semibold hover:underline">View Case Study &rarr;</a>
+                    <div class="flex-shrink-0 w-full md:w-1/2 p-4 project-slide-item">
+                        <div class="bg-white rounded-3xl shadow-lg overflow-hidden h-full flex flex-col">
+                            <img src="s-touch.webp" alt="Subhartian App" class="w-full h-56 object-cover">
+                            <div class="p-8 flex flex-col flex-grow">
+                                <p class="text-sm font-semibold text-primary mb-1">Campus Community Platform</p>
+                                <h4 class="text-2xl font-bold text-gray-900 mb-2">Subhartian</h4>
+                                <p class="text-gray-700 leading-relaxed mb-4 flex-grow">Subhartian connects Subharti University students, alumni, and faculty in a vibrant digital ecosystem, encouraging collaboration, networking, and knowledge sharing.</p>
+                                <a href="Detail_project.html?id=2" class="text-primary font-semibold hover:underline mt-auto self-start">View Case Study &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 w-full md:w-1/2 p-4 project-slide-item">
+                        <div class="bg-white rounded-3xl shadow-lg overflow-hidden h-full flex flex-col">
+                            <img src="s-touch.webp" alt="121Vibes App" class="w-full h-56 object-cover">
+                            <div class="p-8 flex flex-col flex-grow">
+                                <p class="text-sm font-semibold text-primary mb-1">Productivity & Lifestyle App</p>
+                                <h4 class="text-2xl font-bold text-gray-900 mb-2">121Vibes</h4>
+                                <p class="text-gray-700 leading-relaxed mb-4 flex-grow">121Vibes helps users track personal goals, manage tasks, and engage with features designed to boost daily efficiency. It combines minimalistic design with powerful functionality.</p>
+                                <a href="Detail_project.html?id=3" class="text-primary font-semibold hover:underline mt-auto self-start">View Case Study &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex-shrink-0 w-full md:w-1/2 p-4 project-slide-item">
+                        <div class="bg-white rounded-3xl shadow-lg overflow-hidden h-full flex flex-col">
+                            <img src="s-touch.webp" alt="Mentora App" class="w-full h-56 object-cover">
+                            <div class="p-8 flex flex-col flex-grow">
+                                <p class="text-sm font-semibold text-primary mb-1">Student-Alumni Networking App</p>
+                                <h4 class="text-2xl font-bold text-gray-900 mb-2">Mentora</h4>
+                                <p class="text-gray-700 leading-relaxed mb-4 flex-grow">Mentora is a mobile app designed to bridge students and alumni, fostering mentorship, knowledge sharing, and career growth through a user-centered design approach.</p>
+                                <a href="Detail_project.html?id=4" class="text-primary font-semibold hover:underline mt-auto self-start">View Case Study &rarr;</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
-        
+
         <!-- View All Projects Button -->
         <div class="text-center mb-16">
             <a href="Projects.html" class="px-8 py-3 bg-primary text-white font-semibold rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">View All Projects</a>
@@ -140,7 +189,7 @@
 
         <!-- Clients Section -->
         <section id="clients" class="mb-16">
-            <h3 class="text-3xl font-bold text-center text-gray-900 mb-8">Trusted by</h3>
+            <h3 class="text-3xl font-bold text-center text-gray-900 mb-8">Companies I've Collaborated With</h3>
             <div class="slider-container">
                 <div class="slider-track">
                     <!-- Logos will be duplicated by JS for infinite scroll effect -->
@@ -184,7 +233,7 @@
             <p class="text-lg mb-6">I am currently available for new opportunities. Let's build something amazing together.</p>
             <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
                 <a href="mailto:mohaneesh.uiux@gmail.com" class="px-8 py-3 bg-secondary text-primary font-semibold rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">Get in Touch</a>
-                <a href="https://www.linkedin.com/in/mohaneesh/" target="_blank" class="px-8 py-3 bg-white text-primary font-semibold rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">LinkedIn Profile</a>
+                <a href="https://www.linkedin.com/in/mohaneesh/" target="_blank" class="px-8 py-3 bg-white text-gray-900 font-semibold border-2 border-primary rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">LinkedIn Profile</a>
             </div>
         </section>
 
@@ -192,11 +241,12 @@
 
     <!-- Footer -->
     <footer class="text-center p-6 text-gray-500 text-sm">
-        <p>&copy; 2024 Mohaneesh Sharma. All Rights Reserved.</p>
+        <p>&copy; <span id="copyright-year">2024</span> Mohaneesh Sharma. All Rights Reserved.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
             fetch('Blogs.json')
                 .then(response => response.json())
                 .then(posts => {
@@ -216,48 +266,49 @@
                     // Duplicate posts for the infinite scroll effect
                     container.innerHTML = postHTML + postHTML;
                 });
+            
+            // Project Slider Logic
+            const projectTrack = document.getElementById('project-slider-track');
+            const prevButton = document.getElementById('prev-project');
+            const nextButton = document.getElementById('next-project');
+            const projectItems = document.querySelectorAll('.project-slide-item');
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            let currentIndex = 0;
+            const itemsVisible = window.innerWidth < 768 ? 1 : 2; // 1 on mobile, 2 on desktop
+            const totalItems = projectItems.length;
+
+            function updateSlider() {
+                const itemWidth = projectTrack.querySelector('.project-slide-item').clientWidth;
+                projectTrack.style.transform = `translateX(-${currentIndex * itemWidth}px)`;
+
+                prevButton.disabled = currentIndex === 0;
+                nextButton.disabled = currentIndex >= totalItems - itemsVisible;
+            }
+
+            nextButton.addEventListener('click', () => {
+                if (currentIndex < totalItems - itemsVisible) {
+                    currentIndex++;
+                    updateSlider();
+                }
+            });
+
+            prevButton.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                }
+            });
+
+            window.addEventListener('resize', updateSlider);
+            updateSlider(); // Initial setup
         });
     </script>
-
-</body>
-</html>
-                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center h-16">
-                    <img src="previous_Experience/svsu_logo.png" alt="Subharti University Logo" class="h-10 w-auto">
-                </div>
-                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center h-16">
-                    <img src="previous_Experience/download.jpg" alt="010 Softwares Logo" class="h-10 w-auto">
-                </div>
-                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center">
-                    <img src="https://zen.pactap.com/wp-content/uploads/2024/12/Pactap-Logo-1-1.svg" alt="Pactap Logo" class="h-8 w-auto">
-                </div>
-                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center h-16">
-                    <h4 class="text-xl font-bold text-primary">Bitcell Systems</h4>
-                </div>
-                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center h-16">
-                    <h4 class="text-xl font-bold text-primary">Namaste Technology</h4>
-                </div>
-                <div class="p-4 bg-white rounded-xl shadow-md mb-4 md:mb-0 flex items-center justify-center h-16">
-                    <h4 class="text-xl font-bold text-primary">Stemstech</h4>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section id="contact" class="bg-primary text-white rounded-3xl p-8 md:p-12 text-center">
-            <h3 class="text-3xl font-bold mb-4">Let's Connect</h3>
-            <p class="text-lg mb-6">I am currently available for new opportunities. Let's build something amazing together.</p>
-            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-                <a href="mailto:mohaneesh.uiux@gmail.com" class="px-8 py-3 bg-secondary text-primary font-semibold rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">Get in Touch</a>
-                <a href="https://www.linkedin.com/in/mohaneesh/" target="_blank" class="px-8 py-3 bg-white text-primary font-semibold rounded-full shadow-lg hover:bg-gray-50 transition-all duration-300 transform hover:scale-105">LinkedIn Profile</a>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- Footer -->
-    <footer class="text-center p-6 text-gray-500 text-sm">
-        <p>&copy; 2024 Mohaneesh Sharma. All Rights Reserved.</p>
-    </footer>
 
 </body>
 </html>

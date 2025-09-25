@@ -1,18 +1,34 @@
 [
     {
         "id": 1,
-        "title": "S-touch & Subhartian Apps",
-        "short_description": "Led UX improvements for university apps used by over 30,000 users.",
-        "long_description": "Led UX improvements for university apps used by over 30,000 users. My work included usability audits and designing sitemaps, which resulted in a **40% reduction in support queries**. The project involved a deep dive into existing user flows, identifying pain points through heuristic evaluation, and proposing a streamlined information architecture. The final designs were prototyped in Figma and tested with a sample group of students and faculty, leading to significant improvements in user satisfaction.",
-        "image": "path/to/project1-image.png",
-        "tags": ["UX", "Mobile App", "EdTech", "Usability Audit"]
+        "title": "S-Touch",
+        "short_description": "A mobile application designed exclusively for Subharti University students to streamline campus life.",
+        "long_description": "S-Touch is a mobile application designed exclusively for Subharti University students. It streamlines campus life by providing easy access to notices, events, grievance submission, and leave management. Built with a focus on user-centric design, the app ensures students can interact with university services effortlessly and stay updated in real-time. My role involved mapping user journeys, creating wireframes, and developing high-fidelity prototypes to improve overall usability.",
+        "image": "s-touch.webp",
+        "tags": ["University App", "UX", "Mobile App", "EdTech"]
     },
     {
         "id": 2,
-        "title": "Mentora (UpGrad Capstone)",
-        "short_description": "Designed a university alumni platform to enable lifelong mentor-mentee connections.",
-        "long_description": "Designed a university alumni platform to enable lifelong mentor-mentee connections. I conducted a full-cycle research process to inform the design, including surveys, heatmaps, and journey mapping. The goal was to create a self-sustaining community where alumni could easily find and connect with mentors. The final product was a high-fidelity prototype that demonstrated the core user journey from onboarding to finding a mentor and scheduling a meeting.",
-        "image": "path/to/project2-image.png",
-        "tags": ["UX Research", "Prototyping", "Capstone Project", "Community Platform"]
+        "title": "Subhartian",
+        "short_description": "A campus community platform connecting students, alumni, and faculty in a vibrant digital ecosystem.",
+        "long_description": "Subhartian connects Subharti University students, alumni, and faculty in a vibrant digital ecosystem. The platform encourages collaboration, networking, and knowledge sharing while offering personalized content, verified connections, and event notifications. The design emphasizes accessibility and intuitive navigation for a seamless campus experience across web and mobile.",
+        "image": "s-touch.webp",
+        "tags": ["Community Platform", "Networking", "EdTech"]
+    },
+    {
+        "id": 3,
+        "title": "121Vibes",
+        "short_description": "A lifestyle and productivity app to help users track goals, manage tasks, and boost well-being.",
+        "long_description": "121Vibes is a lifestyle and productivity app developed by OIO Softwares. It helps users track personal goals, manage tasks, and engage with interactive features designed to boost daily efficiency and well-being. The app combines minimalistic design with powerful functionality, ensuring a smooth and engaging user experience. I contributed to the UI refinement and prototyping phases.",
+        "image": "s-touch.webp",
+        "tags": ["Productivity", "Lifestyle App", "UI Design"]
+    },
+    {
+        "id": 4,
+        "title": "Mentora",
+        "short_description": "A student-alumni networking app designed to foster mentorship and career growth.",
+        "long_description": "Mentora is a mobile app designed to bridge students and alumni of Subharti University, fostering mentorship, knowledge sharing, and career growth. The platform offers blogs, verified connections, job and internship opportunities, events, and a dedicated Connect section. Built with a user-centered design approach as part of the UpGrad + KnowledgeHut Bootcamp, Mentora ensures intuitive navigation, engaging interactions, and meaningful user journeys.",
+        "image": "s-touch.webp",
+        "tags": ["UX Research", "Prototyping", "Capstone Project", "Networking"]
     }
 ]

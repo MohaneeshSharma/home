@@ -20,48 +20,111 @@
     <header class="bg-primary text-white p-6 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-3xl font-bold">Mohaneesh Sharma</a>
-            <nav>
-                <ul class="flex space-x-6">
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a>
+                <a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a>
+                <a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a>
+                <a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a>
+                <a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <ul class="flex flex-col items-center mt-4 space-y-4">
+                    <li><a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
                     <li><a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
                     <li><a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
                     <li><a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
-                    <li><a href="#contact" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
-                </ul>
-            </nav>
+                    <li><a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+            </ul>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-16">
         <section id="blogs">
-            <h2 class="text-4xl font-bold text-center text-gray-900 mb-12">From My Blog</h2>
-            <div id="blogs-container" class="space-y-8 max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl font-bold text-gray-900 mb-4">From My Blog</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">Insights on design, technology, and creative problem-solving.</p>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="max-w-xl mx-auto mb-12">
+                <input type="search" id="blog-search" placeholder="Search articles..." class="w-full px-5 py-3 text-lg bg-white border border-gray-300 rounded-full shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            </div>
+
+            <!-- Blog Grid -->
+            <div id="blogs-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Blog posts will be loaded here by JavaScript -->
             </div>
+            <p id="no-results" class="text-center text-gray-500 text-lg mt-8 hidden">No articles found matching your search.</p>
         </section>
     </main>
 
     <!-- Footer -->
     <footer class="text-center p-6 text-gray-500 text-sm">
-        <p>&copy; 2024 Mohaneesh Sharma. All Rights Reserved.</p>
+        <p>&copy; <span id="copyright-year">2024</span> Mohaneesh Sharma. All Rights Reserved.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            let allPosts = [];
+            const container = document.getElementById('blogs-container');
+            const searchInput = document.getElementById('blog-search');
+            const noResults = document.getElementById('no-results');
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+
+            const renderPosts = (posts) => {
+                container.innerHTML = '';
+                if (posts.length === 0) {
+                    noResults.classList.remove('hidden');
+                } else {
+                    noResults.classList.add('hidden');
+                }
+                posts.forEach(post => {
+                    const postCard = `
+                        <a href="Detailed_blog.html?id=${post.id}" class="block bg-white rounded-2xl shadow-lg overflow-hidden transform transition-transform duration-300 hover:-translate-y-2 hover:shadow-2xl group">
+                            <img src="${post.thumbnail}" alt="${post.title}" class="w-full h-48 object-cover">
+                            <div class="p-6">
+                                <div class="flex justify-between items-center text-sm text-gray-500 mb-2">
+                                    <span>${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                                    <span>${post.views.toLocaleString()} views</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-gray-900 mb-2 group-hover:text-primary transition-colors">${post.title}</h3>
+                                <p class="text-gray-700 leading-relaxed mb-4 h-20 overflow-hidden">${post.summary}</p>
+                                <span class="font-semibold text-primary">Read More &rarr;</span>
+                            </div>
+                        </a>`;
+                    container.innerHTML += postCard;
+                });
+            };
+
             fetch('Blogs.json')
                 .then(response => response.json())
                 .then(posts => {
-                    const container = document.getElementById('blogs-container');
-                    posts.forEach(post => {
-                        const postCard = `
-                            <div class="bg-white rounded-3xl shadow-lg p-8">
-                                <p class="text-sm text-gray-500 mb-2">${new Date(post.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
-                                <h3 class="text-2xl font-bold text-gray-900 mb-2">${post.title}</h3>
-                                <p class="text-gray-700 leading-relaxed mb-4">${post.summary}</p>
-                                <a href="Detailed_blog.html?id=${post.id}" class="text-primary font-semibold hover:underline">Read More &rarr;</a>
-                            </div>`;
-                        container.innerHTML += postCard;
-                    });
+                    allPosts = posts;
+                    renderPosts(allPosts);
                 });
+
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                const filteredPosts = allPosts.filter(post => 
+                    post.title.toLowerCase().includes(searchTerm) || 
+                    post.summary.toLowerCase().includes(searchTerm)
+                );
+                renderPosts(filteredPosts);
+            });
         });
     </script>
 </body>

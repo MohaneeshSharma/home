@@ -1,11 +1,9 @@
-[
-    {
-        "id": 1,
-        "title": "The Power of UX Storytelling",
-        "date": "2024-10-26",
         "author": "Mohineesh Sharma",
         "summary": "Discover how crafting compelling narratives around user experiences can align teams and drive product success.",
-        "content": "<h1>The Power of UX Storytelling</h1><p>In the world of UX, we often get lost in the data, the wireframes, and the prototypes. But one of the most powerful tools in our arsenal is storytelling. A well-crafted story can transform complex user research into a memorable and persuasive narrative that resonates with stakeholders, from developers to CEOs.</p><p>It's about more than just presenting findings; it's about building empathy. When you tell the story of a user struggling with an interface, you're not just listing pain points—you're making the problem real and relatable. This emotional connection is crucial for getting buy-in and aligning the entire team around a common, human-centered goal.</p>"
+        "content": "<h1>The Power of UX Storytelling</h1><p>In the world of UX, we often get lost in the data, the wireframes, and the prototypes. But one of the most powerful tools in our arsenal is storytelling. A well-crafted story can transform complex user research into a memorable and persuasive narrative that resonates with stakeholders, from developers to CEOs.</p><p>It's about more than just presenting findings; it's about building empathy. When you tell the story of a user struggling with an interface, you're not just listing pain points—you're making the problem real and relatable. This emotional connection is crucial for getting buy-in and aligning the entire team around a common, human-centered goal.</p>",
+        "thumbnail": "https://images.unsplash.com/photo-1535957998253-26ae1ef29506?q=80&w=1935&auto=format&fit=crop",
+        "views": 1250,
+        "tags": ["UX", "Storytelling", "Strategy"]
     },
     {
         "id": 2,
@@ -13,7 +11,10 @@
         "date": "2024-10-15",
         "author": "Mohineesh Sharma",
         "summary": "It's the little things that count. Learn how micro-interactions and thoughtful details can elevate a good user experience to a great one.",
-        "content": "<h1>Designing for Delight</h1><p>Content for the second blog post goes here...</p>"
+        "content": "<h1>Designing for Delight</h1><p>Content for the second blog post goes here...</p>",
+        "thumbnail": "https://images.unsplash.com/photo-1559056199-641a0ac7055e?q=80&w=2070&auto=format&fit=crop",
+        "views": 2300,
+        "tags": ["UI", "Micro-interactions", "User Experience"]
     },
     {
         "id": 3,
@@ -21,7 +22,10 @@
         "date": "2024-10-02",
         "author": "Mohineesh Sharma",
         "summary": "A design system isn't just a style guide; it's a powerful tool for efficiency, consistency, and scalability. Here's why it's a smart investment.",
-        "content": "<h1>The ROI of a Strong Design System</h1><p>Content for the third blog post goes here...</p>"
+        "content": "<h1>The ROI of a Strong Design System</h1><p>Content for the third blog post goes here...</p>",
+        "thumbnail": "https://images.unsplash.com/photo-1611926653458-092a4234cf55?q=80&w=2070&auto=format&fit=crop",
+        "views": 980,
+        "tags": ["Design System", "Scalability", "UI", "Strategy"]
     },
     {
         "id": 4,
@@ -29,6 +33,21 @@
         "date": "2024-09-20",
         "author": "Mohineesh Sharma",
         "summary": "User research is the foundation of human-centered design. This post breaks down the process of turning raw data into actionable design insights.",
-        "content": "<h1>From Data to Design</h1><p>Content for the fourth blog post goes here...</p>"
+        "content": "<h1>From Data to Design</h1><p>Content for the fourth blog post goes here...</p>",
+        "thumbnail": "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=2070&auto=format&fit=crop",
+        "views": 3100,
+        "tags": ["UX", "User Research", "Data"]
+    },
+    {
+        "id": 5,
+        "title": "How I Prompt Like an Expert UI/UX Designer (and Get Pixel-Perfect AI Answers)",
+        "date": "2025-08-11",
+        "author": "Mohaneesh Sharma",
+        "summary": "Learn how to craft expert-level prompts to get pixel-perfect AI answers for your UI/UX design work. It's not about asking questions; it's about designing conversations.",
+        "content": "<h2>1. My Design Desk Doesn’t Start With Figma — It Starts With a Prompt</h2><p>In my daily work as a UI/UX designer, I’ve learned one thing: AI doesn’t just give you great answers — it gives you the answers you ask for. If you feed it vague requests like:</p><blockquote>“Make a mobile app UI”</blockquote><p>you’ll get something equally vague. But if you craft a prompt like:</p><blockquote>“Act as a Senior Mobile UI/UX Designer. Create a wireframe for a student community app targeting Indian university alumni, focusing on trust-building features like verified profiles, event RSVP, and discussion boards. Present in a bullet list with short rationales.”</blockquote><p>Suddenly, the AI feels like your design teammate, not a guessing machine.</p><h2>2. My Prompting Principles as a Designer</h2><p>I follow a simple but powerful structure — I call it <strong>Prompt Like a Prototype:</strong></p><ol><li><strong>Assign the Role</strong> — Make the AI step into the right shoes.</li><li><strong>Give the Goal</strong> — Clearly state what you want done.</li><li><strong>Add Context</strong> — User group, industry, purpose.</li><li><strong>Set Constraints</strong> — Devices, accessibility, style, color palette.</li><li><strong>Specify Output Format</strong> — Table, bullet points, numbered steps, etc.</li></ol><div style='background-color: #f0f4f8; border-left: 4px solid #6a82fb; padding: 1rem; margin: 1.5rem 0; border-radius: 0 8px 8px 0;'><p>💡 Think of it like wireframing: you first set the frame (role & goal), then fill the elements (context & constraints), then define the layout (format).</p></div><h2>3. Why My Prompts Work So Well</h2><ul><li>I never assume the AI knows my audience — I tell it directly.</li><li>I layer information instead of dumping everything at once.</li><li>I iterate — First get raw ideas, then refine like a UI design sprint.</li><li>I speak in the AI’s language — clear, structured, and detailed.</li></ul><h2>4. My 5 Best Prompts for UI/UX Designers</h2><ol><li><strong>UX Research Persona Creation</strong><br><blockquote>Act as a UX Researcher. Create 3 detailed personas for a mobile learning app targeting working professionals in India. Include demographics, goals, frustrations, and preferred devices. Present in a table format.</blockquote></li><li><strong>Wireframe Ideation</strong><br><blockquote>Act as a Senior Mobile UI Designer. Suggest a 5-screen wireframe flow for a hostel food management app. Include purpose of each screen, key UI elements, and one accessibility note per screen.</blockquote></li><li><strong>UX Writing & Microcopy</strong><br><blockquote>Act as a UX Writer. Create engaging but clear microcopy for 5 common error states in a fintech mobile app, following a friendly yet professional tone. Include a brief rationale for each line.</blockquote></li><li><strong>Accessibility Audit</strong><br><blockquote>Act as a WCAG 2.1 AA Accessibility Consultant. Audit a health tracking mobile app for color contrast, tap target sizes, and text readability. Suggest 5 fixes with reasoning.</blockquote></li><li><strong>Competitor Flow Analysis</strong><br><blockquote>Act as a Product Analyst. Compare the onboarding flows of Duolingo and Babbel. Identify 5 key UX differences and how they affect user retention. Present as a side-by-side comparison table.</blockquote></li></ol><h2>5. My Takeaway for Fellow Designers</h2><p>Prompting is not “asking a question” — it’s <strong>designing a conversation</strong>. When you structure it like a design system — with roles, context, constraints, and iteration — the AI gives you exactly what you need to build user-focused, business-ready designs faster.</p><hr><p>💬 <strong>Your Turn:</strong> What’s the most effective design prompt you’ve ever used? Drop it below — maybe I’ll test it in my next project.</p>",
+        "thumbnail": "https://images.unsplash.com/photo-1678483789004-a8e5a031a1d2?q=80&w=2070&auto=format&fit=crop",
+        "views": 1850,
+        "tags": ["AI", "Prompting", "UX Design", "Productivity", "Workflow"]
     }
 ]
+

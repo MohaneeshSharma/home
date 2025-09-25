@@ -20,14 +20,28 @@
     <header class="bg-primary text-white p-6 shadow-md">
         <div class="container mx-auto flex justify-between items-center">
             <a href="index.html" class="text-3xl font-bold">Mohaneesh Sharma</a>
-            <nav>
-                <ul class="flex space-x-6">
+            <nav class="hidden md:flex space-x-6">
+                <a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a>
+                <a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a>
+                <a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a>
+                <a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a>
+                <a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden">
+            <ul class="flex flex-col items-center mt-4 space-y-4">
+                    <li><a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
                     <li><a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
                     <li><a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
                     <li><a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
-                    <li><a href="#contact" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
-                </ul>
-            </nav>
+                    <li><a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+            </ul>
         </div>
     </header>
 
@@ -39,11 +53,19 @@
 
     <!-- Footer -->
     <footer class="text-center p-6 text-gray-500 text-sm">
-        <p>&copy; 2024 Mohaneesh Sharma. All Rights Reserved.</p>
+        <p>&copy; <span id="copyright-year">2024</span> Mohaneesh Sharma. All Rights Reserved.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            const menuBtn = document.getElementById('menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
             const params = new URLSearchParams(window.location.search);
             const projectId = parseInt(params.get('id'));
             const container = document.getElementById('project-detail');
