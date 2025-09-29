@@ -1,21 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blogs | Mohaneesh Sharma</title>
     <meta name="description" content="Explore my latest thoughts on UI/UX design, user research, and design systems.">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="assets/js/tailwind.min.js"></script>
+    <link rel="stylesheet" href="assets/css/inter.css">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
-        .bg-primary { background-color: #6a82fb; }
-        .bg-secondary { background-color: #f7d75b; }
-        .text-primary { color: #6a82fb; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8;
+        }
+
+        .bg-primary {
+            background-color: #6a82fb;
+        }
+
+        .bg-secondary {
+            background-color: #f7d75b;
+        }
+
+        .text-primary {
+            color: #6a82fb;
+        }
     </style>
 </head>
+
 <body class="text-gray-800">
     <!-- Header -->
     <header class="bg-primary text-white p-6 shadow-md">
@@ -24,137 +36,251 @@
             <nav class="hidden md:flex space-x-6">
                 <a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a>
                 <a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a>
-                <a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a>
+                <a href="Projects.html"
+                    class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a>
                 <a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a>
-                <a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a>
+                <a href="contact.html"
+                    class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a>
             </nav>
             <div class="md:hidden">
                 <button id="menu-btn" class="text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
                 </button>
             </div>
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden">
             <ul class="flex flex-col items-center mt-4 space-y-4">
-                <li><a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
-                <li><a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
-                <li><a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
-                <li><a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
-                <li><a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+                <li><a href="index.html"
+                        class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
+                <li><a href="About.html"
+                        class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
+                <li><a href="Projects.html"
+                        class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
+                <li><a href="Blogs.html"
+                        class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
+                <li><a href="contact.html"
+                        class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
             </ul>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-16">
-        <h1 class="text-4xl font-extrabold text-gray-900 text-center mb-8">My Blogs</h1>
+        <h1 class="text-4xl font-extrabold text-gray-900 text-center mb-8">Design, Stories & Real Talk</h1>
 
         <!-- Search Bar -->
         <div class="mb-12 flex justify-center">
-            <input type="text" id="search-bar" placeholder="Search blogs..." class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
+            <input type="text" id="search-bar" placeholder="Search blogs..."
+                class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent">
         </div>
 
         <!-- Blog Cards Grid -->
         <div id="blog-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             <!-- Blog Card 1 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="/img/blog1.jpg" alt="Spotify Wellness Redesign: A UX Case Study" class="w-full h-48 object-cover">
+                <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*M4ZQ_I7rwI89sXeStIbJjg.png"
+                    alt="Heuristic Evaluation" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">Spotify Wellness Redesign: A UX Case Study</h2>
-                    <p class="text-gray-600 mb-4">Reimagining Spotify’s wellness features to improve mindfulness, personalization, and engagement.</p>
-                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Heuristic Evaluation of YouTube</h2>
+                    <p class="text-gray-600 mb-4">Though I’ve been working in the field of UI/UX for years, I believe
+                        the learning never stops. To sharpen my skills and stay aligned with evolving industry
+                        practices, I enrolled in the UI/UX Bootcamp by upGrad under the mentorship of Karthik Rahul
+                        Namani. As part of my first assignment, I chose to evaluate YouTube — a platform we use almost
+                        daily — through the lens of Jakob Nielsen’s 10 Usability Heuristics. Here’s what I found:</p>
+                    <a href="#"
+                        class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read
+                        More</a>
                 </div>
             </div>
 
             <!-- Blog Card 2 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="/img/blog2.jpg" alt="User Persona Demystified – Design Junction FM Episode" class="w-full h-48 object-cover">
+                <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*3UkSoadVnab0ZQQTajUwYw.jpeg"
+                    alt="5 Problem Statement" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">User Persona Demystified – Design Junction FM Episode</h2>
-                    <p class="text-gray-600 mb-4">A storytelling-based deep dive into creating relatable and actionable user personas.</p>
-                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Solving Everyday India with Design</h2>
+                    <p class="text-gray-600 mb-4">India is transforming — rapidly, relentlessly, and brilliantly. But
+                        the digital world still hasn’t caught up with the real problems faced by the real people of this
+                        country. As a designer, I believe my role goes beyond wireframes and colors. My role is to
+                        observe, empathize, and solve.
+
+                        During my journey as a learner in the UI/UX Bootcamp by UpGrad, under the mentorship of Karthik
+                        Rahul N., I took time to reflect not just on design patterns but pain points </p>
+                    <a href="#"
+                        class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read
+                        More</a>
                 </div>
             </div>
 
             <!-- Blog Card 3 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="/img/blog3.jpg" alt="Digital Maya, Andhi Rahein – Poem on EMS & Design" class="w-full h-48 object-cover">
+                <img src="https://miro.medium.com/v2/resize:fit:640/format:webp/1*Qv2QRTR8Dwx0Y712nJ4n1A.jpeg"
+                    alt="Mentora UX Journey" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">Digital Maya, Andhi Rahein – Poem on EMS & Design</h2>
-                    <p class="text-gray-600 mb-4">A creative reflection on Subharti’s EMS system through poetry and heuristic principles.</p>
-                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">My UX Journey with Mentora</h2>
+                    <p class="text-gray-600 mb-4">Designing for trust, legacy, and connection — that’s what my project
+                        Mentora taught me.
+                        When I began building this app, I wasn’t just designing a student portal. I was creating a space
+                        where former and current Subharti University students could reconnect, share opportunities, and
+                        contribute back to their academic family.</p>
+                    <a href="#"
+                        class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read
+                        More</a>
                 </div>
             </div>
 
             <!-- Blog Card 4 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="/img/blog4.jpg" alt="LinkedIn Carousels that Convert: UX Writing + AI" class="w-full h-48 object-cover">
+                <img src="https://miro.medium.com/v2/resize:fit:1100/format:webp/1*Z4zZ9_VM7QQrNRn2MUVZgQ.jpeg"
+                    alt="LinkedIn Carousels that Convert: UX Writing + AI" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">LinkedIn Carousels that Convert: UX Writing + AI</h2>
-                    <p class="text-gray-600 mb-4">Crafting high-performing carousels with clear microcopy, AI tools, and design psychology.</p>
-                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">UX Psychology in Action: My Deep Dive into Rover
+                        and Graduway</h2>
+                    <p class="text-gray-600 mb-4">Both apps tackle complex decisions:
+
+                        Rover simplifies trust-based choices like “Who will care for my pet?”
+                        Graduway tries to make intimidating questions like “How do I grow my career?” feel manageable
+                        But how they handle this complexity is where the UX magic lies — and sometimes, where it misses.
+                    </p>
+                    <a href="#"
+                        class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read
+                        More</a>
                 </div>
             </div>
 
             <!-- Blog Card 5 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="/img/blog5.jpg" alt="Mentora – Connecting Students & Alumni" class="w-full h-48 object-cover">
+                <img src="https://media.licdn.com/dms/image/v2/D5612AQFG8m6Zd97xCQ/article-cover_image-shrink_423_752/B56Zk9UFPLHkAY-/0/1757670299344?e=1761782400&v=beta&t=3lHnaDAN_L7tHjBNVKR97QHB0u7EfW0c87zLlDzAK3A"
+                    alt="Mentora – Connecting Students & Alumni" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">Mentora – Connecting Students & Alumni</h2>
-                    <p class="text-gray-600 mb-4">A capstone project that bridges education and career through verified connections and opportunities.</p>
-                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">How to Avoid Superficial Design in 2025</h2>
+                    <p class="text-gray-600 mb-4">Struggling with superficial design trends? UI/UX Designer Mohaneesh
+                        Sharma breaks down Fake vs. Real UI/UX with real-world examples from EdTech and SaaS. Learn how
+                        to build user-centric products that reduce support queries by 40%, improve adoption, and drive
+                        business goals. Stop designing for Dribbble; start designing for impact.</p>
+                    <a href="#"
+                        class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read
+                        More</a>
                 </div>
             </div>
 
             <!-- Blog Card 6 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="/img/blog6.jpg" alt="PacDack – A Sustainable B2B Marketplace" class="w-full h-48 object-cover">
+                <img src="https://media.licdn.com/dms/image/v2/D5612AQHQsSucq3LCPA/article-cover_image-shrink_720_1280/B56Zla_M64G0AI-/0/1758168142763?e=1761782400&v=beta&t=M4MrujFOjc_ahFAe586qQ3Jd9_jfAahS5Cy2vr0znUk"
+                    alt="PacDack – A Sustainable B2B Marketplace" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">PacDack – A Sustainable B2B Marketplace</h2>
-                    <p class="text-gray-600 mb-4">Designing a bidding platform for global packaging manufacturers and clients.</p>
-                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Know Whether Your UI/UX Designer Is a Pro or a Noob
+                    </h2>
+                    <p class="text-gray-600 mb-4">Hey everyone, Mohaneesh here. Over years of designing enterprise apps,
+                        mentoring juniors, and working closely with developers, I’ve realized that one of the biggest
+                        tests of a UI/UX designer’s skill is what happens in the handoff. That moment when the design is
+                        “done” and it's time for devs to build.
+
+                        Here’s how you can tell if your designer is a pro—or still has a lot to learn—especially by how
+                        they manage developer experience (DX) when handing off designs.</p>
+                    <a href="#"
+                        class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read
+                        More</a>
                 </div>
             </div>
 
             <!-- Blog Card 7 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="/img/blog7.jpg" alt="Amazon B2B Pitch – The 75 Page Design Challenge" class="w-full h-48 object-cover">
+                <img src="https://media.licdn.com/dms/image/v2/D5612AQGbykgcxmrjDA/article-cover_image-shrink_720_1280/B56ZiXbVrcG4AI-/0/1754887193775?e=1761782400&v=beta&t=bIVgQgboeklKgloHRY7iNmCsNIMXOkFE4eWdArd4sLM"
+                    alt="Amazon B2B Pitch – The 75 Page Design Challenge" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">Amazon B2B Pitch – The 75 Page Design Challenge</h2>
-                    <p class="text-gray-600 mb-4">Behind the scenes of delivering a corporate presentation under extreme deadlines.</p>
-                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">How I Prompt Like an Expert UI/UX Designer </h2>
+                    <p class="text-gray-600 mb-4">In my daily work as a UI/UX designer, I’ve learned one thing: AI
+                        doesn’t just give you great answers — it gives you the answers you ask for. If you feed it vague
+                        requests like:
+
+                        “Make a mobile app UI” you’ll get something equally vague.
+                        But if you craft a prompt like:
+
+                        “Act as a Senior Mobile UI/UX Designer. Create a wireframe for a student community app targeting
+                        Indian university alumni, focusing on trust-building features like verified profiles, event
+                        RSVP, and discussion boards. Present in a bullet list with short rationales.”</p>
+                    <a href="#"
+                        class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read
+                        More</a>
                 </div>
             </div>
 
             <!-- Blog Card 8 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="/img/blog8.jpg" alt="Empathize in UX – The Starting Point of Human-Centered Design" class="w-full h-48 object-cover">
+                <img src="https://media.licdn.com/dms/image/v2/D5612AQEDh3YxKgojrw/article-cover_image-shrink_720_1280/B56Zgx1UVHH0AM-/0/1753182722942?e=1761782400&v=beta&t=0WsNWipbVa8ZPH-S4PNt32jSjl88bxVEQJf3xu2nuTs"
+                    alt="Empathize in UX – The Starting Point of Human-Centered Design"
+                    class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">Empathize in UX – The Starting Point of Human-Centered Design</h2>
-                    <p class="text-gray-600 mb-4">Why empathy is the foundation of impactful digital experiences.</p>
-                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">AI Meets UX – Designing for Humans with the Power
+                        of Intelligence</h2>
+                    <p class="text-gray-600 mb-4">In today’s fast-moving digital ecosystem, UX Design is no longer just
+                        about wireframes and color palettes — it’s about crafting intelligent, human-centered
+                        experiences that adapt, respond, and evolve. With the rise of AI in 2025, we as designers are
+                        entering a transformative era, where data meets empathy, and automation meets emotion. So, how
+                        do we ensure our apps don’t just function, but actually connect with users?</p>
+                    <a href="#"
+                        class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read
+                        More</a>
                 </div>
             </div>
 
             <!-- Blog Card 9 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="/img/blog9.jpg" alt="UI/UX Internship Mentorship Journey" class="w-full h-48 object-cover">
+                <img src="https://media.licdn.com/dms/image/v2/D5612AQEjRMdLqiCrRw/article-cover_image-shrink_720_1280/B56Zjux6jDHQAI-/0/1756352723855?e=1761782400&v=beta&t=E4k5jXlSvGda99xbl7esbVbO1kfqj8R6gIss8irGX7Y"
+                    alt="UI/UX Internship Mentorship Journey" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">UI/UX Internship Mentorship Journey</h2>
-                    <p class="text-gray-600 mb-4">Training startup interns on structured design sessions and practical workflows.</p>
-                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">UX4G: India’s Bold Step Toward Citizen-Centric
+                        Digital Design</h2>
+                    <p class="text-gray-600 mb-4">Have you ever tried filling out a government form online—only to feel
+                        lost between confusing menus, broken layouts, and endless clicks? You’re not alone. For decades,
+                        India’s digital governance has struggled with one simple truth: good technology means little
+                        without good user experience.</p>
+                    <a href="#"
+                        class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read
+                        More</a>
                 </div>
             </div>
 
             <!-- Blog Card 10 -->
             <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <img src="/img/blog10.jpg" alt="Design Systems for EdTech Platforms" class="w-full h-48 object-cover">
+                <img src="https://media.licdn.com/dms/image/v2/D5612AQHHB0RRpU0hNw/article-cover_image-shrink_720_1280/B56ZhU2TD4HUAw-/0/1753770187395?e=1761782400&v=beta&t=iD_maB0qOQ16AmsCo9uQPwJMd0VcBEUu9o3JyYFDo4w"
+                    alt="Design Systems for EdTech Platforms" class="w-full h-48 object-cover">
                 <div class="p-6">
-                    <h2 class="text-xl font-bold text-gray-900 mb-2">Design Systems for EdTech Platforms</h2>
-                    <p class="text-gray-600 mb-4">Building scalable and accessible design systems for university-centric apps.</p>
-                    <a href="#" class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read More</a>
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Fixing UX Writing Problems with AI: A Smart
+                        Designer’s Toolkit</h2>
+                    <p class="text-gray-600 mb-4">In the world of digital experiences, words are design. And bad UX
+                        writing can break the smoothest of flows.<br>
+
+                        From passive voice to confusing error messages, unclear microcopy ruins user trust and
+                        conversions.
+
+                        But guess what? You don’t need a team of editors to fix it. You just need the right AI-powered
+                        UX writing toolkit. Here’s how smart product designers, content strategists, and startups are
+                        solving real UX writing problems using AI and automation tools:</p>
+                    <a href="#"
+                        class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read
+                        More</a>
                 </div>
             </div>
+
+ <!-- Blog Card 11 -->
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                <img src="https://media.licdn.com/dms/image/v2/D5612AQFKjsZJKQTqSA/article-cover_image-shrink_720_1280/B56Zg6nAWYHcAM-/0/1753329967596?e=1761782400&v=beta&t=wZolHNEc_3NGhK795RQlHyYKw_UqQrpeeA3gwctfJNw"
+                    alt="Design Systems for EdTech Platforms" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h2 class="text-xl font-bold text-gray-900 mb-2">Affinity Mapping: A Must-Have Skill for Jr. UX Designers & Agile Startups</h2>
+                    <p class="text-gray-600 mb-4">When you’ve conducted 10 user interviews and the post-it notes are piling up—how do you uncover real insights?” Affinity mapping turns that chaos into clarity—an essential UX research method beginners must master, and startups need to adopt.</p>
+                    <a href="#"
+                        class="inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg hover:bg-opacity-90 transition-colors duration-300">Read
+                        More</a>
+                </div>
+            </div>
+
         </div>
     </main>
 
@@ -193,4 +319,5 @@
         });
     </script>
 </body>
+
 </html>
