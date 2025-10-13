@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "title": "UI/UX Design Bootcamp",
+        "description": "Awarded for successfully completing the intensive UI/UX Design Bootcamp by upGrad, covering user research, wireframing, prototyping, and usability testing.",
+        "image": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Certificate+1"
+    },
+    {
+        "id": 2,
+        "title": "Advanced Figma Prototyping",
+        "description": "Recognized for mastering advanced prototyping techniques, including smart animate, interactive components, and conditional logic in Figma.",
+        "image": "https://placehold.co/600x400/f7d75b/333?text=Certificate+2"
+    },
+    {
+        "id": 3,
+        "title": "Certified User Experience Professional",
+        "description": "Certified by the Nielsen Norman Group for expertise in foundational user experience principles and methodologies.",
+        "image": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Certificate+3"
+    },
+    {
+        "id": 4,
+        "title": "Introduction to Web Accessibility (WCAG)",
+        "description": "Completed coursework on Web Content Accessibility Guidelines (WCAG) 2.1, focusing on creating inclusive and accessible digital products.",
+        "image": "https://placehold.co/600x400/f7d75b/333?text=Certificate+4"
+    },
+    {
+        "id": 5,
+        "title": "Design Thinking for Innovation",
+        "description": "Mastered the Design Thinking framework for creative problem-solving, from empathizing with users to ideating and testing solutions.",
+        "image": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Certificate+5"
+    },
+    {
+        "id": 6,
+        "title": "Agile & Scrum for UX Teams",
+        "description": "Completed training on integrating UX design processes within Agile and Scrum development cycles for efficient collaboration.",
+        "image": "https://placehold.co/600x400/f7d75b/333?text=Certificate+6"
+    },
+    {
+        "id": 7,
+        "title": "UX Writing & Content Strategy",
+        "description": "Proficiency in crafting clear, concise, and user-centered microcopy and content that enhances the user experience.",
+        "image": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Certificate+7"
+    },
+    {
+        "id": 8,
+        "title": "Data-Driven Design",
+        "description": "Learned to leverage analytics and user data to inform design decisions and measure the impact of UX improvements.",
+        "image": "https://placehold.co/600x400/f7d75b/333?text=Certificate+8"
+    },
+    {
+        "id": 9,
+        "title": "Mobile App Design Principles",
+        "description": "Specialized training in mobile-first design, platform-specific guidelines (iOS & Android), and optimizing for touch interactions.",
+        "image": "https://placehold.co/600x400/6a82fb/f0f4f8?text=Certificate+9"
+    },
+    {
+        "id": 10,
+        "title": "Leadership for Creatives",
+        "description": "Completed a workshop on leading design teams, mentoring junior designers, and effectively communicating design value to stakeholders.",
+        "image": "https://placehold.co/600x400/f7d75b/333?text=Certificate+10"
+    }
+]
