@@ -1,128 +1,463 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mentora Case Study | Mohaneesh Sharma</title>
-    <meta name="description" content="A detailed case study of the Mentora Student-Alumni Networking App, a capstone project by Mohaneesh Sharma.">
-    <script src="../assets/js/tailwind.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/inter.css">
-    <script src="../assets/js/typography.min.js"></script>
+    <title>Mentora UX Case Study | Mohaneesh Sharma</title>
+    <!-- Using CDN for Tailwind as in your other files -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f4f8; /* Your site background */
+            color: #1f2937;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif; /* Matching the case study aesthetic mixed with your site */
+        }
+
+        /* Your Theme Colors */
         .bg-primary { background-color: #6a82fb; }
-        .bg-secondary { background-color: #f7d75b; }
         .text-primary { color: #6a82fb; }
-        .prose img { @apply rounded-lg shadow-md my-4; }
-        .prose h1, .prose h2, .prose h3 { @apply text-gray-900; }
+        .border-primary { border-color: #6a82fb; }
+        
+        .bg-secondary { background-color: #f7d75b; }
+        .text-secondary { color: #f7d75b; }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f0f4f8; }
+        ::-webkit-scrollbar-thumb { background: #6a82fb; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #5a72eb; }
+
+        /* Phone Mockup Styling */
+        .phone-mockup {
+            border: 8px solid #1f2937;
+            border-radius: 2rem;
+            overflow: hidden;
+            background: white;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(106, 130, 251, 0.25);
+        }
+        .phone-notch {
+            position: absolute;
+            top: 0; left: 50%; transform: translateX(-50%);
+            width: 40%; height: 24px;
+            background: #1f2937;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            z-index: 10;
+        }
     </style>
 </head>
-<body class="text-gray-800">
-    <!-- Header -->
-    <header class="bg-primary text-white p-6 shadow-md">
+
+<body class="text-gray-800 antialiased">
+
+    <!-- Header (Adapted to use ../ for paths since this is in /projects/) -->
+    <header class="bg-primary text-white p-6 shadow-md sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="../index.html" class="text-3xl font-bold">Mohaneesh Sharma</a>
+            <a href="../index.html" class="text-2xl md:text-3xl font-bold font-sans">Mohaneesh Sharma</a>
             <nav class="hidden md:flex space-x-6">
                 <a href="../index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a>
                 <a href="../About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a>
-                <a href="../Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a>
+                <a href="../Projects.html" class="text-secondary font-medium">Projects</a>
                 <a href="../Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a>
-                <a href="../Certificates.html" class="hover:text-secondary transition-colors duration-300 font-medium">Certificates</a>
                 <a href="../contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a>
             </nav>
             <div class="md:hidden">
                 <button id="menu-btn" class="text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden">
             <ul class="flex flex-col items-center mt-4 space-y-4">
-                <li><a href="../index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
-                <li><a href="../About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
-                <li><a href="../Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
-                <li><a href="../Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
-                <li><a href="../Certificates.html" class="hover:text-secondary transition-colors duration-300 font-medium">Certificates</a></li>
-                <li><a href="../contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+                <li><a href="../index.html" class="hover:text-secondary font-medium">Home</a></li>
+                <li><a href="../About.html" class="hover:text-secondary font-medium">About</a></li>
+                <li><a href="../Projects.html" class="text-secondary font-medium">Projects</a></li>
+                <li><a href="../Blogs.html" class="hover:text-secondary font-medium">Blogs</a></li>
+                <li><a href="../contact.html" class="hover:text-secondary font-medium">Contact</a></li>
             </ul>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-16">
-        <article class="bg-white rounded-2xl shadow-lg p-6 md:p-10 max-w-4xl mx-auto">
-            <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                <div class="flex justify-between items-start mb-8">
-                    <div>
-                        <h1 class="text-4xl font-extrabold mb-2">Mentora: Connecting Students & Alumni</h1>
-                        <p class="text-xl text-gray-600">A Capstone Project for upGrad + KnowledgeHut</p>
-                    </div>
-                    <a href="#" target="_blank" class="hidden sm:inline-block bg-primary text-white font-semibold py-2 px-4 rounded-lg transition hover:bg-opacity-90">👉 View Prototype</a>
+    <!-- Case Study Hero -->
+    <section class="bg-white pt-16 pb-20 px-4 border-b border-gray-100">
+        <div class="max-w-5xl mx-auto text-center">
+            <span class="inline-block px-3 py-1 mb-6 text-xs font-semibold tracking-wider text-primary uppercase bg-blue-50 rounded-full">UX Case Study</span>
+            <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6 leading-tight">
+                Mentora<span class="text-primary">.</span>
+            </h1>
+            <p class="text-xl text-gray-500 max-w-2xl mx-auto mb-12 font-sans">
+                Bridging the gap between campus and career by building trust and verified connections for Subharti University.
+            </p>
+            
+            <!-- Project Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-left border-t border-gray-100 pt-8 font-sans">
+                <div>
+                    <span class="block text-xs font-bold text-gray-400 uppercase tracking-wide">Role</span>
+                    <span class="block text-lg font-semibold text-gray-800">Product Designer</span>
                 </div>
-
-                <h2>📌 Project Overview</h2>
-                <p>Mentora is a community-driven app designed to connect students and alumni of Subharti University. The vision is to create a digital mentorship ecosystem where students can learn from alumni experiences, find career guidance, discover job opportunities, and build meaningful professional relationships. This was my capstone project during the upGrad + KnowledgeHut UI/UX Bootcamp, where I applied the full user-centered design process — from research to prototyping.</p>
-
-                <h2>🚀 My Role</h2>
-                <ul>
-                    <li>UX Researcher & Designer</li>
-                    <li>Information Architecture & Wireframing</li>
-                    <li>High-Fidelity UI & Prototyping in Figma</li>
-                    <li>Storytelling for product vision & pitch</li>
-                </ul>
-
-                <h2>🔎 Problem Statement</h2>
-                <p>Subharti University students often face challenges such as a lack of structured alumni connections, limited access to career mentorship, and difficulty staying updated about networking opportunities. There was no central platform to bridge students with the vast alumni network.</p>
-
-                <h2>💡 My Process</h2>
-                <h3>1. Research</h3>
-                <p>I conducted Google Form surveys with students & alumni and discovered key pain points: students want career advice & internship opportunities, while alumni want to give back to the university but lack a proper channel.</p>
-
-                <h3>2. Defining the MVP</h3>
-                <p>Based on the research, the core features were defined:</p>
-                <ul>
-                    <li><strong>Verified Connections:</strong> Students can connect only with real alumni.</li>
-                    <li><strong>Career Section:</strong> Jobs, internships, and career blogs curated by alumni.</li>
-                    <li><strong>Events:</strong> University & alumni-hosted sessions.</li>
-                    <li><strong>Blogs & Stories:</strong> Alumni share experiences for student motivation.</li>
-                    <li><strong>Connect Hub:</strong> Direct mentorship via chat/request.</li>
-                </ul>
-
-                <h3>3. Information Architecture & User Flows</h3>
-                <p>I designed persona-driven user journeys for both students and alumni and created task flows for key actions like connection requests, event registrations, and job applications.</p>
-
-                <h3>4. Design Execution</h3>
-                <p>I built wireframes to validate the structure and then designed a high-fidelity prototype in Figma with a modern, minimal UI, focusing on mobile-first accessibility for students.</p>
-                <img src="../assets/images/mentora.webp" alt="Mentora Wireframes and UI" class="w-full">
-
-                <h2>📈 Outcome</h2>
-                <p>The result was a working Figma prototype showcasing the entire student-alumni experience, which received positive feedback from mentors and peers during the bootcamp. The project validated that Mentora has the potential to scale into a real community platform for Subharti University.</p>
-
-                <h2>✨ Why This Project Matters</h2>
-                <p>Mentora reflects my ability to design products from scratch using the full UX process: Research → Insights → Personas → Journeys → Wireframes → UI → Prototype. Unlike other projects, this was built with pure design discipline, without relying on developer shortcuts. It represents my transition from a UI Designer to a full UX Practitioner.</p>
-
-                <div class="mt-12 text-center p-6 bg-gray-50 rounded-xl">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Explore the full experience.</h3>
-                    <a href="#" target="_blank" class="inline-block bg-primary text-white font-semibold py-3 px-6 rounded-lg transition hover:bg-opacity-90 mt-4">👉 View Prototype</a>
+                <div>
+                    <span class="block text-xs font-bold text-gray-400 uppercase tracking-wide">Platform</span>
+                    <span class="block text-lg font-semibold text-gray-800">iOS & Android</span>
+                </div>
+                <div>
+                    <span class="block text-xs font-bold text-gray-400 uppercase tracking-wide">Timeline</span>
+                    <span class="block text-lg font-semibold text-gray-800">8 Weeks</span>
+                </div>
+                <div>
+                    <span class="block text-xs font-bold text-gray-400 uppercase tracking-wide">Tools</span>
+                    <span class="block text-lg font-semibold text-gray-800">Figma, Miro</span>
                 </div>
             </div>
-        </article>
+        </div>
+
+        <!-- Hero Mockup Visual -->
+        <div class="mt-16 relative max-w-4xl mx-auto h-64 md:h-96 bg-gradient-to-b from-blue-50 to-white rounded-t-3xl border-t border-x border-gray-200 overflow-hidden flex items-end justify-center">
+            <div class="flex space-x-4 md:space-x-8 transform translate-y-12">
+                <!-- Mockup Left -->
+                <div class="phone-mockup w-32 md:w-48 h-64 md:h-80 bg-white border-gray-800">
+                    <div class="phone-notch"></div>
+                    <div class="w-full h-full bg-gray-50 flex flex-col items-center justify-center p-4">
+                        <div class="w-8 h-8 md:w-12 md:h-12 bg-primary rounded-xl mb-4 opacity-50"></div>
+                        <div class="w-16 md:w-24 h-2 bg-gray-200 rounded mb-2"></div>
+                    </div>
+                </div>
+                <!-- Mockup Center (Main) -->
+                <div class="phone-mockup w-32 md:w-48 h-64 md:h-80 bg-white border-gray-800 transform -translate-y-4 md:-translate-y-8 z-10 shadow-xl">
+                    <div class="phone-notch"></div>
+                    <div class="w-full h-full bg-primary flex flex-col items-center justify-center p-4 text-center">
+                        <i class="fas fa-graduation-cap text-3xl md:text-4xl text-white mb-2"></i>
+                        <h3 class="text-white font-bold text-lg font-sans">Mentora</h3>
+                    </div>
+                </div>
+                <!-- Mockup Right -->
+                <div class="phone-mockup w-32 md:w-48 h-64 md:h-80 bg-white border-gray-800">
+                    <div class="phone-notch"></div>
+                    <div class="w-full h-full bg-gray-50 flex flex-col p-4 space-y-3 pt-12">
+                         <div class="w-full h-12 bg-white shadow-sm rounded-lg"></div>
+                         <div class="w-full h-12 bg-white shadow-sm rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+
+        <!-- Section: Problem -->
+        <section id="problem" class="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
+            <div class="md:col-span-4 sticky top-24">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">The Challenge</h2>
+                <div class="w-12 h-1 bg-primary mb-4 rounded-full"></div>
+                <p class="text-gray-600 font-sans">Students feel lost after graduation. Existing platforms are too broad, lacking the specific trust factor needed for mentorship.</p>
+            </div>
+            <div class="md:col-span-8 space-y-8">
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-gray-100">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 font-sans">Problem Statement</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed font-sans">
+                        Students at Subharti University often face a "guidance void" as they approach graduation. While they have academic knowledge, they lack industry insights. Existing platforms like LinkedIn feel too vast and impersonal, leading to "cold messaging" anxiety.
+                    </p>
+                    <div class="bg-blue-50 p-6 rounded-xl border border-blue-100">
+                        <h4 class="font-semibold text-primary mb-3 text-sm uppercase tracking-wide font-sans">The Core Need</h4>
+                        <ul class="space-y-3 font-sans">
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                                <span class="text-gray-700 text-sm"><strong>Students</strong> need a safe, verified space to ask questions without fear of judgment.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-check-circle text-primary mt-1 mr-3"></i>
+                                <span class="text-gray-700 text-sm"><strong>Alumni</strong> want to give back but lack a time-efficient way to do so.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Competitor Analysis -->
+        <section class="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
+            <div class="md:col-span-4">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Landscape</h2>
+                <div class="w-12 h-1 bg-secondary mb-4 rounded-full"></div>
+            </div>
+            <div class="md:col-span-8">
+                <div class="grid md:grid-cols-3 gap-6 mb-12 font-sans">
+                    <!-- Comp 1 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
+                        <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl"><i class="fab fa-linkedin-in"></i></div>
+                        <h4 class="font-bold text-gray-900 mb-2">LinkedIn</h4>
+                        <p class="text-xs text-gray-500">Good for jobs, but intimidating for students.</p>
+                    </div>
+                    <!-- Comp 2 -->
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 text-center">
+                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-xl"><i class="fab fa-whatsapp"></i></div>
+                        <h4 class="font-bold text-gray-900 mb-2">WhatsApp</h4>
+                        <p class="text-xs text-gray-500">High engagement, but chaotic & unverified.</p>
+                    </div>
+                    <!-- Mentora -->
+                    <div class="bg-primary p-6 rounded-xl shadow-lg shadow-blue-200 border border-primary text-center transform scale-105">
+                        <div class="w-12 h-12 bg-white text-primary rounded-full flex items-center justify-center mx-auto mb-4 text-xl"><i class="fas fa-check"></i></div>
+                        <h4 class="font-bold text-white mb-2">Mentora</h4>
+                        <p class="text-xs text-blue-100">Verified, university-specific, & structured.</p>
+                    </div>
+                </div>
+
+                <!-- SWOT Grid -->
+                <h3 class="text-xl font-bold text-gray-900 mb-6 font-sans">SWOT Analysis</h3>
+                <div class="grid md:grid-cols-2 gap-4 font-sans">
+                    <div class="bg-white p-6 rounded-xl border-l-4 border-blue-500 shadow-sm">
+                        <h4 class="font-bold text-gray-900 mb-2 text-sm uppercase">Strengths</h4>
+                        <p class="text-sm text-gray-600">Exclusive verification (Roll No) builds instant trust.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border-l-4 border-red-400 shadow-sm">
+                        <h4 class="font-bold text-gray-900 mb-2 text-sm uppercase">Weaknesses</h4>
+                        <p class="text-sm text-gray-600">"Cold start" problem; needs users to populate content.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border-l-4 border-green-500 shadow-sm">
+                        <h4 class="font-bold text-gray-900 mb-2 text-sm uppercase">Opportunities</h4>
+                        <p class="text-sm text-gray-600">Partnership with university placement cell.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-xl border-l-4 border-yellow-500 shadow-sm">
+                        <h4 class="font-bold text-gray-900 mb-2 text-sm uppercase">Threats</h4>
+                        <p class="text-sm text-gray-600">User inertia; convincing alumni to use another app.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Research -->
+        <section id="research" class="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
+            <div class="md:col-span-4 sticky top-24">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">User Research</h2>
+                <div class="w-12 h-1 bg-primary mb-4 rounded-full"></div>
+                <p class="text-gray-600 font-sans">We surveyed 65 students to understand the emotional barriers to networking.</p>
+            </div>
+            <div class="md:col-span-8 space-y-8">
+                
+                <!-- Personas -->
+                <div class="space-y-6 font-sans">
+                    <!-- Persona 1 -->
+                    <div class="bg-white border border-gray-200 rounded-xl p-6 flex flex-col md:flex-row gap-6 hover:shadow-lg transition-shadow">
+                        <div class="w-full md:w-1/4 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-6">
+                            <div class="w-16 h-16 bg-blue-50 text-primary rounded-full mb-3 flex items-center justify-center text-3xl">👨‍🎓</div>
+                            <h4 class="font-bold text-gray-900 text-center">The Aspirant</h4>
+                            <span class="text-xs text-gray-500">Student • 3rd Year</span>
+                        </div>
+                        <div class="w-full md:w-3/4">
+                            <p class="italic text-gray-600 text-sm mb-4">"I need an internship, but I'm scared I'll say the wrong thing to a senior."</p>
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-gray-100 text-xs rounded text-gray-600">Goal: Portfolio Review</span>
+                                <span class="px-2 py-1 bg-gray-100 text-xs rounded text-gray-600">Frustration: Fear of Rejection</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Persona 2 -->
+                    <div class="bg-white border border-gray-200 rounded-xl p-6 flex flex-col md:flex-row gap-6 hover:shadow-lg transition-shadow">
+                        <div class="w-full md:w-1/4 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-6">
+                            <div class="w-16 h-16 bg-yellow-50 text-yellow-600 rounded-full mb-3 flex items-center justify-center text-3xl">👩‍💼</div>
+                            <h4 class="font-bold text-gray-900 text-center">The Mentor</h4>
+                            <span class="text-xs text-gray-500">Alumni • 5 Yrs Exp.</span>
+                        </div>
+                        <div class="w-full md:w-3/4">
+                            <p class="italic text-gray-600 text-sm mb-4">"I miss my college days and want to help, but I have zero free time for long calls."</p>
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-gray-100 text-xs rounded text-gray-600">Goal: Give Back</span>
+                                <span class="px-2 py-1 bg-gray-100 text-xs rounded text-gray-600">Frustration: Spam Messages</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Stats -->
+                <div class="bg-primary text-white rounded-2xl p-8 shadow-xl shadow-blue-200">
+                    <h3 class="text-lg font-bold mb-6 font-sans">Key Insights</h3>
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <div>
+                            <div class="text-4xl font-bold text-secondary mb-2">78%</div>
+                            <p class="text-sm text-blue-100">of students hesitated to message alumni on LinkedIn due to fear of being ignored.</p>
+                        </div>
+                        <div>
+                            <div class="text-4xl font-bold text-secondary mb-2">3x</div>
+                            <p class="text-sm text-blue-100">Alumni are 3x more likely to respond if the student is verified from their department.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Design -->
+        <section id="design" class="bg-white -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-20 border-y border-gray-100">
+            <div class="max-w-5xl mx-auto">
+                <div class="grid md:grid-cols-12 gap-12 items-start">
+                    <div class="md:col-span-4">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Visual Design</h2>
+                        <div class="w-12 h-1 bg-secondary mb-6 rounded-full"></div>
+                        <p class="text-gray-600 mb-8 font-sans">We moved from lo-fi sketches to a polished interface using the university's blue identity mixed with modern whitespace.</p>
+                        
+                        <!-- Design System Mini -->
+                        <div class="mb-8">
+                            <h4 class="font-bold text-sm uppercase tracking-wide text-gray-500 mb-4 font-sans">Color Palette</h4>
+                            <div class="flex space-x-4">
+                                <div class="text-center">
+                                    <div class="w-12 h-12 bg-primary rounded-full mb-2 border border-gray-200 shadow-sm"></div>
+                                    <span class="text-xs text-gray-500">Royal Blue</span>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-12 h-12 bg-secondary rounded-full mb-2 border border-gray-200 shadow-sm"></div>
+                                    <span class="text-xs text-gray-500">Pastel Yellow</span>
+                                </div>
+                                <div class="text-center">
+                                    <div class="w-12 h-12 bg-gray-50 rounded-full mb-2 border border-gray-200 shadow-sm"></div>
+                                    <span class="text-xs text-gray-500">Surface</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="md:col-span-8">
+                        <!-- Visual representation of Wireframes -->
+                        <div class="grid grid-cols-2 gap-6">
+                            <!-- Wireframe 1 -->
+                            <div class="space-y-2">
+                                <span class="text-xs font-bold text-gray-400 uppercase">Lo-Fi Wireframe</span>
+                                <div class="bg-gray-100 h-64 rounded-xl relative p-4 border-2 border-dashed border-gray-300">
+                                    <div class="w-1/2 h-4 bg-gray-300 rounded mb-4"></div>
+                                    <div class="w-full h-24 bg-white rounded mb-4 border border-gray-300"></div>
+                                    <div class="w-full h-8 bg-gray-300 rounded mb-2"></div>
+                                </div>
+                                <p class="text-xs text-gray-500 font-sans">Focusing on layout and connection actions.</p>
+                            </div>
+
+                            <!-- High-Fi 1 -->
+                            <div class="space-y-2">
+                                <span class="text-xs font-bold text-primary uppercase">Final UI</span>
+                                <div class="bg-white h-64 rounded-xl relative overflow-hidden shadow-xl border border-gray-100">
+                                    <!-- Header -->
+                                    <div class="bg-primary p-4 pb-8">
+                                        <div class="w-6 h-6 bg-secondary rounded-full float-right"></div>
+                                        <div class="text-white font-bold text-lg mt-2 font-sans">Hello, Arjun!</div>
+                                        <div class="text-blue-200 text-xs font-sans">Computer Science Dept.</div>
+                                    </div>
+                                    <!-- Content -->
+                                    <div class="p-4 -mt-4">
+                                        <div class="bg-white rounded-lg shadow-sm p-3 mb-3 flex items-center space-x-3 border border-gray-50">
+                                            <div class="w-10 h-10 bg-gray-200 rounded-full"></div>
+                                            <div>
+                                                <div class="font-bold text-gray-800 text-sm font-sans">Rohan Mehta</div>
+                                                <div class="text-xs text-gray-500 font-sans">Google • Class of '19</div>
+                                            </div>
+                                        </div>
+                                         <div class="bg-white rounded-lg shadow-sm p-3 mb-3 flex items-center space-x-3 border border-gray-50">
+                                            <div class="w-10 h-10 bg-gray-200 rounded-full"></div>
+                                            <div>
+                                                <div class="font-bold text-gray-800 text-sm font-sans">Priya Singh</div>
+                                                <div class="text-xs text-gray-500 font-sans">Microsoft • Class of '20</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-gray-500 font-sans">High-fidelity with clear verification badges.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Outcomes -->
+        <section id="outcome" class="grid md:grid-cols-12 gap-8 md:gap-12 items-start">
+             <div class="md:col-span-4">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Outcomes</h2>
+                <div class="w-12 h-1 bg-primary mb-4 rounded-full"></div>
+                <p class="text-gray-600 font-sans">Measuring success beyond just download numbers.</p>
+            </div>
+            <div class="md:col-span-8">
+                <div class="bg-blue-50 border border-blue-100 rounded-2xl p-8 mb-8">
+                    <h3 class="text-xl font-bold text-primary mb-4 font-sans">Success Matrix</h3>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <span class="block text-xs font-bold text-gray-500 uppercase mb-1">Metric 01</span>
+                            <span class="block text-lg font-bold text-gray-900 font-sans">Connection Rate</span>
+                            <p class="text-sm text-gray-600 mt-1">Target: >60% of requests accepted due to trust.</p>
+                        </div>
+                         <div>
+                            <span class="block text-xs font-bold text-gray-500 uppercase mb-1">Metric 02</span>
+                            <span class="block text-lg font-bold text-gray-900 font-sans">Retention</span>
+                            <p class="text-sm text-gray-600 mt-1">Repeat engagement via the personalized feed.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3 class="font-bold text-gray-900 mb-4 font-sans text-xl">Conclusion</h3>
+                <p class="text-gray-600 mb-6 leading-relaxed font-sans">
+                    By adding verification layers and structured request formats, Mentora transforms "networking anxiety" into structured opportunity. The design successfully bridges the gap between a student's hesitation and an alumnus's willingness to help.
+                </p>
+
+                <div class="mt-8 pt-8 border-t border-gray-200 flex justify-between items-center font-sans">
+                    <a href="../Projects.html" class="text-gray-500 hover:text-primary transition-colors flex items-center">
+                        <i class="fas fa-arrow-left mr-2"></i> Back to Projects
+                    </a>
+                    <a href="../contact.html" class="px-6 py-2 bg-primary text-white rounded-full shadow-md hover:bg-opacity-90 transition-all">
+                        Hire Me
+                    </a>
+                </div>
+            </div>
+        </section>
+
     </main>
 
     <!-- Footer -->
-    <footer class="text-center p-6 text-gray-500 text-sm">
-        <p>&copy; <span id="copyright-year"></span> Mohaneesh Sharma. All Rights Reserved.</p>
+    <footer class="text-center p-6 text-gray-500 text-sm border-t border-gray-200 bg-white">
+        <div class="flex justify-center space-x-6 mb-4">
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/mohaneesh/" target="_blank" class="text-gray-400 hover:text-[#0A66C2] transition-colors text-xl" aria-label="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <!-- Facebook -->
+            <a href="https://www.facebook.com/profile.php?id=61583860365794" target="_blank" class="text-gray-400 hover:text-[#1877F2] transition-colors text-xl" aria-label="Facebook">
+                <i class="fab fa-facebook"></i>
+            </a>
+            <!-- Instagram -->
+            <a href="https://www.instagram.com/mohaneeesh_official/" target="_blank" class="text-gray-400 hover:text-[#E4405F] transition-colors text-xl" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <!-- YouTube -->
+            <a href="https://www.youtube.com/@Mohaneesh-ux" target="_blank" class="text-gray-400 hover:text-[#FF0000] transition-colors text-xl" aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <!-- X (Twitter) -->
+            <a href="https://x.com/Mohaneesh_ux" target="_blank" class="text-gray-400 hover:text-gray-900 transition-colors text-xl" aria-label="X (Twitter)">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </div>
+        <p>&copy; <span id="copyright-year">2025</span> Mohaneesh Sharma. All Rights Reserved.</p>
     </footer>
 
     <script>
+        // Copy-pasted logic from your existing index.html for menu toggling
         document.addEventListener('DOMContentLoaded', () => {
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
+            const yearSpan = document.getElementById('copyright-year');
 
-            menuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
-            document.getElementById('copyright-year').textContent = new Date().getFullYear();
+            if(menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
+            if(yearSpan) {
+                yearSpan.textContent = new Date().getFullYear();
+            }
         });
     </script>
 </body>

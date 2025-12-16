@@ -1,127 +1,369 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Subhartian Case Study | Mohaneesh Sharma</title>
-    <meta name="description" content="A detailed case study of the Subhartian Student Companion App for Subharti University, designed by Mohaneesh Sharma.">
-    <script src="../assets/js/tailwind.min.js"></script>
-    <link rel="stylesheet" href="../assets/css/inter.css">
-    <script src="../assets/js/typography.min.js"></script>
+    <!-- Using CDN for Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <!-- Fonts: Clash Display for Headings, Public Sans for Body -->
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; }
-        .bg-primary { background-color: #6a82fb; }
-        .bg-secondary { background-color: #f7d75b; }
-        .text-primary { color: #6a82fb; }
-        .prose img { @apply rounded-lg shadow-md my-4; }
-        .prose h1, .prose h2, .prose h3 { @apply text-gray-900; }
+        body {
+            font-family: 'Public Sans', sans-serif;
+            background-color: #f3f4f6;
+            background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: #000;
+        }
+
+        h1, h2, h3, h4, .font-clash {
+            font-family: 'Clash Display', sans-serif;
+        }
+
+        /* Neo-Brutalism Utilities */
+        .neo-card {
+            background-color: white;
+            border: 2px solid black;
+            border-radius: 12px;
+            box-shadow: 5px 5px 0px 0px rgba(0,0,0,1);
+            transition: all 0.2s ease;
+        }
+        
+        .neo-card:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px rgba(0,0,0,1);
+        }
+
+        .neo-btn {
+            background-color: #000;
+            color: #fff;
+            border: 2px solid black;
+            border-radius: 8px;
+            box-shadow: 4px 4px 0px 0px #6a82fb; /* Portfolio Primary Color Shadow */
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .neo-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #6a82fb;
+        }
+
+        .neo-btn-secondary {
+            background-color: #fff;
+            color: #000;
+            border: 2px solid black;
+            border-radius: 8px;
+            box-shadow: 4px 4px 0px 0px #000;
+            font-weight: 700;
+            transition: all 0.2s ease;
+        }
+
+        .neo-btn-secondary:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px 0px #000;
+            background-color: #fef3c7; /* Subtle yellow tint on hover */
+        }
+
+        .neo-tag {
+            border: 1px solid black;
+            box-shadow: 2px 2px 0px 0px black;
+        }
+
+        /* Marker Highlight Effect */
+        .highlight-marker {
+            position: relative;
+            z-index: 1;
+        }
+        .highlight-marker::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: -2px;
+            right: -2px;
+            height: 12px;
+            background-color: #fbbf24; /* Amber/Yellow */
+            z-index: -1;
+            opacity: 0.6;
+            transform: rotate(-1deg);
+        }
+
+        /* Portfolio Brand Colors for Header/Footer */
+        .bg-brand { background-color: #6a82fb; }
     </style>
 </head>
-<body class="text-gray-800">
-    <!-- Header -->
-    <header class="bg-primary text-white p-6 shadow-md">
+
+<body class="antialiased selection:bg-yellow-300 selection:text-black">
+
+    <!-- Header (Consistent Structure) -->
+    <header class="bg-brand text-white p-6 shadow-[0px_4px_0px_0px_rgba(0,0,0,1)] border-b-2 border-black sticky top-0 z-50">
         <div class="container mx-auto flex justify-between items-center">
-            <a href="../index.html" class="text-3xl font-bold">Mohaneesh Sharma</a>
+            <a href="../index.html" class="text-2xl md:text-3xl font-bold font-clash tracking-wide">Mohaneesh Sharma</a>
             <nav class="hidden md:flex space-x-6">
-                <a href="../index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a>
-                <a href="../About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a>
-                <a href="../Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a>
-                <a href="../Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a>
-                <a href="../Certificates.html" class="hover:text-secondary transition-colors duration-300 font-medium">Certificates</a>
-                <a href="../contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a>
+                <a href="../index.html" class="hover:text-yellow-300 transition-colors font-medium border-b-2 border-transparent hover:border-yellow-300">Home</a>
+                <a href="../About.html" class="hover:text-yellow-300 transition-colors font-medium border-b-2 border-transparent hover:border-yellow-300">About</a>
+                <a href="../Projects.html" class="text-yellow-300 font-medium border-b-2 border-yellow-300">Projects</a>
+                <a href="../Blogs.html" class="hover:text-yellow-300 transition-colors font-medium border-b-2 border-transparent hover:border-yellow-300">Blogs</a>
+                <a href="../contact.html" class="hover:text-yellow-300 transition-colors font-medium border-b-2 border-transparent hover:border-yellow-300">Contact</a>
             </nav>
             <div class="md:hidden">
                 <button id="menu-btn" class="text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden">
-            <ul class="flex flex-col items-center mt-4 space-y-4">
-                <li><a href="../index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
-                <li><a href="../About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
-                <li><a href="../Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
-                <li><a href="../Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
-                <li><a href="../Certificates.html" class="hover:text-secondary transition-colors duration-300 font-medium">Certificates</a></li>
-                <li><a href="../contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
+        <div id="mobile-menu" class="hidden md:hidden bg-brand border-t-2 border-black">
+            <ul class="flex flex-col items-center py-4 space-y-4 font-bold">
+                <li><a href="../index.html" class="hover:text-yellow-300">Home</a></li>
+                <li><a href="../About.html" class="hover:text-yellow-300">About</a></li>
+                <li><a href="../Projects.html" class="text-yellow-300">Projects</a></li>
+                <li><a href="../Blogs.html" class="hover:text-yellow-300">Blogs</a></li>
+                <li><a href="../contact.html" class="hover:text-yellow-300">Contact</a></li>
             </ul>
         </div>
     </header>
 
-    <main class="container mx-auto px-4 py-16">
-        <article class="bg-white rounded-2xl shadow-lg p-6 md:p-10 max-w-4xl mx-auto">
-            <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-                <div class="flex justify-between items-start mb-8">
-                    <div>
-                        <h1 class="text-4xl font-extrabold mb-2">Subhartian: Student Companion App</h1>
-                        <p class="text-xl text-gray-600">A Case Study for Subharti University</p>
+    <!-- Hero Section -->
+    <section class="pt-20 pb-16 px-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                
+                <!-- Text Content -->
+                <div class="md:w-1/2 text-left space-y-6">
+                    <div class="inline-block bg-yellow-300 border-2 border-black px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-[3px_3px_0px_0px_rgba(0,0,0,1)]">
+                        Student Companion App
                     </div>
-                    <a href="https://play.google.com/store/apps/details?id=org.subharti.erp&hl=en_IN" target="_blank" class="hidden sm:inline-block bg-black text-white font-semibold py-2 px-4 rounded-lg transition hover:bg-gray-800">📲 Download on Play Store</a>
+                    
+                    <h1 class="text-5xl md:text-7xl font-bold leading-tight">
+                        Subhartian<span class="text-[#6a82fb]">.</span>
+                    </h1>
+                    
+                    <p class="text-xl text-gray-700 font-medium leading-relaxed">
+                        Centralizing campus life for thousands of students. From <span class="highlight-marker">grievances</span> to <span class="highlight-marker">events</span> in one tap.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 pt-4">
+                        <a href="#case-study" class="neo-btn px-8 py-3 text-center flex items-center justify-center">
+                            Explore Case Study
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=org.subharti.erp&hl=en_IN" target="_blank" class="neo-btn-secondary px-8 py-3 text-center flex items-center justify-center gap-2">
+                            <i class="fab fa-google-play"></i> Play Store
+                        </a>
+                    </div>
+
+                    <!-- Role Tags -->
+                    <div class="flex flex-wrap gap-2 pt-4">
+                        <span class="neo-tag px-3 py-1 bg-white text-xs font-bold rounded">UI Designer</span>
+                        <span class="neo-tag px-3 py-1 bg-white text-xs font-bold rounded">Prototyper</span>
+                        <span class="neo-tag px-3 py-1 bg-white text-xs font-bold rounded">Design Strategist</span>
+                    </div>
                 </div>
 
-                <h2>📌 Project Overview</h2>
-                <p>Subhartian is a mobile app designed exclusively for Subharti University students. The goal was to create a digital student companion that centralizes campus needs — from grievances and leave applications to notices and event updates. The app was built in collaboration with the IT Department & CTO Sir, while I led the UI/UX design and prototyping.</p>
-
-                <h2>🚀 My Role</h2>
-                <ul>
-                    <li><strong>UI Designer & Prototyper</strong> (Phase 1)</li>
-                    <li><strong>UX Researcher & Design Strategist</strong> (Phase 2 improvements)</li>
-                    <li>Worked with developers & leadership to ensure design feasibility.</li>
-                </ul>
-
-                <h2>🔎 Challenge</h2>
-                <p>University students previously relied on scattered communication — notice boards, emails, and physical applications for grievances or leave. This caused information delays, inefficient processes, and low engagement with campus activities. We needed a single student-first platform that simplified daily interactions and kept students informed in real time.</p>
-
-                <h2>💡 My Process</h2>
-                <h3>1. Research & Insights</h3>
-                <p>I talked with students across hostels, classrooms, and labs to identify key needs: the ability to apply for leave digitally, raise grievances without hesitation, and stay updated on events, exams, and notices.</p>
-                
-                <h3>2. Design Decisions</h3>
-                <p>Based on the research, I made several key design choices:</p>
-                <ul>
-                    <li><strong>Simple Navigation:</strong> Created a 3-core module structure – Grievance, Leave Apply, Notice & Events.</li>
-                    <li><strong>Personalized Dashboard:</strong> Designed so students see the most relevant info upfront.</li>
-                    <li><strong>Quick Actions:</strong> Focused on one-tap leave application and instant grievance submission.</li>
-                    <li><strong>Clean, Youthful UI:</strong> Used bold colors & modern icons for a student-friendly feel.</li>
-                </ul>
-                <img src="../assets/images/subhartian.webp" alt="Subhartian App Screenshots" class="w-full">
-
-                <h3>3. Collaboration & Development</h3>
-                <p>I prototyped the entire flow in Figma for clear design communication and collaborated with IT developers for fast execution, ensuring a smooth integration with existing university systems.</p>
-
-                <h2>📈 Results & Impact</h2>
-                <ul>
-                    <li>Students adopted Subhartian as their primary campus app.</li>
-                    <li>Reduced paperwork & offline processes for grievances and leave.</li>
-                    <li>Higher engagement in university events & notices.</li>
-                    <li>Created a culture of transparency & accessibility.</li>
-                </ul>
-
-                <h2>✨ Why This Project Matters</h2>
-                <p>Subhartian was my first end-to-end student-focused product, proving how user-centric design can transform campus life. It marked a shift from scattered offline processes to a digital-first culture, empowering thousands of students to feel connected, heard, and engaged.</p>
-
-                <div class="mt-12 text-center p-6 bg-gray-50 rounded-xl">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-2">Ready to build something impactful?</h3>
-                    <a href="https://play.google.com/store/apps/details?id=org.subharti.erp&hl=en_IN" target="_blank" class="inline-block bg-black text-white font-semibold py-3 px-6 rounded-lg transition hover:bg-gray-800 mt-4">📲 Download Subhartian on Play Store</a>
+                <!-- Hero Image -->
+                <div class="md:w-1/2 relative">
+                    <!-- Decorative Elements behind image -->
+                    <div class="absolute -top-6 -right-6 w-24 h-24 bg-[#6a82fb] border-2 border-black rounded-full z-0"></div>
+                    <div class="absolute -bottom-6 -left-6 w-full h-full border-2 border-black bg-yellow-300 rounded-2xl z-0"></div>
+                    
+                    <!-- Main Image -->
+                    <div class="relative z-10 border-2 border-black rounded-2xl overflow-hidden shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] bg-white">
+                        <img src="../assets/images/subhartian.webp" alt="Subhartian App Interface" class="w-full h-auto hover:scale-105 transition-transform duration-500">
+                    </div>
                 </div>
             </div>
-        </article>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main id="case-study" class="container mx-auto px-4 py-16 max-w-5xl">
+
+        <!-- Project Overview & Challenge -->
+        <section class="grid md:grid-cols-12 gap-8 mb-24">
+            <!-- Left: Overview -->
+            <div class="md:col-span-5 space-y-6">
+                <div class="neo-card p-6 bg-[#e0e7ff]"> <!-- Light Indigo Bg -->
+                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-bullseye"></i> Overview
+                    </h3>
+                    <p class="text-sm leading-relaxed">
+                        Subhartian is the exclusive mobile app for Subharti University. Built in collaboration with the IT Department & CTO, it serves as a digital companion to centralize all campus needs.
+                    </p>
+                </div>
+                <div class="neo-card p-6 bg-[#fce7f3]"> <!-- Light Pink Bg -->
+                    <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <i class="fas fa-user-astronaut"></i> My Role
+                    </h3>
+                    <ul class="text-sm space-y-2 list-disc list-inside font-medium">
+                        <li>UI Designer & Prototyper (Phase 1)</li>
+                        <li>UX Research (Phase 2)</li>
+                        <li>Feasibility checks with Devs</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right: The Challenge -->
+            <div class="md:col-span-7">
+                <div class="neo-card p-8 h-full bg-white relative">
+                    <div class="absolute top-4 right-4 text-4xl opacity-10 rotate-12">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold mb-6">The Challenge 🔎</h2>
+                    <p class="text-gray-700 text-lg mb-6 leading-relaxed">
+                        University students were stuck in the past. They relied on:
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 mb-6">
+                        <div class="bg-gray-100 p-3 rounded border border-black text-center text-sm font-bold text-gray-500 line-through decoration-red-500 decoration-2">Notice Boards</div>
+                        <div class="bg-gray-100 p-3 rounded border border-black text-center text-sm font-bold text-gray-500 line-through decoration-red-500 decoration-2">Physical Forms</div>
+                        <div class="bg-gray-100 p-3 rounded border border-black text-center text-sm font-bold text-gray-500 line-through decoration-red-500 decoration-2">Scattered Emails</div>
+                        <div class="bg-gray-100 p-3 rounded border border-black text-center text-sm font-bold text-gray-500 line-through decoration-red-500 decoration-2">Manual Grievances</div>
+                    </div>
+                    <p class="text-gray-700 font-medium">
+                        <span class="bg-yellow-200 px-1 border border-black">The Goal:</span> A single student-first platform for real-time connection.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Process Section -->
+        <section class="mb-24">
+            <div class="flex items-center gap-4 mb-10">
+                <h2 class="text-4xl font-bold">My Process 💡</h2>
+                <div class="flex-grow h-1 bg-black rounded-full"></div>
+            </div>
+
+            <div class="space-y-8">
+                <!-- Step 1 -->
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/3">
+                        <div class="bg-black text-white text-4xl font-bold w-16 h-16 flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_0px_#fbbf24] rounded-lg">1</div>
+                        <h3 class="text-2xl font-bold mt-4">Research & Insights</h3>
+                    </div>
+                    <div class="md:w-2/3 neo-card p-6">
+                        <p class="text-gray-700">I talked with students across hostels, classrooms, and labs. We identified three non-negotiable needs:</p>
+                        <div class="flex flex-wrap gap-3 mt-4">
+                            <span class="px-3 py-1 bg-green-100 border border-black rounded-full text-sm font-bold">Digital Leave Apply</span>
+                            <span class="px-3 py-1 bg-green-100 border border-black rounded-full text-sm font-bold">Private Grievances</span>
+                            <span class="px-3 py-1 bg-green-100 border border-black rounded-full text-sm font-bold">Exam Updates</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/3">
+                        <div class="bg-black text-white text-4xl font-bold w-16 h-16 flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_0px_#ec4899] rounded-lg">2</div>
+                        <h3 class="text-2xl font-bold mt-4">Design Decisions</h3>
+                    </div>
+                    <div class="md:w-2/3 neo-card p-6 bg-white">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <!-- Decision Card -->
+                            <div class="bg-gray-50 p-4 border border-black rounded-lg">
+                                <h4 class="font-bold text-lg mb-1">Simple Navigation</h4>
+                                <p class="text-sm text-gray-600">3-Core Modules: Grievance, Leave, Notices.</p>
+                            </div>
+                            <!-- Decision Card -->
+                            <div class="bg-gray-50 p-4 border border-black rounded-lg">
+                                <h4 class="font-bold text-lg mb-1">Personalized Dash</h4>
+                                <p class="text-sm text-gray-600">Relevant info upfront based on student year/course.</p>
+                            </div>
+                            <!-- Decision Card -->
+                            <div class="bg-gray-50 p-4 border border-black rounded-lg">
+                                <h4 class="font-bold text-lg mb-1">Clean, Youthful UI</h4>
+                                <p class="text-sm text-gray-600">Bold colors & modern icons.</p>
+                            </div>
+                            <!-- Decision Card -->
+                            <div class="bg-gray-50 p-4 border border-black rounded-lg">
+                                <h4 class="font-bold text-lg mb-1">Quick Actions</h4>
+                                <p class="text-sm text-gray-600">One-tap flows for urgent tasks.</p>
+                            </div>
+                        </div>
+                        <div class="mt-6 border-2 border-black rounded-xl overflow-hidden">
+                            <img src="../assets/images/subhartian.webp" alt="Design System" class="w-full">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="flex flex-col md:flex-row gap-6">
+                    <div class="md:w-1/3">
+                        <div class="bg-black text-white text-4xl font-bold w-16 h-16 flex items-center justify-center border-2 border-black shadow-[4px_4px_0px_0px_#60a5fa] rounded-lg">3</div>
+                        <h3 class="text-2xl font-bold mt-4">Dev Handoff</h3>
+                    </div>
+                    <div class="md:w-2/3 neo-card p-6">
+                        <p class="text-gray-700">Prototyped the entire flow in Figma for clear design communication. Collaborated directly with IT developers to ensure the bold UI didn't compromise app performance.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results & Impact -->
+        <section class="mb-20">
+            <div class="bg-black text-white rounded-2xl p-8 md:p-12 border-2 border-black shadow-[8px_8px_0px_0px_#6a82fb]">
+                <h2 class="text-3xl font-bold mb-8 text-[#6a82fb]">Results & Impact 📈</h2>
+                <div class="grid md:grid-cols-2 gap-8">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-star text-yellow-300 mt-1"></i>
+                            <span>Students adopted Subhartian as their <strong>primary campus app</strong>.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-star text-yellow-300 mt-1"></i>
+                            <span>Reduced paperwork & offline processes drastically.</span>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-star text-yellow-300 mt-1"></i>
+                            <span>Higher engagement in university events & notices.</span>
+                        </li>
+                    </ul>
+                    <div class="bg-gray-900 p-6 rounded-xl border border-gray-700">
+                        <p class="italic text-gray-300 leading-relaxed">
+                            "Subhartian was my first end-to-end student-focused product. It marked a shift from scattered offline processes to a digital-first culture, empowering thousands of students."
+                        </p>
+                        <div class="mt-4 font-bold text-[#6a82fb]">- Mohaneesh Sharma</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Navigation Footer -->
+        <div class="flex justify-between items-center py-10 border-t-2 border-black">
+            <a href="../Projects.html" class="font-bold text-gray-600 hover:text-black hover:underline flex items-center gap-2">
+                <i class="fas fa-arrow-left"></i> Back to Projects
+            </a>
+            <a href="https://play.google.com/store/apps/details?id=org.subharti.erp&hl=en_IN" target="_blank" class="neo-btn px-6 py-2">
+                Download App 📲
+            </a>
+        </div>
+
     </main>
 
     <!-- Footer -->
-    <footer class="text-center p-6 text-gray-500 text-sm">
-        <p>&copy; <span id="copyright-year"></span> Mohaneesh Sharma. All Rights Reserved.</p>
+    <footer class="text-center p-8 bg-white border-t-2 border-black">
+        <div class="flex justify-center space-x-6 mb-6">
+            <a href="https://www.linkedin.com/in/mohaneesh/" target="_blank" class="text-black hover:text-[#0A66C2] text-2xl transition-transform hover:-translate-y-1"><i class="fab fa-linkedin"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61583860365794" target="_blank" class="text-black hover:text-[#1877F2] text-2xl transition-transform hover:-translate-y-1"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/mohaneeesh_official/" target="_blank" class="text-black hover:text-[#E4405F] text-2xl transition-transform hover:-translate-y-1"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/@Mohaneesh-ux" target="_blank" class="text-black hover:text-[#FF0000] text-2xl transition-transform hover:-translate-y-1"><i class="fab fa-youtube"></i></a>
+            <a href="https://x.com/Mohaneesh_ux" target="_blank" class="text-black hover:text-gray-600 text-2xl transition-transform hover:-translate-y-1"><i class="fab fa-twitter"></i></a>
+        </div>
+        <p class="text-gray-700 font-bold text-sm">&copy; <span id="copyright-year"></span> Mohaneesh Sharma. All Rights Reserved.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const menuBtn = document.getElementById('menu-btn');
             const mobileMenu = document.getElementById('mobile-menu');
-
-            menuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
-            });
+            if(menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+            }
             document.getElementById('copyright-year').textContent = new Date().getFullYear();
         });
     </script>
