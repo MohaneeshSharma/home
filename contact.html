@@ -22,33 +22,43 @@
 </head>
 <body class="text-gray-800 bg-gradient-to-b from-blue-50 to-white flex flex-col min-h-screen">
     <!-- Header -->
-    <header class="bg-primary text-white p-6 shadow-md">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-3xl font-bold">Mohaneesh Sharma</a>
-            <nav class="hidden md:flex space-x-6">
-                <a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a>
-                <a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a>
-                <a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a>
-                <a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a>
-                <a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a>
-            </nav>
-            <div class="md:hidden">
-                <button id="menu-btn" class="text-white focus:outline-none">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
+      <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-lg border-b border-slate-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-2 group">
+                    <div class="w-8 h-8 bg-brand-600 rounded-lg flex items-center justify-center text-white font-bold group-hover:scale-110 transition-transform">M</div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Mohaneesh.</span>
+                </a>
+                
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Home</a>
+                    <a href="Projects.html" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Work</a>
+                    <a href="certificate.html" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Certifications</a>
+                    <a href="About.html" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">About</a>
+                    <a href="Blogs.html" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Insights</a>
+                    <a href="contact.html" class="px-5 py-2.5 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-slate-800 transition-all hover:shadow-lg transform hover:-translate-y-0.5">
+                        Let's Talk
+                    </a>
+                </div>
+
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-slate-900 focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden">
-            <ul class="flex flex-col items-center mt-4 space-y-4">
-                    <li><a href="index.html" class="hover:text-secondary transition-colors duration-300 font-medium">Home</a></li>
-                    <li><a href="About.html" class="hover:text-secondary transition-colors duration-300 font-medium">About</a></li>
-                    <li><a href="Projects.html" class="hover:text-secondary transition-colors duration-300 font-medium">Projects</a></li>
-                    <li><a href="Blogs.html" class="hover:text-secondary transition-colors duration-300 font-medium">Blogs</a></li>
-                    <li><a href="contact.html" class="hover:text-secondary transition-colors duration-300 font-medium">Contact</a></li>
-            </ul>
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2 shadow-lg">
+                <a href="index.html" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50">Home</a>
+                <a href="Projects.html" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50">Work</a>
+                <a href="certificate.html" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50">Certifications</a>
+                <a href="About.html" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50">About</a>
+                <a href="Blogs.html" class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50">Insights</a>
+                <a href="contact.html" class="block px-3 py-2 rounded-md text-base font-medium text-brand-600 hover:bg-slate-50">Contact Me</a>
+            </div>
         </div>
-    </header>
+    </nav>
 
     <!-- Main Content -->
     <main class="flex-grow container mx-auto px-4 py-16 flex flex-col items-center justify-center text-center">
