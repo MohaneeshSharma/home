@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog & Content Manager | Admin Console</title>
+    
+    <!-- Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        paper: '#F8F9FA',
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #374151; border-radius: 4px; }
+        
+        /* Sidebar Collapsed State */
+        .sidebar-collapsed .sidebar-text { display: none; }
+        .sidebar-collapsed .group-heading { display: none; }
+        .sidebar-collapsed .sidebar-logo-text { display: none; }
+        .sidebar-collapsed { width: 5rem; }
+        
+        aside { transition: width 0.3s ease; }
+        
+        /* Editor Animation */
+        #editor-overlay { transition: transform 0.3s ease-in-out; }
+        #editor-overlay.hidden { transform: translateY(100%); }
+        #editor-overlay:not(.hidden) { transform: translateY(0); }
+
+        /* Typography for Editor */
+        .prose h1 { font-family: "Playfair Display", serif; font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem; color: #1A1A1A; }
+        .prose p { font-family: "Inter", sans-serif; font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 1.5rem; }
+        .prose blockquote { border-left: 4px solid #C5A059; padding-left: 1rem; font-style: italic; color: #6B7280; }
+        
+        /* AI Loading Animation */
+        .ai-pulse { animation: aiPulse 1.5s infinite; }
+        @keyframes aiPulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-paper font-sans text-obsidian flex h-screen overflow-hidden">
+
+   
+  <!-- ADMIN SIDEBAR -->
+  <aside id="sidebar" class="w-64 bg-obsidian text-white flex flex-col flex-shrink-0 shadow-2xl transition-all duration-300 z-30">
+    <div class="h-16 flex items-center justify-between px-4 border-b border-gray-800">
+        <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
+            <i data-lucide="shield" class="text-gold w-6 h-6 flex-shrink-0"></i>
+            <span class="font-serif font-bold text-lg sidebar-logo-text">NyayaSetu <span class="text-gold text-xs">ADMIN</span></span>
+        </div>
+        <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">
+            <i data-lucide="chevron-left" class="w-5 h-5" id="toggle-icon"></i>
+        </button>
+    </div>
+    
+    <nav class="flex-1 py-4 space-y-1 px-2 custom-scroll overflow-y-auto">
+        
+        <!-- Dashboard -->
+         <a href="home.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="layout-grid" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+                <span class="sidebar-text">Master Dashboard</span>
+            </a>
+        <!-- User Governance -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">User Governance</div>
+        <a href="lawyer_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="briefcase" class="w-5 h-5 flex-shrink-0 text-gold group-hover:text-white"></i> 
+            <span class="sidebar-text">Lawyer Management</span>
+        </a>
+        <a href="user_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="users" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">User Management</span>
+        </a>
+        <a href="staff_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="user-cog" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Internal Staff</span>
+        </a>
+
+        <!-- Resolution Desk -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Resolution Center</div>
+        <a href="complaint.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0 text-red-400"></i> 
+            <span class="sidebar-text flex-1">Complaints</span>
+            <span class="sidebar-text bg-red-500 text-white text-[10px] px-1.5 rounded-full">5</span>
+        </a>
+        <a href="grivance.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="message-square-warning" class="w-5 h-5 flex-shrink-0 text-orange-400"></i> 
+            <span class="sidebar-text">Grievance Cell</span>
+        </a>
+        <a href="dispute.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="gavel" class="w-5 h-5 flex-shrink-0 text-yellow-400"></i> 
+            <span class="sidebar-text">Dispute Resolution</span>
+        </a>
+
+        <!-- Content & Comms -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Content & Comms</div>
+      <a href="#" class="flex items-center gap-3 px-3 py-2.5 bg-gold text-obsidian rounded-sm font-bold">
+                <i data-lucide="file-text" class="w-5 h-5 flex-shrink-0"></i> 
+                <span class="sidebar-text">Blog Manager</span>
+            </a>
+        <a href="E-book_library.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="book" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">E-Books & Library</span>
+        </a>
+        <a href="noticeboard.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="bell" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Notice Board</span>
+        </a>
+
+        <!-- Finance -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Finance</div>
+        <a href="Finance_refund.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="indian-rupee" class="w-5 h-5 flex-shrink-0 text-green-400"></i> 
+            <span class="sidebar-text">Finance & Refunds</span>
+        </a>
+    </nav>
+
+    <!-- Admin User -->
+    <div class="p-4 border-t border-gray-800 bg-gray-900">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-obsidian font-bold text-xs">
+                AD
+            </div>
+            <div class="overflow-hidden sidebar-text">
+                <p class="text-sm font-bold">Admin</p>
+                <p class="text-[10px] text-gray-400">Super User</p>
+            </div>
+        </div>
+    </div>
+</aside>
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col overflow-hidden bg-gray-100">
+        
+        <!-- TOP NAV -->
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shadow-sm">
+            <div class="flex items-center gap-4">
+                <h1 class="font-serif text-xl font-bold text-obsidian">Content Studio</h1>
+                <div class="flex gap-2">
+                    <span class="bg-green-50 text-green-700 text-xs px-2 py-1 rounded border border-green-100 font-bold">12 Published</span>
+                    <span class="bg-yellow-50 text-yellow-700 text-xs px-2 py-1 rounded border border-yellow-100 font-bold">3 Drafts</span>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="openEditor()" class="bg-obsidian text-white px-6 py-2 rounded-full text-sm font-bold hover:bg-black flex items-center gap-2 shadow-lg transform hover:scale-105 transition">
+                    <i data-lucide="pen-tool" class="w-4 h-4"></i> Write New Story
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA -->
+        <div class="flex-1 overflow-y-auto p-8">
+            
+            <!-- TABS -->
+            <div class="flex border-b border-gray-200 mb-8">
+                <button class="px-6 py-3 text-sm font-bold border-b-2 border-obsidian text-obsidian">All Stories</button>
+                <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-obsidian transition">Published</button>
+                <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-obsidian transition">Drafts</button>
+                <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-obsidian transition">Scheduled</button>
+            </div>
+
+            <!-- BLOG GRID -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <!-- Card 1: Published -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden group hover:shadow-md transition flex flex-col h-full">
+                    <div class="relative h-48 bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cover" class="w-full h-full object-cover">
+                        <div class="absolute top-3 right-3 bg-green-100 text-green-700 text-xs font-bold px-2 py-1 rounded shadow-sm">Published</div>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-xs text-gray-400 mb-2 uppercase font-bold tracking-wider">Legal Updates • 23 Nov</div>
+                        <h3 class="font-serif text-xl font-bold text-obsidian mb-2 group-hover:text-gold transition">Understanding the New BNS Laws 2025</h3>
+                        <p class="text-sm text-gray-500 line-clamp-3 mb-4">A comprehensive guide to the changes in the criminal justice system. Essential reading for all practicing advocates.</p>
+                        
+                        <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-4">
+                            <div class="flex items-center gap-4 text-xs text-gray-500">
+                                <span class="flex items-center gap-1"><i data-lucide="eye" class="w-3 h-3"></i> 1.2k</span>
+                                <span class="flex items-center gap-1"><i data-lucide="message-circle" class="w-3 h-3"></i> 45</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <button class="text-gray-400 hover:text-obsidian"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                                <button class="text-gray-400 hover:text-red-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Draft -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden group hover:shadow-md transition flex flex-col h-full border-l-4 border-l-yellow-400">
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="text-xs text-gray-400 uppercase font-bold tracking-wider">Career Growth • Edited 2h ago</div>
+                            <div class="bg-yellow-100 text-yellow-700 text-xs font-bold px-2 py-1 rounded">Draft</div>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-obsidian mb-2 group-hover:text-gold transition">5 Tips for Junior Advocates</h3>
+                        <p class="text-sm text-gray-500 line-clamp-3 mb-4">Draft content regarding courtroom etiquette and how to find a mentor...</p>
+                        
+                        <div class="mt-auto pt-4">
+                            <button class="w-full border border-gray-300 text-gray-600 py-2 rounded text-sm font-bold hover:bg-gray-50 transition">Continue Writing</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Scheduled -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden group hover:shadow-md transition flex flex-col h-full">
+                    <div class="relative h-48 bg-gray-200">
+                        <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Cover" class="w-full h-full object-cover grayscale opacity-75">
+                        <div class="absolute top-3 right-3 bg-blue-100 text-blue-700 text-xs font-bold px-2 py-1 rounded shadow-sm">Scheduled</div>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col">
+                        <div class="text-xs text-gray-400 mb-2 uppercase font-bold tracking-wider">Technology • Dec 01</div>
+                        <h3 class="font-serif text-xl font-bold text-obsidian mb-2 group-hover:text-gold transition">AI in Legal Research</h3>
+                        <p class="text-sm text-gray-500 line-clamp-3 mb-4">Exploring how RAG models are changing the landscape of case preparation.</p>
+                        
+                        <div class="mt-auto flex items-center justify-between border-t border-gray-100 pt-4">
+                            <span class="text-xs text-blue-600 font-bold">Goes live in 5 days</span>
+                            <button class="text-gray-400 hover:text-obsidian"><i data-lucide="edit-3" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- EDITOR OVERLAY (Medium Style) -->
+    <div id="editor-overlay" class="fixed inset-0 bg-white z-50 hidden flex flex-col overflow-hidden">
+        
+        <!-- Editor Header -->
+        <div class="h-16 flex items-center justify-between px-8 lg:px-32 border-b border-gray-100">
+            <div class="flex items-center gap-4">
+                <button onclick="closeEditor()" class="text-gray-400 hover:text-obsidian"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                <span class="text-sm text-gray-400">Draft by Admin</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="text-xs text-gray-400">Saved</span>
+                <!-- AI Button -->
+                <button onclick="generateDraft()" id="ai-draft-btn" class="bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-1.5 rounded-full text-sm font-bold hover:opacity-90 transition flex items-center gap-2 shadow-md">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i> Auto-Draft
+                </button>
+                
+                <button class="bg-green-600 text-white px-4 py-1.5 rounded-full text-sm font-bold hover:bg-green-700 transition">Publish</button>
+                <button onclick="toggleSeoDrawer()" class="text-gray-400 hover:text-obsidian"><i data-lucide="settings" class="w-6 h-6"></i></button>
+            </div>
+        </div>
+
+        <!-- Editor Body -->
+        <div class="flex-1 overflow-y-auto custom-scroll">
+            <div class="max-w-3xl mx-auto py-12 px-6">
+                
+                <!-- Add Cover Image -->
+                <div class="group relative mb-8 cursor-pointer border-2 border-dashed border-transparent hover:border-gray-200 rounded-lg p-4 transition-all text-center hidden" id="cover-placeholder">
+                    <i data-lucide="image" class="w-8 h-8 text-gray-300 mx-auto mb-2"></i>
+                    <p class="text-gray-400 text-sm">Add a cover image</p>
+                </div>
+
+                <!-- Title -->
+                <input id="post-title" type="text" placeholder="Enter your topic here..." class="w-full text-5xl font-serif font-bold text-obsidian placeholder-gray-300 border-none outline-none mb-6 bg-transparent">
+                
+                <!-- Content -->
+                <div id="post-content" class="prose max-w-none text-lg text-gray-700 outline-none min-h-[50vh]" contenteditable="true" data-placeholder="Tell your story...">
+                    <p class="text-gray-400 italic">Start writing or click "Auto-Draft" to let AI help you...</p>
+                </div>
+
+                <!-- Floating Toolbox (Mockup) -->
+                <div class="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-white shadow-lg border border-gray-200 rounded-full px-6 py-3 flex gap-6 text-gray-500">
+                    <button class="hover:text-obsidian"><i data-lucide="image" class="w-5 h-5"></i></button>
+                    <button class="hover:text-obsidian"><i data-lucide="video" class="w-5 h-5"></i></button>
+                    <button class="hover:text-obsidian"><i data-lucide="code" class="w-5 h-5"></i></button>
+                    <div class="w-px h-5 bg-gray-300"></div>
+                    <button class="hover:text-obsidian"><i data-lucide="bold" class="w-5 h-5"></i></button>
+                    <button class="hover:text-obsidian"><i data-lucide="italic" class="w-5 h-5"></i></button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- SEO Drawer (Hidden by default) -->
+        <div class="absolute top-16 right-0 bottom-0 w-80 bg-gray-50 border-l border-gray-200 p-6 transform translate-x-full transition-transform z-50 shadow-xl" id="seo-drawer">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="font-bold text-gray-500 uppercase text-xs">Story Settings</h3>
+                <button onclick="toggleSeoDrawer()" class="text-gray-400 hover:text-obsidian"><i data-lucide="x" class="w-4 h-4"></i></button>
+            </div>
+            
+            <div class="space-y-6">
+                <button onclick="generateSEO()" id="ai-seo-btn" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-2 rounded text-sm font-bold hover:opacity-90 transition flex items-center justify-center gap-2 shadow-sm">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i> Generate Metadata
+                </button>
+
+                <div>
+                    <label class="text-xs font-bold text-gray-700 block mb-2">SEO Title</label>
+                    <input id="seo-title" type="text" class="w-full p-2 border border-gray-300 rounded text-sm focus:border-gold outline-none">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-700 block mb-2">Description</label>
+                    <textarea id="seo-desc" class="w-full p-2 border border-gray-300 rounded text-sm h-24 focus:border-gold outline-none"></textarea>
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-700 block mb-2">Tags</label>
+                    <input id="seo-tags" type="text" placeholder="Add tags..." class="w-full p-2 border border-gray-300 rounded text-sm focus:border-gold outline-none">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        lucide.createIcons();
+        const apiKey = ""; // Gemini API Key provided by environment
+
+        // --- UI Logic ---
+
+        function openEditor() {
+            document.getElementById('editor-overlay').classList.remove('hidden');
+        }
+
+        function closeEditor() {
+            document.getElementById('editor-overlay').classList.add('hidden');
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const icon = document.getElementById('toggle-icon');
+            sidebar.classList.toggle('sidebar-collapsed');
+            if (sidebar.classList.contains('sidebar-collapsed')) {
+                icon.classList.remove('rotate-0'); icon.classList.add('rotate-180'); sidebar.classList.remove('w-64');
+            } else {
+                icon.classList.remove('rotate-180'); icon.classList.add('rotate-0'); sidebar.classList.add('w-64');
+            }
+        }
+
+        function toggleSeoDrawer() {
+            const drawer = document.getElementById('seo-drawer');
+            if (drawer.classList.contains('translate-x-full')) {
+                drawer.classList.remove('translate-x-full');
+            } else {
+                drawer.classList.add('translate-x-full');
+            }
+        }
+
+        // --- GEMINI AI INTEGRATION ---
+
+        async function callGeminiAPI(prompt) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }]
+            };
+
+            // Exponential backoff retry logic
+            let retries = 0;
+            const maxRetries = 3;
+            
+            while (retries <= maxRetries) {
+                try {
+                    const response = await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+                    const data = await response.json();
+                    return data.candidates?.[0]?.content?.parts?.[0]?.text || "No content generated.";
+                } catch (e) {
+                    retries++;
+                    if (retries > maxRetries) {
+                        console.error("Gemini API Failed:", e);
+                        alert("AI Service is currently busy. Please try again.");
+                        return null;
+                    }
+                    await new Promise(r => setTimeout(r, Math.pow(2, retries) * 1000));
+                }
+            }
+        }
+
+        // 1. Generate Blog Draft
+        async function generateDraft() {
+            const title = document.getElementById('post-title').value;
+            const contentBox = document.getElementById('post-content');
+            const btn = document.getElementById('ai-draft-btn');
+            const originalBtnText = btn.innerHTML;
+
+            if (!title) {
+                alert("Please enter a title for the blog post first.");
+                return;
+            }
+
+            // UI State: Loading
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Writing...`;
+            btn.disabled = true;
+            contentBox.innerHTML = `<p class="text-gray-400 italic ai-pulse">Analyzing legal precedents and drafting your story...</p>`;
+
+            const prompt = `Write a comprehensive, professional blog post for a legal platform in India called 'NyayaSetu'. 
+            Title: "${title}". 
+            Tone: Authoritative, informative, yet accessible to the general public. 
+            Structure: Use HTML headings (<h2>, <h3>) and paragraphs (<p>) for formatting. Do not use markdown code blocks.
+            Length: approx 400 words.`;
+
+            const generatedText = await callGeminiAPI(prompt);
+
+            if (generatedText) {
+                // Remove potential markdown formatting if Gemini adds it
+                const cleanText = generatedText.replace(/```html/g, '').replace(/```/g, '');
+                contentBox.innerHTML = cleanText;
+            } else {
+                contentBox.innerHTML = "<p>Failed to generate draft.</p>";
+            }
+
+            // UI State: Reset
+            btn.innerHTML = originalBtnText;
+            btn.disabled = false;
+            lucide.createIcons();
+        }
+
+        // 2. Generate SEO Metadata
+        async function generateSEO() {
+            const title = document.getElementById('post-title').value;
+            const content = document.getElementById('post-content').innerText;
+            const btn = document.getElementById('ai-seo-btn');
+            const originalBtnText = btn.innerHTML;
+
+            if (content.length < 50) {
+                alert("Please write some content first so AI can analyze it.");
+                return;
+            }
+
+            // UI State: Loading
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-4 h-4 animate-spin"></i> Analyzing...`;
+            btn.disabled = true;
+
+            const prompt = `Analyze the following blog post and generate SEO metadata.
+            Title: "${title}"
+            Content Excerpt: "${content.substring(0, 500)}..."
+            
+            Return ONLY a JSON object with these keys: "seoTitle", "metaDescription", "tags" (comma separated string).
+            Do not add markdown code blocks.`;
+
+            const result = await callGeminiAPI(prompt);
+
+            if (result) {
+                try {
+                    // Clean up response to ensure valid JSON
+                    const cleanJson = result.replace(/```json/g, '').replace(/```/g, '').trim();
+                    const metadata = JSON.parse(cleanJson);
+
+                    document.getElementById('seo-title').value = metadata.seoTitle;
+                    document.getElementById('seo-desc').value = metadata.metaDescription;
+                    document.getElementById('seo-tags').value = metadata.tags;
+                } catch (e) {
+                    console.error("JSON Parse Error", e);
+                    alert("AI generated an invalid format. Please try again.");
+                }
+            }
+
+            // UI State: Reset
+            btn.innerHTML = originalBtnText;
+            btn.disabled = false;
+            lucide.createIcons();
+        }
+
+    </script>
+</body>
+</html>

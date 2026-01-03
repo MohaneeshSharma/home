@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management | Admin Console</title>
+    
+    <!-- Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        paper: '#F8F9FA',
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #374151; border-radius: 4px; }
+        
+        /* Sidebar Collapsed State */
+        .sidebar-collapsed .sidebar-text { display: none; }
+        .sidebar-collapsed .group-heading { display: none; }
+        .sidebar-collapsed .sidebar-logo-text { display: none; }
+        .sidebar-collapsed { width: 5rem; }
+        
+        aside { transition: width 0.3s ease; }
+        
+        /* Modal Animation */
+        #staff-modal { transition: opacity 0.3s ease; }
+        #staff-modal.hidden { opacity: 0; pointer-events: none; }
+        #staff-modal:not(.hidden) { opacity: 1; pointer-events: auto; }
+    </style>
+</head>
+<body class="bg-paper font-sans text-obsidian flex h-screen overflow-hidden">
+
+    <!-- ADMIN SIDEBAR -->
+    <aside id="sidebar"
+        class="w-64 bg-obsidian text-white flex flex-col flex-shrink-0 shadow-2xl transition-all duration-300 z-30">
+        <div class="h-16 flex items-center justify-between px-4 border-b border-gray-800">
+            <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
+                <i data-lucide="shield" class="text-gold w-6 h-6 flex-shrink-0"></i>
+                <span class="font-serif font-bold text-lg sidebar-logo-text">NyayaSetu <span
+                        class="text-gold text-xs">ADMIN</span></span>
+            </div>
+            <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">
+                <i data-lucide="chevron-left" class="w-5 h-5" id="toggle-icon"></i>
+            </button>
+        </div>
+    
+        <nav class="flex-1 py-4 space-y-1 px-2 custom-scroll overflow-y-auto">
+    
+    
+    
+            <!-- Dashboard -->
+            <a href="home.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="layout-grid" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text">Master Dashboard</span>
+            </a>
+            <!-- User Governance -->
+            <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">User
+                Governance</div>
+            <a href="lawyer_manage.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="briefcase" class="w-5 h-5 flex-shrink-0 text-gold group-hover:text-white"></i>
+                <span class="sidebar-text">Lawyer Management</span>
+            </a>
+            <a href="user_manage.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="users" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text">User Management</span>
+            </a>
+            <a href="staff_manage.html" class="flex items-center gap-3 px-3 py-2.5 bg-gold text-obsidian rounded-sm font-bold" 
+                >
+                <i data-lucide="user-cog" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text">Internal Staff</span>
+            </a>
+    
+            <!-- Resolution Desk -->
+            <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">
+                Resolution Center</div>
+    
+    
+            <a href="complaint.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0"></i>
+                <span class="sidebar-text">Complaints</span>
+            </a>
+    
+            <a href="grivance.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="message-square-warning" class="w-5 h-5 flex-shrink-0 text-orange-400"></i>
+                <span class="sidebar-text">Grievance Cell</span>
+            </a>
+    
+            <a href="dispute.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0"></i>
+                <span class="sidebar-text">Dispute Resolution</span>
+            </a>
+    
+            <!-- Content & Comms -->
+            <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Content
+                & Comms</div>
+            <a href="blog_manage.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="file-text" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text">Blog Manager</span>
+            </a>
+    
+            <a href="E-book_library.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="book" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text flex-1">E-Books & Library</span>
+                <span class="sidebar-text bg-red-500 text-white text-[10px] px-1.5 rounded-full">5</span>
+            </a>
+    
+    
+            <a href="noticeboard.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="bell" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text">Notice Board</span>
+            </a>
+    
+            <!-- Finance -->
+            <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Finance
+            </div>
+            <a href="Finance_refund.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="indian-rupee" class="w-5 h-5 flex-shrink-0 text-green-400"></i>
+                <span class="sidebar-text">Finance & Refunds</span>
+            </a>
+        </nav>
+    
+        <!-- Admin User -->
+        <div class="p-4 border-t border-gray-800 bg-gray-900">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-obsidian font-bold text-xs">
+                    AD
+                </div>
+                <div class="overflow-hidden sidebar-text">
+                    <p class="text-sm font-bold">Admin</p>
+                    <p class="text-[10px] text-gray-400">Super User</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col overflow-hidden bg-gray-100">
+        
+        <!-- TOP NAV -->
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shadow-sm">
+            <div class="flex items-center gap-4">
+                <h1 class="font-serif text-xl font-bold text-obsidian">Internal Staff</h1>
+                <span class="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded border border-gray-200">Total: 24</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="openStaffModal()" class="bg-obsidian text-white px-4 py-2 rounded-sm text-xs font-bold hover:bg-black flex items-center gap-2">
+                    <i data-lucide="user-plus" class="w-4 h-4"></i> Add New Executive
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA -->
+        <div class="flex-1 overflow-y-auto p-6">
+            
+            <!-- 1. DEPARTMENT STATS -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-8">
+                <div class="bg-white p-4 rounded shadow-sm border-l-4 border-blue-500">
+                    <p class="text-[10px] text-gray-500 uppercase font-bold tracking-wider">Calls / CRM</p>
+                    <h4 class="text-xl font-bold text-obsidian mt-1">8 Execs</h4>
+                </div>
+                <div class="bg-white p-4 rounded shadow-sm border-l-4 border-red-500">
+                    <p class="text-[10px] text-gray-500 uppercase font-bold tracking-wider">Disputes</p>
+                    <h4 class="text-xl font-bold text-obsidian mt-1">4 Execs</h4>
+                </div>
+                <div class="bg-white p-4 rounded shadow-sm border-l-4 border-purple-500">
+                    <p class="text-[10px] text-gray-500 uppercase font-bold tracking-wider">Content / Blog</p>
+                    <h4 class="text-xl font-bold text-obsidian mt-1">3 Execs</h4>
+                </div>
+                <div class="bg-white p-4 rounded shadow-sm border-l-4 border-green-500">
+                    <p class="text-[10px] text-gray-500 uppercase font-bold tracking-wider">Finance</p>
+                    <h4 class="text-xl font-bold text-obsidian mt-1">2 Execs</h4>
+                </div>
+                <div class="bg-white p-4 rounded shadow-sm border-l-4 border-orange-500">
+                    <p class="text-[10px] text-gray-500 uppercase font-bold tracking-wider">Verification</p>
+                    <h4 class="text-xl font-bold text-obsidian mt-1">5 Execs</h4>
+                </div>
+            </div>
+
+            <!-- 2. STAFF TABLE -->
+            <div class="bg-white rounded shadow-sm border border-gray-200 overflow-hidden">
+                
+                <!-- Filters -->
+                <div class="px-6 py-4 border-b border-gray-200 flex gap-4 bg-gray-50/50">
+                    <div class="relative w-64">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                        <input type="text" placeholder="Search staff..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-sm text-sm focus:border-gold outline-none w-full transition">
+                    </div>
+                    <select class="bg-white border border-gray-300 text-sm px-3 py-2 rounded-sm outline-none focus:border-gold">
+                        <option>Role: All</option>
+                        <option>Calling Executive</option>
+                        <option>Dispute Manager</option>
+                        <option>Content Manager</option>
+                        <option>Finance Manager</option>
+                        <option>Quality/Verify</option>
+                    </select>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-600">
+                        <thead class="bg-gray-50 text-xs uppercase font-bold text-gray-500 border-b border-gray-200">
+                            <tr>
+                                <th class="px-6 py-4">Staff Identity</th>
+                                <th class="px-6 py-4">Assigned Role</th>
+                                <th class="px-6 py-4">Permissions</th>
+                                <th class="px-6 py-4">Activity (Today)</th>
+                                <th class="px-6 py-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            
+                            <!-- Row 1: Quality Checker -->
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-xs">AM</div>
+                                        <div>
+                                            <p class="font-bold text-obsidian">Anita Menon</p>
+                                            <p class="text-xs text-gray-500">anita.m@nyaya.in</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-orange-50 text-orange-700 border border-orange-200 px-2 py-1 rounded text-xs font-bold">
+                                        Quality Check (Lawyer)
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="text-xs text-gray-500 w-48 truncate" title="Verify Documents, Approve Profiles, Edit Bio">Verify Docs, Approve Profiles...</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                        <span class="text-xs text-green-600 font-bold">Online</span>
+                                    </div>
+                                    <p class="text-[10px] text-gray-400 mt-1">24 profiles reviewed</p>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="p-2 text-gray-400 hover:text-obsidian"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2: Dispute Manager -->
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-xs">RK</div>
+                                        <div>
+                                            <p class="font-bold text-obsidian">Rohan Kumar</p>
+                                            <p class="text-xs text-gray-500">rohan.k@nyaya.in</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-red-50 text-red-700 border border-red-200 px-2 py-1 rounded text-xs font-bold">
+                                        Dispute Manager
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="text-xs text-gray-500 w-48 truncate">Access Grievances, Suspend Users, Refund Init</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="text-xs text-gray-500">Last active: 10m ago</p>
+                                    <p class="text-[10px] text-gray-400 mt-1">3 disputes closed</p>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="p-2 text-gray-400 hover:text-obsidian"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 3: Content Manager -->
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center font-bold text-xs">SN</div>
+                                        <div>
+                                            <p class="font-bold text-obsidian">Sana Nair</p>
+                                            <p class="text-xs text-gray-500">sana.n@nyaya.in</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-purple-50 text-purple-700 border border-purple-200 px-2 py-1 rounded text-xs font-bold">
+                                        Content & Blog
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="text-xs text-gray-500 w-48 truncate">CMS Access, Publish Blogs, Upload E-Books</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="text-xs text-gray-500">Last active: 2h ago</p>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="p-2 text-gray-400 hover:text-obsidian"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 4: Finance Manager -->
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-green-100 text-green-600 flex items-center justify-center font-bold text-xs">VJ</div>
+                                        <div>
+                                            <p class="font-bold text-obsidian">Vikram Jain</p>
+                                            <p class="text-xs text-gray-500">vikram.j@nyaya.in</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-green-50 text-green-700 border border-green-200 px-2 py-1 rounded text-xs font-bold">
+                                        Finance & Errors
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="text-xs text-gray-500 w-48 truncate">View Transaction Logs, Process Refunds</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-2">
+                                        <span class="w-2 h-2 rounded-full bg-green-500"></span>
+                                        <span class="text-xs text-green-600 font-bold">Online</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="p-2 text-gray-400 hover:text-obsidian"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ADD STAFF MODAL -->
+    <div id="staff-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white w-full max-w-lg rounded-lg shadow-2xl overflow-hidden transform transition-all scale-100">
+            
+            <div class="bg-obsidian text-white px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="user-plus" class="text-gold w-5 h-5"></i>
+                    <h3 class="font-serif text-xl font-bold">Add New Executive</h3>
+                </div>
+                <button onclick="closeStaffModal()" class="text-gray-400 hover:text-white transition"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            
+            <div class="p-6">
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Full Name</label>
+                        <input type="text" placeholder="e.g. Rohan Kumar" class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:border-gold outline-none">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Official Email</label>
+                        <input type="email" placeholder="name@nyayasetu.in" class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:border-gold outline-none">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Assign Role</label>
+                        <select id="role-select" class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:border-gold outline-none" onchange="updatePermissions()">
+                            <option value="" disabled selected>Select Role...</option>
+                            <option value="calling">Calling Executive (CRM)</option>
+                            <option value="dispute">Dispute Manage Executive</option>
+                            <option value="content">Blog & News Executive</option>
+                            <option value="quality">Quality Checking Executive</option>
+                            <option value="finance">Finance Error Executive</option>
+                            <option value="manager">Lawyer & User Manager</option>
+                        </select>
+                    </div>
+
+                    <!-- Dynamic Permission Preview -->
+                    <div class="bg-gray-50 p-4 rounded border border-gray-200">
+                        <p class="text-xs font-bold text-gray-500 uppercase mb-2">Access Permissions Preview</p>
+                        <ul id="perm-list" class="space-y-2 text-sm text-gray-600">
+                            <li class="flex items-center gap-2 opacity-50"><i data-lucide="lock" class="w-3 h-3"></i> Select a role to view permissions</li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-4 flex gap-3">
+                        <button type="button" onclick="closeStaffModal()" class="flex-1 border border-gray-300 py-2 rounded-sm font-bold text-gray-600 hover:bg-gray-50">Cancel</button>
+                        <button type="button" class="flex-1 bg-obsidian text-white py-2 rounded-sm font-bold hover:bg-black shadow-md">Create Account</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        lucide.createIcons();
+
+        function openStaffModal() {
+            document.getElementById('staff-modal').classList.remove('hidden');
+        }
+
+        function closeStaffModal() {
+            document.getElementById('staff-modal').classList.add('hidden');
+        }
+
+        function updatePermissions() {
+            const role = document.getElementById('role-select').value;
+            const list = document.getElementById('perm-list');
+            
+            let perms = [];
+            
+            if (role === 'calling') {
+                perms = [
+                    { icon: 'phone', text: 'Access Calling Dashboard' },
+                    { icon: 'users', text: 'View Client/Lawyer Contact Info' },
+                    { icon: 'clock', text: 'Manage Appointment Schedules' }
+                ];
+            } else if (role === 'dispute') {
+                perms = [
+                    { icon: 'gavel', text: 'Access Dispute Resolution Center' },
+                    { icon: 'message-square', text: 'Read Private Chat Logs (Audit)' },
+                    { icon: 'ban', text: 'Suspend User Accounts' }
+                ];
+            } else if (role === 'content') {
+                perms = [
+                    { icon: 'file-text', text: 'Create/Edit Blog Posts' },
+                    { icon: 'upload', text: 'Upload E-Books to Library' },
+                    { icon: 'bell', text: 'Push Notices to Dashboard' }
+                ];
+            } else if (role === 'quality') {
+                perms = [
+                    { icon: 'shield-check', text: 'Verify Bar Council IDs' },
+                    { icon: 'check-circle', text: 'Approve/Reject Profiles' },
+                    { icon: 'edit', text: 'Edit Lawyer Bio/Details' }
+                ];
+            } else if (role === 'finance') {
+                perms = [
+                    { icon: 'indian-rupee', text: 'View Transaction History' },
+                    { icon: 'refresh-cw', text: 'Process Manual Refunds' },
+                    { icon: 'alert-triangle', text: 'Resolve Payment Failures' }
+                ];
+            } else if (role === 'manager') {
+                perms = [
+                    { icon: 'users', text: 'Full Access to User/Lawyer Lists' },
+                    { icon: 'settings', text: 'Reset Passwords / limits' },
+                    { icon: 'bar-chart-2', text: 'View Growth Analytics' }
+                ];
+            }
+
+            // Render
+            list.innerHTML = perms.map(p => `
+                <li class="flex items-center gap-2 text-obsidian font-medium">
+                    <i data-lucide="${p.icon}" class="w-4 h-4 text-gold"></i> ${p.text}
+                </li>
+            `).join('');
+            
+            lucide.createIcons();
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const icon = document.getElementById('toggle-icon');
+            sidebar.classList.toggle('sidebar-collapsed');
+            if (sidebar.classList.contains('sidebar-collapsed')) {
+                icon.classList.remove('rotate-0'); icon.classList.add('rotate-180'); sidebar.classList.remove('w-64');
+            } else {
+                icon.classList.remove('rotate-180'); icon.classList.add('rotate-0'); sidebar.classList.add('w-64');
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Library Manager | Admin Console</title>
+    
+    <!-- Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        paper: '#F8F9FA',
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #374151; border-radius: 4px; }
+        
+        /* Sidebar Collapsed State */
+        .sidebar-collapsed .sidebar-text { display: none; }
+        .sidebar-collapsed .group-heading { display: none; }
+        .sidebar-collapsed .sidebar-logo-text { display: none; }
+        .sidebar-collapsed { width: 5rem; }
+        
+        aside { transition: width 0.3s ease; }
+        
+        /* Modal Animation */
+        #upload-modal { transition: opacity 0.3s ease; }
+        #upload-modal.hidden { opacity: 0; pointer-events: none; }
+        #upload-modal:not(.hidden) { opacity: 1; pointer-events: auto; }
+
+        /* Book Cover Hover Effect */
+        .book-card:hover .book-overlay { opacity: 1; }
+    </style>
+</head>
+<body class="bg-paper font-sans text-obsidian flex h-screen overflow-hidden">
+
+    <!-- ADMIN SIDEBAR -->
+  <aside id="sidebar" class="w-64 bg-obsidian text-white flex flex-col flex-shrink-0 shadow-2xl transition-all duration-300 z-30">
+    <div class="h-16 flex items-center justify-between px-4 border-b border-gray-800">
+        <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
+            <i data-lucide="shield" class="text-gold w-6 h-6 flex-shrink-0"></i>
+            <span class="font-serif font-bold text-lg sidebar-logo-text">NyayaSetu <span class="text-gold text-xs">ADMIN</span></span>
+        </div>
+        <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">
+            <i data-lucide="chevron-left" class="w-5 h-5" id="toggle-icon"></i>
+        </button>
+    </div>
+    
+    <nav class="flex-1 py-4 space-y-1 px-2 custom-scroll overflow-y-auto">
+        
+
+
+        <!-- Dashboard -->
+         <a href="home.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="layout-grid" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+                <span class="sidebar-text">Master Dashboard</span>
+            </a>
+        <!-- User Governance -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">User Governance</div>
+        <a href="lawyer_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="briefcase" class="w-5 h-5 flex-shrink-0 text-gold group-hover:text-white"></i> 
+            <span class="sidebar-text">Lawyer Management</span>
+        </a>
+        <a href="user_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="users" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">User Management</span>
+        </a>
+        <a href="staff_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="user-cog" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Internal Staff</span>
+        </a>
+
+        <!-- Resolution Desk -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Resolution Center</div>
+     
+
+ <a href="complaint.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0"></i> 
+            <span class="sidebar-text">Complaints</span>
+        </a>
+
+        <a href="grivance.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="message-square-warning" class="w-5 h-5 flex-shrink-0 text-orange-400"></i> 
+            <span class="sidebar-text">Grievance Cell</span>
+        </a>
+
+         <a href="dispute.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0"></i> 
+            <span class="sidebar-text">Dispute Resolution</span>
+        </a>
+
+        <!-- Content & Comms -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Content & Comms</div>
+        <a href="blog_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="file-text" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Blog Manager</span>
+        </a>
+       
+    <a href="E-book_library.html" class="flex items-center gap-3 px-3 py-2.5 bg-gold text-obsidian rounded-sm font-bold">
+               <i data-lucide="book" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+                <span class="sidebar-text flex-1">E-Books & Library</span>
+                <span class="sidebar-text bg-red-500 text-white text-[10px] px-1.5 rounded-full">5</span>
+            </a>
+
+
+        <a href="noticeboard.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="bell" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Notice Board</span>
+        </a>
+
+        <!-- Finance -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Finance</div>
+        <a href="Finance_refund.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="indian-rupee" class="w-5 h-5 flex-shrink-0 text-green-400"></i> 
+            <span class="sidebar-text">Finance & Refunds</span>
+        </a>
+    </nav>
+
+    <!-- Admin User -->
+    <div class="p-4 border-t border-gray-800 bg-gray-900">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-obsidian font-bold text-xs">
+                AD
+            </div>
+            <div class="overflow-hidden sidebar-text">
+                <p class="text-sm font-bold">Admin</p>
+                <p class="text-[10px] text-gray-400">Super User</p>
+            </div>
+        </div>
+    </div>
+</aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col overflow-hidden bg-gray-100">
+        
+        <!-- TOP NAV -->
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shadow-sm">
+            <div class="flex items-center gap-4">
+                <h1 class="font-serif text-xl font-bold text-obsidian">Digital Library</h1>
+                <span class="bg-purple-50 text-purple-700 text-xs px-2 py-1 rounded border border-purple-200 font-bold">
+                    Total Assets: 1,240
+                </span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="openUploadModal()" class="bg-obsidian text-white px-4 py-2 rounded-sm text-xs font-bold hover:bg-black flex items-center gap-2 shadow-lg">
+                    <i data-lucide="upload-cloud" class="w-4 h-4"></i> Upload Resource
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA -->
+        <div class="flex-1 overflow-y-auto p-6">
+            
+            <!-- 1. LIBRARY STATS -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-gold">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Premium Content</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-obsidian">450</h4>
+                        <span class="text-xs text-gold font-bold bg-yellow-50 px-1 rounded">Exclusive</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-green-500">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Free Resources</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-obsidian">790</h4>
+                        <span class="text-xs text-gray-400 font-bold">Public Access</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-blue-500">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Total Downloads</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-blue-700">12.5k</h4>
+                        <span class="text-xs text-blue-600 font-bold bg-blue-50 px-1 rounded">+1.2k this month</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-purple-500">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Storage Used</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-obsidian">45 GB</h4>
+                        <span class="text-xs text-gray-400 font-bold">of 1TB</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. FILTERS -->
+            <div class="bg-white p-4 rounded shadow-sm border border-gray-200 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center">
+                <div class="flex gap-4 w-full md:w-auto">
+                    <div class="relative w-full md:w-64">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                        <input type="text" placeholder="Search Title, Author, ISBN..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-sm text-sm focus:border-gold outline-none w-full transition">
+                    </div>
+                    <select class="bg-gray-50 border border-gray-300 text-sm px-3 py-2 rounded-sm outline-none focus:border-gold">
+                        <option>Access: All</option>
+                        <option>Premium Only</option>
+                        <option>Free</option>
+                    </select>
+                    <select class="bg-gray-50 border border-gray-300 text-sm px-3 py-2 rounded-sm outline-none focus:border-gold hidden md:block">
+                        <option>Type: All</option>
+                        <option>E-Book</option>
+                        <option>Case Study</option>
+                        <option>Legal Draft Template</option>
+                    </select>
+                </div>
+                <div class="flex gap-2">
+                    <button class="p-2 border border-gray-300 rounded hover:bg-gray-50" title="Grid View"><i data-lucide="grid" class="w-4 h-4 text-obsidian"></i></button>
+                    <button class="p-2 border border-gray-300 rounded hover:bg-gray-50" title="List View"><i data-lucide="list" class="w-4 h-4 text-gray-400"></i></button>
+                </div>
+            </div>
+
+            <!-- 3. BOOK GRID -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+                
+                <!-- Book Card 1 (Premium) -->
+                <div class="bg-white rounded shadow-sm border border-gray-200 overflow-hidden group book-card relative">
+                    <div class="absolute top-2 right-2 z-10 bg-gold text-white text-[10px] font-bold px-2 py-1 rounded shadow-sm">Premium</div>
+                    <div class="h-48 bg-gray-200 relative overflow-hidden">
+                        <!-- Placeholder Cover -->
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-800 to-black text-white text-center p-4">
+                            <span class="font-serif font-bold text-lg">Constitutional<br/>Law 2025</span>
+                        </div>
+                        <!-- Hover Overlay -->
+                        <div class="book-overlay absolute inset-0 bg-black/60 flex items-center justify-center gap-2 opacity-0 transition-opacity duration-300">
+                            <button class="p-2 bg-white rounded-full hover:bg-gold hover:text-white transition" title="Edit"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+                            <button class="p-2 bg-white rounded-full hover:bg-red-500 hover:text-white transition" title="Delete"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-sm text-obsidian truncate" title="Constitutional Law 2025">Constitutional Law 2025</h4>
+                        <p class="text-xs text-gray-500 mb-2">By H.M. Seervai</p>
+                        <div class="flex justify-between items-center mt-2 pt-2 border-t border-gray-100">
+                            <span class="text-[10px] bg-gray-100 px-2 py-0.5 rounded text-gray-600">PDF • 15MB</span>
+                            <span class="text-[10px] text-gray-400"><i data-lucide="download" class="inline w-3 h-3"></i> 450</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Book Card 2 (Free) -->
+                <div class="bg-white rounded shadow-sm border border-gray-200 overflow-hidden group book-card relative">
+                    <div class="absolute top-2 right-2 z-10 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded shadow-sm">Free</div>
+                    <div class="h-48 bg-gray-200 relative overflow-hidden">
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-800 to-blue-900 text-white text-center p-4">
+                            <span class="font-serif font-bold text-lg">Drafting<br/>Basics</span>
+                        </div>
+                        <div class="book-overlay absolute inset-0 bg-black/60 flex items-center justify-center gap-2 opacity-0 transition-opacity duration-300">
+                            <button class="p-2 bg-white rounded-full hover:bg-gold hover:text-white transition"><i data-lucide="edit-2" class="w-4 h-4"></i></button>
+                            <button class="p-2 bg-white rounded-full hover:bg-red-500 hover:text-white transition"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h4 class="font-bold text-sm text-obsidian truncate">Legal Drafting Basics</h4>
+                        <p class="text-xs text-gray-500 mb-2">NyayaSetu Editorial</p>
+                        <div class="flex justify-between items-center mt-2 pt-2 border-t border-gray-100">
+                            <span class="text-[10px] bg-gray-100 px-2 py-0.5 rounded text-gray-600">PDF • 2MB</span>
+                            <span class="text-[10px] text-gray-400"><i data-lucide="download" class="inline w-3 h-3"></i> 1.2k</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload Placeholder Card -->
+                <div onclick="openUploadModal()" class="bg-gray-50 border-2 border-dashed border-gray-300 rounded flex flex-col items-center justify-center cursor-pointer hover:border-gold hover:bg-gold/5 transition h-full min-h-[280px]">
+                    <div class="w-12 h-12 bg-white rounded-full shadow-sm flex items-center justify-center mb-3">
+                        <i data-lucide="plus" class="w-6 h-6 text-gold"></i>
+                    </div>
+                    <span class="text-sm font-bold text-gray-500">Add New Book</span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- UPLOAD MODAL -->
+    <div id="upload-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white w-full max-w-2xl rounded-lg shadow-2xl overflow-hidden transform transition-all scale-100 max-h-[90vh] flex flex-col">
+            
+            <div class="bg-obsidian text-white px-6 py-4 flex justify-between items-center flex-shrink-0">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="upload-cloud" class="text-gold w-5 h-5"></i>
+                    <h3 class="font-serif text-xl font-bold">Upload to Library</h3>
+                </div>
+                <button onclick="closeUploadModal()" class="text-gray-400 hover:text-white transition"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            
+            <div class="p-6 overflow-y-auto custom-scroll">
+                <form class="space-y-6">
+                    
+                    <!-- File Drop -->
+                    <div class="border-2 border-dashed border-gray-300 rounded p-8 text-center bg-gray-50 hover:bg-white transition cursor-pointer">
+                        <i data-lucide="file-up" class="w-10 h-10 text-gray-400 mx-auto mb-2"></i>
+                        <p class="text-sm text-gray-600 font-bold">Drag & drop PDF or EPUB here</p>
+                        <p class="text-xs text-gray-400 mt-1">Max size: 50MB</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Book Title</label>
+                            <input id="book-title" type="text" class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:border-gold outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Author Name</label>
+                            <input id="book-author" type="text" class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:border-gold outline-none">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1 flex justify-between">
+                            Description / Summary
+                            <button type="button" onclick="aiSummarize()" id="ai-btn" class="text-gold hover:underline flex items-center gap-1 text-[10px]">
+                                <i data-lucide="sparkles" class="w-3 h-3"></i> ✨ Auto-Generate with AI
+                            </button>
+                        </label>
+                        <textarea id="book-desc" class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:border-gold outline-none h-24 resize-none" placeholder="Enter book summary..."></textarea>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Category</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:border-gold outline-none bg-white">
+                                <option>Constitutional Law</option>
+                                <option>Criminal Law</option>
+                                <option>Civil Procedure</option>
+                                <option>Drafting & Pleading</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Access Level</label>
+                            <select class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:border-gold outline-none bg-white">
+                                <option value="premium">Premium Only (Gold)</option>
+                                <option value="free">Free (Public)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Tags (SEO)</label>
+                        <input id="book-tags" type="text" placeholder="law, constitution, rights..." class="w-full px-4 py-2 border border-gray-300 rounded-sm focus:border-gold outline-none">
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-end gap-3 flex-shrink-0">
+                <button onclick="closeUploadModal()" class="px-4 py-2 border border-gray-300 bg-white rounded text-sm font-bold hover:bg-gray-50 transition">Cancel</button>
+                <button class="px-6 py-2 bg-obsidian text-white rounded text-sm font-bold hover:bg-black shadow-md flex items-center gap-2">
+                    <i data-lucide="check" class="w-4 h-4"></i> Publish Resource
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        lucide.createIcons();
+        const apiKey = ""; // Gemini API Key provided by environment
+
+        function openUploadModal() {
+            document.getElementById('upload-modal').classList.remove('hidden');
+        }
+
+        function closeUploadModal() {
+            document.getElementById('upload-modal').classList.add('hidden');
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const icon = document.getElementById('toggle-icon');
+            sidebar.classList.toggle('sidebar-collapsed');
+            if (sidebar.classList.contains('sidebar-collapsed')) {
+                icon.classList.remove('rotate-0'); icon.classList.add('rotate-180'); sidebar.classList.remove('w-64');
+            } else {
+                icon.classList.remove('rotate-180'); icon.classList.add('rotate-0'); sidebar.classList.add('w-64');
+            }
+        }
+
+        // --- GEMINI AI FOR E-BOOKS ---
+        
+        async function callGeminiAPI(prompt) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+            const payload = { contents: [{ parts: [{ text: prompt }] }] };
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+                const data = await response.json();
+                return data.candidates?.[0]?.content?.parts?.[0]?.text || "Failed to generate.";
+            } catch (e) {
+                console.error("AI Error", e);
+                return null;
+            }
+        }
+
+        async function aiSummarize() {
+            const title = document.getElementById('book-title').value;
+            const author = document.getElementById('book-author').value;
+            const btn = document.getElementById('ai-btn');
+            const originalText = btn.innerHTML;
+
+            if (!title) {
+                alert("Please enter a book title first.");
+                return;
+            }
+
+            btn.innerHTML = `<i data-lucide="loader-2" class="w-3 h-3 animate-spin"></i> Generating...`;
+            
+            const prompt = `Generate a short, professional summary (max 50 words) and 5 relevant tags for a legal book titled "${title}" by "${author}". Return result as JSON with keys: "summary" and "tags".`;
+            
+            const result = await callGeminiAPI(prompt);
+            
+            if (result) {
+                try {
+                    const cleanJson = result.replace(/```json/g, '').replace(/```/g, '').trim();
+                    const data = JSON.parse(cleanJson);
+                    
+                    document.getElementById('book-desc').value = data.summary;
+                    document.getElementById('book-tags').value = data.tags;
+                } catch(e) {
+                    document.getElementById('book-desc').value = result; // Fallback
+                }
+            }
+
+            btn.innerHTML = originalText;
+            lucide.createIcons();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grievance Cell | Admin Console</title>
+    
+    <!-- Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        paper: '#F8F9FA',
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #374151; border-radius: 4px; }
+        
+        /* Sidebar Collapsed State */
+        .sidebar-collapsed .sidebar-text { display: none; }
+        .sidebar-collapsed .group-heading { display: none; }
+        .sidebar-collapsed .sidebar-logo-text { display: none; }
+        .sidebar-collapsed { width: 5rem; }
+        
+        aside { transition: width 0.3s ease; }
+        
+        /* Modal Animation */
+        #grievance-modal { transition: opacity 0.3s ease; }
+        #grievance-modal.hidden { opacity: 0; pointer-events: none; }
+        #grievance-modal:not(.hidden) { opacity: 1; pointer-events: auto; }
+    </style>
+</head>
+<body class="bg-paper font-sans text-obsidian flex h-screen overflow-hidden">
+
+    <!-- ADMIN SIDEBAR -->
+    <aside id="sidebar"
+        class="w-64 bg-obsidian text-white flex flex-col flex-shrink-0 shadow-2xl transition-all duration-300 z-30">
+        <div class="h-16 flex items-center justify-between px-4 border-b border-gray-800">
+            <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
+                <i data-lucide="shield" class="text-gold w-6 h-6 flex-shrink-0"></i>
+                <span class="font-serif font-bold text-lg sidebar-logo-text">NyayaSetu <span
+                        class="text-gold text-xs">ADMIN</span></span>
+            </div>
+            <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">
+                <i data-lucide="chevron-left" class="w-5 h-5" id="toggle-icon"></i>
+            </button>
+        </div>
+    
+        <nav class="flex-1 py-4 space-y-1 px-2 custom-scroll overflow-y-auto">
+    
+    
+    
+            <!-- Dashboard -->
+            <a href="home.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="layout-grid" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text">Master Dashboard</span>
+            </a>
+            <!-- User Governance -->
+            <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">User
+                Governance</div>
+            <a href="lawyer_manage.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="briefcase" class="w-5 h-5 flex-shrink-0 text-gold group-hover:text-white"></i>
+                <span class="sidebar-text">Lawyer Management</span>
+            </a>
+            <a href="user_manage.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="users" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text">User Management</span>
+            </a>
+            <a href="staff_manage.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="user-cog" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text">Internal Staff</span>
+            </a>
+    
+            <!-- Resolution Desk -->
+            <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">
+                Resolution Center</div>
+    
+    
+            <a href="complaint.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0"></i>
+                <span class="sidebar-text">Complaints</span>
+            </a>
+    
+            <a href="grivance.html" class="flex items-center gap-3 px-3 py-2.5 bg-gold text-obsidian rounded-sm font-bold">
+                <i data-lucide="message-square-warning" class="w-5 h-5 flex-shrink-0 text-orange-400"></i>
+                <span class="sidebar-text">Grievance Cell</span>
+            </a>
+    
+            <a href="dispute.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0"></i>
+                <span class="sidebar-text">Dispute Resolution</span>
+            </a>
+    
+            <!-- Content & Comms -->
+            <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Content
+                & Comms</div>
+            <a href="blog_manage.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="file-text" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text">Blog Manager</span>
+            </a>
+    
+            <a href="E-book_library.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="book" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text flex-1">E-Books & Library</span>
+                <span class="sidebar-text bg-red-500 text-white text-[10px] px-1.5 rounded-full">5</span>
+            </a>
+    
+    
+            <a href="noticeboard.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="bell" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i>
+                <span class="sidebar-text">Notice Board</span>
+            </a>
+    
+            <!-- Finance -->
+            <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Finance
+            </div>
+            <a href="Finance_refund.html"
+                class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="indian-rupee" class="w-5 h-5 flex-shrink-0 text-green-400"></i>
+                <span class="sidebar-text">Finance & Refunds</span>
+            </a>
+        </nav>
+    
+        <!-- Admin User -->
+        <div class="p-4 border-t border-gray-800 bg-gray-900">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-obsidian font-bold text-xs">
+                    AD
+                </div>
+                <div class="overflow-hidden sidebar-text">
+                    <p class="text-sm font-bold">Admin</p>
+                    <p class="text-[10px] text-gray-400">Super User</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col overflow-hidden bg-gray-100">
+        
+        <!-- TOP NAV -->
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shadow-sm">
+            <div class="flex items-center gap-4">
+                <h1 class="font-serif text-xl font-bold text-obsidian">Grievance Redressal</h1>
+                <div class="flex items-center gap-2 text-xs bg-red-50 text-red-700 px-3 py-1 rounded border border-red-200 font-bold">
+                    <i data-lucide="clock" class="w-4 h-4"></i> 2 SLA Breaches
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="bg-white border border-gray-300 text-gray-600 px-4 py-2 rounded-sm text-xs font-bold hover:bg-gray-50 flex items-center gap-2">
+                    <i data-lucide="file-text" class="w-4 h-4"></i> Download Monthly Report
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA -->
+        <div class="flex-1 overflow-y-auto p-6">
+            
+            <!-- 1. REGULATORY COMPLIANCE STATS -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-5 rounded shadow-sm border-t-4 border-red-600">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Pending Acknowledgement</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-red-600">3</h4>
+                        <span class="text-xs text-red-500 font-bold bg-red-50 px-1 rounded">Action within 24h</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-t-4 border-orange-500">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Pending Resolution</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-obsidian">8</h4>
+                        <span class="text-xs text-orange-600 font-bold">Within 15 Days</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-t-4 border-green-600">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Resolved (This Month)</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-green-700">12</h4>
+                        <span class="text-xs text-gray-400 font-bold">100% SLA Met</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-t-4 border-gray-800">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Legal Notices</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-obsidian">1</h4>
+                        <span class="text-xs text-gray-400 font-bold">From Law Enforcement</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. FILTERS -->
+            <div class="bg-white p-4 rounded shadow-sm border border-gray-200 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center">
+                <div class="flex gap-4 w-full md:w-auto">
+                    <div class="relative w-full md:w-64">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                        <input type="text" placeholder="Search Docket ID..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-sm text-sm focus:border-gold outline-none w-full transition">
+                    </div>
+                    <select class="bg-gray-50 border border-gray-300 text-sm px-3 py-2 rounded-sm outline-none focus:border-gold">
+                        <option>Category: All</option>
+                        <option>Privacy Violation</option>
+                        <option>Impersonation</option>
+                        <option>Abusive Content</option>
+                        <option>Financial Fraud</option>
+                    </select>
+                </div>
+                <div class="flex gap-2">
+                    <button class="p-2 border border-gray-300 rounded hover:bg-gray-50" title="Refresh"><i data-lucide="refresh-cw" class="w-4 h-4 text-gray-600"></i></button>
+                </div>
+            </div>
+
+            <!-- 3. GRIEVANCE DOCKET TABLE -->
+            <div class="bg-white rounded shadow-sm border border-gray-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-600">
+                        <thead class="bg-gray-50 text-xs uppercase font-bold text-gray-500 border-b border-gray-200">
+                            <tr>
+                                <th class="px-6 py-4">Docket ID / Date</th>
+                                <th class="px-6 py-4">Nature of Grievance</th>
+                                <th class="px-6 py-4">Raised By</th>
+                                <th class="px-6 py-4">SLA Status</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            
+                            <!-- Row 1: Critical - Privacy -->
+                            <tr class="hover:bg-red-50/10 transition border-l-4 border-l-red-500 bg-red-50/5 cursor-pointer" onclick="openGrievanceModal(1)">
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-obsidian font-mono">GRV-2025-001</p>
+                                    <p class="text-[10px] text-gray-400">23 Nov, 10:00 AM</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="text-xs font-bold text-red-700 bg-red-100 px-2 py-0.5 rounded border border-red-200">Privacy Violation</span>
+                                    <p class="text-xs text-gray-600 mt-1 w-64 truncate">Lawyer shared my case documents on public forum.</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-sm text-obsidian">Priya S. (User)</p>
+                                    <p class="text-[10px] text-gray-500">+91 98*** **123</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-2 text-red-600 font-bold text-xs animate-pulse">
+                                        <i data-lucide="alert-circle" class="w-4 h-4"></i> 2h to Ack
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-gray-100 text-gray-600 px-2 py-1 rounded-full text-xs font-bold">New</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="text-blue-600 hover:underline font-bold text-xs">Acknowledge</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2: In Progress - Impersonation -->
+                            <tr class="hover:bg-gray-50 transition cursor-pointer" onclick="openGrievanceModal(2)">
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-obsidian font-mono">GRV-2025-004</p>
+                                    <p class="text-[10px] text-gray-400">21 Nov, 02:30 PM</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="text-xs font-bold text-orange-700 bg-orange-100 px-2 py-0.5 rounded border border-orange-200">Impersonation</span>
+                                    <p class="text-xs text-gray-600 mt-1 w-64 truncate">Fake profile using my BCI ID number.</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-sm text-obsidian">Adv. Amit V.</p>
+                                    <p class="text-[10px] text-gray-500">Verified Partner</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <div class="text-green-600 font-bold text-xs">
+                                        12 Days Left
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded-full text-xs font-bold">Investigation</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="text-gray-400 hover:text-obsidian font-bold text-xs">Update</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 3: Resolved -->
+                            <tr class="hover:bg-gray-50 transition opacity-75 cursor-pointer" onclick="openGrievanceModal(3)">
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-gray-500 font-mono">GRV-2025-009</p>
+                                    <p class="text-[10px] text-gray-400">15 Nov, 09:00 AM</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="text-xs font-bold text-gray-600 bg-gray-100 px-2 py-0.5 rounded border border-gray-200">Content Takedown</span>
+                                    <p class="text-xs text-gray-500 mt-1 w-64 truncate">Request to remove old blog post.</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-sm text-gray-600">Internal Staff</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="text-gray-400 text-xs">Closed</span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-bold">Resolved</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="text-gray-400 hover:text-obsidian font-bold text-xs">View</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- GRIEVANCE DETAIL MODAL -->
+    <div id="grievance-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white w-full max-w-3xl rounded-lg shadow-2xl overflow-hidden transform transition-all scale-100 max-h-[90vh] flex flex-col">
+            
+            <!-- Header -->
+            <div class="bg-obsidian text-white px-6 py-4 flex justify-between items-center flex-shrink-0">
+                <div>
+                    <div class="flex items-center gap-3">
+                        <h3 class="font-serif text-xl font-bold" id="g-id">GRV-2025-001</h3>
+                        <span class="bg-red-500 text-white text-[10px] px-2 py-0.5 rounded font-bold uppercase">Action Required</span>
+                    </div>
+                    <p class="text-xs text-gray-400 mt-1">Received: 23 Nov 2025 • 10:00 AM</p>
+                </div>
+                <button onclick="closeGrievanceModal()" class="text-gray-400 hover:text-white transition"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            
+            <!-- Body -->
+            <div class="flex-1 overflow-y-auto p-6 custom-scroll">
+                
+                <div class="flex flex-col md:flex-row gap-6">
+                    
+                    <!-- Left: Details -->
+                    <div class="w-full md:w-2/3 space-y-6">
+                        <!-- Grievance Text -->
+                        <div>
+                            <label class="text-xs font-bold text-gray-400 uppercase block mb-2">Grievance Details</label>
+                            <div class="bg-gray-50 p-4 rounded border border-gray-200 text-sm text-gray-700 leading-relaxed" id="g-desc">
+                                "I hired Adv. Rajesh Khanna for a divorce case. Without my consent, he posted details of my alimony settlement on the 'Public Forum' section of NyayaSetu to boast about his win. This contains my financial data and is a violation of my privacy. I want this removed immediately."
+                            </div>
+                        </div>
+
+                        <!-- Evidence Locker -->
+                        <div>
+                            <label class="text-xs font-bold text-gray-400 uppercase block mb-2 flex items-center gap-2">
+                                <i data-lucide="paperclip" class="w-3 h-3"></i> Attached Evidence
+                            </label>
+                            <div class="flex gap-3">
+                                <div class="border border-gray-200 rounded p-2 flex items-center gap-2 bg-white hover:bg-gray-50 cursor-pointer">
+                                    <i data-lucide="image" class="w-4 h-4 text-blue-500"></i>
+                                    <span class="text-xs font-bold text-gray-600">Screenshot_01.jpg</span>
+                                </div>
+                                <div class="border border-gray-200 rounded p-2 flex items-center gap-2 bg-white hover:bg-gray-50 cursor-pointer">
+                                    <i data-lucide="file-text" class="w-4 h-4 text-red-500"></i>
+                                    <span class="text-xs font-bold text-gray-600">Legal_Notice.pdf</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Timeline -->
+                        <div class="border-t border-gray-200 pt-4">
+                            <label class="text-xs font-bold text-gray-400 uppercase block mb-2">Investigation Log</label>
+                            <div class="space-y-3 pl-2 border-l-2 border-gray-200">
+                                <div class="pl-4 relative">
+                                    <div class="absolute -left-[9px] top-1.5 w-3 h-3 bg-gray-300 rounded-full"></div>
+                                    <p class="text-xs text-gray-500">Ticket Created - 10:00 AM</p>
+                                </div>
+                                <div class="pl-4 relative">
+                                    <div class="absolute -left-[9px] top-1.5 w-3 h-3 bg-blue-500 rounded-full"></div>
+                                    <p class="text-xs text-obsidian font-bold">Pending Acknowledgment</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Compliance Actions -->
+                    <div class="w-full md:w-1/3 space-y-4">
+                        
+                        <div class="bg-red-50 border border-red-100 p-4 rounded text-center">
+                            <p class="text-[10px] font-bold text-red-500 uppercase tracking-wider">SLA Countdown</p>
+                            <h4 class="text-2xl font-bold text-red-700">01h : 59m</h4>
+                            <p class="text-xs text-red-400">To send Ack Email</p>
+                        </div>
+
+                        <button class="w-full bg-white border border-gray-300 text-obsidian py-2 rounded text-xs font-bold hover:bg-gray-50 flex items-center justify-center gap-2">
+                            <i data-lucide="mail" class="w-3 h-3"></i> Send Ack Receipt
+                        </button>
+
+                        <hr class="border-gray-200">
+
+                        <label class="text-xs font-bold text-gray-400 uppercase block">Official Action</label>
+                        <select class="w-full text-xs border border-gray-300 rounded p-2 bg-white outline-none focus:border-gold">
+                            <option>Select Outcome...</option>
+                            <option>Content Takedown</option>
+                            <option>Suspend User/Lawyer</option>
+                            <option>Forward to Law Enforcement</option>
+                            <option>Reject (No Violation)</option>
+                        </select>
+
+                        <textarea class="w-full text-xs border border-gray-300 rounded p-2 h-20 outline-none focus:border-gold resize-none" placeholder="Internal legal notes..."></textarea>
+
+                        <button class="w-full bg-gold text-white py-2 rounded text-xs font-bold hover:bg-goldhover shadow-md">
+                            Submit Resolution
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        lucide.createIcons();
+
+        const grievances = {
+            1: { id: "GRV-2025-001", desc: "I hired Adv. Rajesh Khanna for a divorce case. Without my consent, he posted details of my alimony settlement on the 'Public Forum' section. This contains financial data.", sla: "01h : 59m", type: "Privacy Violation" },
+            2: { id: "GRV-2025-004", desc: "Someone created a fake profile using my Bar Council ID. I am receiving calls for cases I never took.", sla: "12 Days", type: "Impersonation" },
+            3: { id: "GRV-2025-009", desc: "Old blog post contains outdated legal advice that is harming my SEO.", sla: "Closed", type: "Content Takedown" }
+        };
+
+        function openGrievanceModal(id) {
+            const data = grievances[id];
+            if(!data) return;
+
+            document.getElementById('g-id').innerText = data.id;
+            document.getElementById('g-desc').innerText = `"${data.desc}"`;
+            // In a real app, populate more fields
+            document.getElementById('grievance-modal').classList.remove('hidden');
+        }
+
+        function closeGrievanceModal() {
+            document.getElementById('grievance-modal').classList.add('hidden');
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const icon = document.getElementById('toggle-icon');
+            sidebar.classList.toggle('sidebar-collapsed');
+            if (sidebar.classList.contains('sidebar-collapsed')) {
+                icon.classList.remove('rotate-0'); icon.classList.add('rotate-180'); sidebar.classList.remove('w-64');
+            } else {
+                icon.classList.remove('rotate-180'); icon.classList.add('rotate-0'); sidebar.classList.add('w-64');
+            }
+        }
+    </script>
+</body>
+</html>

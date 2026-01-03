@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance Analytics | NyayaSetu</title>
+    
+    <!-- Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Simple Chart.js for Demo (Optional, can use SVG) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        paper: '#F8F9FA',
+                        success: '#10B981'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #E5E7EB; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-paper font-sans text-obsidian flex h-screen overflow-hidden">
+
+    <!-- SIDEBAR (Premium Version) -->
+    <aside class="w-64 bg-obsidian text-white hidden md:flex flex-col flex-shrink-0 shadow-2xl z-30">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800">
+            <i data-lucide="scale" class="text-gold w-6 h-6 mr-2"></i>
+            <span class="font-serif font-bold text-xl tracking-wide">NyayaSetu</span>
+        </div>
+        
+        <nav class="flex-1 py-6 space-y-1 px-3 custom-scroll overflow-y-auto">
+            <div class="px-3 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold">Practice Management</div>
+            
+            <a href="Lawyer_Dashboard.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-sm transition group">
+                <i data-lucide="layout-dashboard" class="w-5 h-5 group-hover:text-gold transition"></i> Dashboard
+            </a>
+            <a href="crm.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-sm transition group">
+                <i data-lucide="users" class="w-5 h-5 group-hover:text-gold transition"></i> Clients (CRM)
+            </a>
+            <a href="appointment.html"  class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-sm transition group">
+                <i data-lucide="calendar-check" class="w-5 h-5 group-hover:text-gold transition"></i> Appointments
+            </a>
+           
+
+            <div class="px-3 mt-6 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold">Growth & Insights</div>
+
+            <a href="analytics.html"  class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-gray-800 to-obsidian text-gold rounded-sm border-l-4 border-gold shadow-inner"
+           
+                <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Analytics
+            </a>
+            <a href="knowledge_hub.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-sm transition group">
+                <i data-lucide="book-open" class="w-5 h-5 group-hover:text-gold transition"></i> Knowledge Hub
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-gray-800 bg-gray-900/50">
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rajesh&clothingType=BlazerShirt" class="w-10 h-10 rounded-full border-2 border-gold bg-gray-800">
+                    <div class="absolute -bottom-1 -right-1 bg-gold text-white rounded-full p-0.5 border border-obsidian">
+                        <i data-lucide="shield-check" class="w-3 h-3"></i>
+                    </div>
+                </div>
+                <div class="overflow-hidden">
+                    <p class="text-sm font-bold truncate">Adv. Rajesh K.</p>
+                    <p class="text-[10px] text-gold uppercase tracking-wider font-bold">Premium Partner</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col overflow-hidden relative">
+        
+        <!-- HEADER -->
+        <header class="bg-white border-b border-gray-200 h-20 flex items-center justify-between px-8 sticky top-0 z-20">
+            <div class="flex items-center gap-4">
+                <h2 class="font-serif text-2xl font-bold text-obsidian">Performance Analytics</h2>
+                <div class="flex items-center gap-2 text-xs bg-green-50 text-green-700 px-3 py-1 rounded border border-green-200 font-bold">
+                    <i data-lucide="trending-up" class="w-4 h-4"></i> Profile Ranking: #3 in Delhi
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex bg-gray-100 rounded-sm p-1">
+                    <button class="px-4 py-1.5 bg-white shadow-sm rounded-sm text-xs font-bold text-obsidian">Last 30 Days</button>
+                    <button class="px-4 py-1.5 text-gray-500 hover:text-obsidian text-xs font-bold transition">Last Quarter</button>
+                    <button class="px-4 py-1.5 text-gray-500 hover:text-obsidian text-xs font-bold transition">YTD</button>
+                </div>
+                <button class="bg-white border border-gray-300 text-gray-600 px-4 py-2 rounded-sm text-xs font-bold hover:bg-gray-50 flex items-center gap-2">
+                    <i data-lucide="download" class="w-4 h-4"></i> Report
+                </button>
+            </div>
+        </header>
+
+        <!-- ANALYTICS CONTENT -->
+        <div class="flex-1 overflow-y-auto p-8 custom-scroll">
+            
+            <!-- 1. KPI CARDS -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-6 rounded-sm shadow-sm border-b-4 border-gold">
+                    <div class="flex justify-between items-start mb-2">
+                        <p class="text-xs text-gray-400 uppercase font-bold tracking-widest">Profile Views</p>
+                        <i data-lucide="eye" class="w-5 h-5 text-gold"></i>
+                    </div>
+                    <h4 class="text-3xl font-serif font-bold text-obsidian">1,245</h4>
+                    <p class="text-[10px] text-green-600 mt-1 font-medium flex items-center gap-1">
+                        <i data-lucide="arrow-up-right" class="w-3 h-3"></i> +15% vs last month
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-sm shadow-sm border-b-4 border-obsidian">
+                    <div class="flex justify-between items-start mb-2">
+                        <p class="text-xs text-gray-400 uppercase font-bold tracking-widest">Contact Requests</p>
+                        <i data-lucide="phone-incoming" class="w-5 h-5 text-obsidian"></i>
+                    </div>
+                    <h4 class="text-3xl font-serif font-bold text-obsidian">48</h4>
+                    <p class="text-[10px] text-green-600 mt-1 font-medium flex items-center gap-1">
+                        <i data-lucide="arrow-up-right" class="w-3 h-3"></i> 3.8% Conversion Rate
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-sm shadow-sm border-b-4 border-blue-500">
+                    <div class="flex justify-between items-start mb-2">
+                        <p class="text-xs text-gray-400 uppercase font-bold tracking-widest">Appearances</p>
+                        <i data-lucide="search" class="w-5 h-5 text-blue-500"></i>
+                    </div>
+                    <h4 class="text-3xl font-serif font-bold text-obsidian">5.2k</h4>
+                    <p class="text-[10px] text-gray-500 mt-1">Search Impressions</p>
+                </div>
+                <div class="bg-white p-6 rounded-sm shadow-sm border-b-4 border-green-500">
+                    <div class="flex justify-between items-start mb-2">
+                        <p class="text-xs text-gray-400 uppercase font-bold tracking-widest">Consultation Rev.</p>
+                        <i data-lucide="indian-rupee" class="w-5 h-5 text-green-500"></i>
+                    </div>
+                    <h4 class="text-3xl font-serif font-bold text-obsidian">₹42k</h4>
+                    <p class="text-[10px] text-green-600 mt-1 font-medium flex items-center gap-1">
+                        <i data-lucide="check-circle" class="w-3 h-3"></i> Paid & Settled
+                    </p>
+                </div>
+            </div>
+
+            <!-- 2. CHARTS ROW -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+                
+                <!-- Main Chart: Growth -->
+                <div class="lg:col-span-2 bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                    <div class="flex justify-between items-center mb-6">
+                        <div>
+                            <h3 class="font-serif text-lg font-bold text-obsidian">Lead Generation Growth</h3>
+                            <p class="text-xs text-gray-500">Comparing Views vs. Actual Requests</p>
+                        </div>
+                        <div class="flex items-center gap-3 text-xs">
+                            <div class="flex items-center gap-1"><span class="w-3 h-3 bg-obsidian rounded-full"></span> Views</div>
+                            <div class="flex items-center gap-1"><span class="w-3 h-3 bg-gold rounded-full"></span> Requests</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Placeholder for Chart.js Canvas -->
+                    <div class="h-64 w-full relative">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Secondary Chart: Client Demographics -->
+                <div class="lg:col-span-1 bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                    <h3 class="font-serif text-lg font-bold text-obsidian mb-2">Traffic Source</h3>
+                    <p class="text-xs text-gray-500 mb-6">Which cities are searching for you?</p>
+                    
+                    <div class="h-48 w-full relative flex justify-center">
+                        <canvas id="geoChart"></canvas>
+                    </div>
+
+                    <div class="mt-6 space-y-3">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-gray-600">Delhi NCR</span>
+                            <div class="flex-1 mx-3 h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-obsidian rounded-full w-[65%]"></div></div>
+                            <span class="text-gray-500">65%</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-gray-600">Mumbai</span>
+                            <div class="flex-1 mx-3 h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-gold rounded-full w-[20%]"></div></div>
+                            <span class="text-gray-500">20%</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="font-bold text-gray-600">Others</span>
+                            <div class="flex-1 mx-3 h-1.5 bg-gray-100 rounded-full"><div class="h-full bg-gray-400 rounded-full w-[15%]"></div></div>
+                            <span class="text-gray-500">15%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3. PREMIUM IMPACT & INSIGHTS -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                
+                <!-- Premium Value Prop (ROI) -->
+                <div class="bg-gradient-to-br from-obsidian to-gray-900 p-6 rounded-sm shadow-lg text-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-64 h-64 bg-gold rounded-full opacity-10 -mr-10 -mt-10 pointer-events-none"></div>
+                    
+                    <h3 class="font-serif text-xl font-bold mb-4 relative z-10 flex items-center gap-2">
+                        <i data-lucide="crown" class="text-gold w-6 h-6"></i> Premium ROI Analysis
+                    </h3>
+                    
+                    <div class="grid grid-cols-2 gap-6 relative z-10">
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest mb-1">Gold Badge Impact</p>
+                            <p class="text-2xl font-bold text-white">+42%</p>
+                            <p class="text-[10px] text-gray-400">More clicks than free profiles</p>
+                        </div>
+                        <div>
+                            <p class="text-xs text-gray-400 uppercase tracking-widest mb-1">Search Boost</p>
+                            <p class="text-2xl font-bold text-white">Top 3</p>
+                            <p class="text-[10px] text-gray-400">Average position in Criminal Law</p>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 pt-6 border-t border-gray-800 relative z-10">
+                        <p class="text-sm text-gold font-bold mb-2">💡 AI Recommendation</p>
+                        <p class="text-xs text-gray-300 leading-relaxed">
+                            "Your profile view-to-request conversion is slightly lower than the top 10%. 
+                            Try adding more <strong>Client Testimonials</strong> or detailing your <strong>Case Success Stories</strong> to build higher trust."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Recent Activity Feed -->
+                <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-200">
+                    <h3 class="font-serif text-lg font-bold text-obsidian mb-4">Recent Engagement</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 bg-green-50 rounded text-green-600"><i data-lucide="phone-call" class="w-4 h-4"></i></div>
+                            <div>
+                                <p class="text-sm font-bold text-obsidian">New Callback Request</p>
+                                <p class="text-xs text-gray-500">From Rahul Verma • Criminal Law</p>
+                                <p class="text-[10px] text-gray-400 mt-0.5">10 mins ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 bg-blue-50 rounded text-blue-600"><i data-lucide="eye" class="w-4 h-4"></i></div>
+                            <div>
+                                <p class="text-sm font-bold text-obsidian">Profile Viewed 5 times</p>
+                                <p class="text-xs text-gray-500">High interest from South Delhi region</p>
+                                <p class="text-[10px] text-gray-400 mt-0.5">1 hour ago</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 bg-gold/10 rounded text-gold"><i data-lucide="star" class="w-4 h-4"></i></div>
+                            <div>
+                                <p class="text-sm font-bold text-obsidian">New 5-Star Rating</p>
+                                <p class="text-xs text-gray-500">"Excellent advice regarding property dispute..."</p>
+                                <p class="text-[10px] text-gray-400 mt-0.5">Yesterday</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        lucide.createIcons();
+
+        // Chart.js Initialization
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // 1. Growth Line Chart
+            const ctxGrowth = document.getElementById('growthChart').getContext('2d');
+            new Chart(ctxGrowth, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Profile Views',
+                        data: [120, 150, 180, 170, 210, 240, 200],
+                        borderColor: '#1A1A1A',
+                        backgroundColor: 'rgba(26, 26, 26, 0.05)',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Contact Requests',
+                        data: [5, 8, 12, 10, 15, 18, 14],
+                        borderColor: '#C5A059',
+                        backgroundColor: 'transparent',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        borderDash: [5, 5]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        y: { beginAtZero: true, grid: { display: false } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
+
+            // 2. Geo Doughnut Chart
+            const ctxGeo = document.getElementById('geoChart').getContext('2d');
+            new Chart(ctxGeo, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Delhi', 'Mumbai', 'Others'],
+                    datasets: [{
+                        data: [65, 20, 15],
+                        backgroundColor: ['#1A1A1A', '#C5A059', '#E5E7EB'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: { legend: { display: false } }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

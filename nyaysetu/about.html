@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About NyayaSetu | Our Mission & Values</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        paper: '#F8F9FA',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        charcoal: '#2D2D2D'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-sans text-obsidian bg-paper antialiased flex flex-col min-h-screen">
+
+    <!-- NAVIGATION -->
+    <nav class="bg-obsidian text-white sticky top-0 z-50 border-b border-gray-800">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <!-- Logo -->
+                <div class="flex items-center gap-3 cursor-pointer">
+                    <i data-lucide="scale" class="h-8 w-8 text-gold"></i>
+                    <div class="flex flex-col">
+                        <span class="font-serif text-2xl font-bold tracking-wide text-white">NyayaSetu</span>
+                        <span class="text-[10px] uppercase tracking-widest text-gray-400">The Legal Bridge</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-gold transition">Home</a>
+                    <a href="about.html" class="text-sm font-medium text-gray-300 hover:text-gold transition">About
+                        Us</a>
+                    <a href="news.html" class="text-sm font-medium text-gray-300 hover:text-gold transition">Court
+                        News</a>
+                    <a href="Lawyer.html" class="text-sm font-medium text-gray-300 hover:text-gold transition">Find
+                        Lawyers</a>
+                </div>
+
+                <!-- Auth Buttons -->
+                <div class="hidden md:flex items-center gap-4">
+                    <button class="text-sm font-medium text-white hover:text-gold transition"
+                        onclick="openLoginModal()">Lawyer Login</button>
+                    <button onclick="window.location.href='Lawyer_register.html'"
+                        class="bg-gold hover:bg-goldhover text-white px-5 py-2 rounded-sm text-sm font-semibold transition shadow-md">
+                        Lawyer Sign Up
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden bg-charcoal border-t border-gray-700 p-4">
+            <div class="flex flex-col space-y-4">
+                <a href="index.html" class="text-gray-300 hover:text-gold">Home</a>
+                <a href="about.html" class="text-gray-300 hover:text-gold">About Us</a>
+                <a href="news.html" class="text-gray-300 hover:text-gold">Court News</a>
+                <a href="Lawyer.html" class="text-gray-300 hover:text-gold">Find Lawyers</a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- HERO SECTION: The "Why" -->
+    <div class="relative bg-obsidian text-white py-24 overflow-hidden">
+        <!-- Abstract Background Pattern -->
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <path d="M0 100 C 20 0 50 0 100 100 Z" fill="none" stroke="white" stroke-width="0.5" />
+            </svg>
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10 text-center max-w-4xl">
+            <span class="text-gold font-bold text-xs uppercase tracking-[0.3em] mb-6 block animate-pulse">Our
+                Manifesto</span>
+            <h1 class="font-serif text-5xl md:text-7xl font-bold mb-8 leading-tight">
+                Not a Marketplace. <br />
+                <span class="italic font-light text-gray-300">A Community of <span
+                        class="text-gradient">Trust.</span></span>
+            </h1>
+            <p class="text-xl text-gray-400 font-light leading-relaxed max-w-2xl mx-auto">
+                In a digital world full of noise, finding justice shouldn't feel like shopping online.
+                NyayaSetu restores dignity to the legal profession by connecting genuine seekers
+                with verified experts.
+            </p>
+        </div>
+    </div>
+
+    <!-- TRUST STRIP -->
+    <div class="bg-black py-6 border-b border-gray-800">
+        <div
+            class="container mx-auto px-4 flex flex-wrap justify-center gap-8 md:gap-16 text-gray-400 text-xs font-bold uppercase tracking-widest">
+            <span class="flex items-center gap-2"><i data-lucide="shield-check" class="text-gold w-4 h-4"></i> 100%
+                Verified Lawyers</span>
+            <span class="flex items-center gap-2"><i data-lucide="lock" class="text-gold w-4 h-4"></i> Zero Data
+                Sharing</span>
+            <span class="flex items-center gap-2"><i data-lucide="users" class="text-gold w-4 h-4"></i> 15k+
+                Community</span>
+        </div>
+    </div>
+
+    <!-- THE PROBLEM & SOLUTION -->
+    <section class="py-24 bg-white relative">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+
+                <!-- Image Visual -->
+                <div class="w-full md:w-1/2 relative">
+                    <div class="absolute -top-4 -left-4 w-24 h-24 bg-gold/10 rounded-full blur-xl"></div>
+                    <div class="absolute -bottom-4 -right-4 w-32 h-32 bg-obsidian/5 rounded-full blur-xl"></div>
+                    <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80"
+                        alt="Legal Books"
+                        class="rounded-sm shadow-2xl grayscale hover:grayscale-0 transition duration-700 relative z-10 border-b-4 border-gold">
+                    <div
+                        class="absolute bottom-8 left-8 bg-white p-6 shadow-lg z-20 max-w-xs hidden md:block border-l-4 border-obsidian">
+                        <p class="font-serif text-xl italic text-obsidian">"Justice delayed is justice denied."</p>
+                    </div>
+                </div>
+
+                <!-- Content -->
+                <div class="w-full md:w-1/2 space-y-8">
+                    <div>
+                        <h3 class="font-serif text-3xl font-bold mb-4">The Paradox of Indian Law</h3>
+                        <p class="text-gray-600 leading-loose">
+                            For decades, the Indian legal system has faced a unique challenge.
+                            <strong>Lawyers cannot advertise</strong> due to strict Bar Council regulations, yet
+                            citizens
+                            desperately struggle to find specialized counsel for their specific needs.
+                        </p>
+                    </div>
+
+                    <div class="pl-6 border-l-2 border-gold space-y-4">
+                        <h4 class="font-bold text-lg text-obsidian">The NyayaSetu Way</h4>
+                        <p class="text-gray-600 leading-relaxed">
+                            We built a <strong>Reputation Engine</strong>, not an ad platform.
+                            By enforcing strict verification and a unique scarcity model, we ensure high intent and
+                            respect the dignity of the profession.
+                        </p>
+                        <ul class="space-y-3 mt-4">
+                            <li class="flex items-center gap-3 text-sm text-gray-700">
+                                <i data-lucide="check" class="w-4 h-4 text-gold"></i>
+                                <span>Users get 5 trusted searches per day (Zero Spam).</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-sm text-gray-700">
+                                <i data-lucide="check" class="w-4 h-4 text-gold"></i>
+                                <span>Lawyers get verified leads, preserving their time.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CORE VALUES (Glassmorphism) -->
+    <section class="py-24 bg-paper relative overflow-hidden">
+        <!-- Background Elements -->
+        <div
+            class="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5">
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-gold font-bold text-xs uppercase tracking-widest mb-2 block">Our DNA</span>
+                <h2 class="font-serif text-4xl font-bold text-obsidian">Guiding Principles</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Value 1 -->
+                <div class="glass-card p-8 group hover:-translate-y-2 transition duration-300">
+                    <div
+                        class="w-14 h-14 bg-obsidian text-white rounded-full flex items-center justify-center mb-6 group-hover:bg-gold transition">
+                        <i data-lucide="shield" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3">Integrity First</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">We verify every single profile manually. If a
+                        lawyer isn't registered with the Bar Council, they aren't on NyayaSetu.</p>
+                </div>
+                <!-- Value 2 -->
+                <div class="glass-card p-8 group hover:-translate-y-2 transition duration-300">
+                    <div
+                        class="w-14 h-14 bg-obsidian text-white rounded-full flex items-center justify-center mb-6 group-hover:bg-gold transition">
+                        <i data-lucide="lock" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3">Absolute Privacy</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">Legal matters are sensitive. We use end-to-end
+                        encryption. Your data is never sold, shared, or compromised.</p>
+                </div>
+                <!-- Value 3 -->
+                <div class="glass-card p-8 group hover:-translate-y-2 transition duration-300">
+                    <div
+                        class="w-14 h-14 bg-obsidian text-white rounded-full flex items-center justify-center mb-6 group-hover:bg-gold transition">
+                        <i data-lucide="scale" class="w-6 h-6"></i>
+                    </div>
+                    <h4 class="font-bold text-xl mb-3">Neutrality</h4>
+                    <p class="text-sm text-gray-600 leading-relaxed">We don't "rank" lawyers based on payments.
+                        Discovery is based purely on expertise, location, and verified experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOUNDER SPOTLIGHT -->
+    <section class="py-24 bg-white">
+        <div class="container mx-auto px-4 max-w-5xl">
+            <div class="bg-obsidian rounded-sm p-8 md:p-12 relative overflow-hidden shadow-2xl">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-gold rounded-full blur-3xl opacity-20 -mr-16 -mt-16">
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center gap-12 relative z-10">
+                    <div class="w-32 h-32 md:w-48 md:h-48 flex-shrink-0">
+                        <!-- Placeholder for Founder Image -->
+                        <div
+                            class="w-full h-full bg-gray-800 rounded-full border-4 border-gold flex items-center justify-center text-gold text-4xl font-serif font-bold">
+                            MS
+                        </div>
+                    </div>
+
+                    <div class="text-white text-center md:text-left">
+                        <i data-lucide="quote" class="text-gold w-8 h-8 mb-4 opacity-50 mx-auto md:mx-0"></i>
+                        <h3 class="font-serif text-2xl md:text-3xl leading-relaxed mb-6 italic text-gray-200">
+                            "Technology should remove barriers to justice, not create new ones. We built NyayaSetu to be
+                            the invisible bridge that connects trust with expertise."
+                        </h3>
+                        <div>
+                            <h5 class="font-bold text-gold text-lg">Mohaneesh Sharma</h5>
+                            <p class="text-xs text-gray-500 uppercase tracking-widest mt-1">Lead Product Strategist &
+                                Founder</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GRATITUDE / DEDICATION SECTION -->
+    <section class="py-24 bg-paper relative">
+        <div class="container mx-auto px-4 max-w-4xl text-center">
+
+            <div class="mb-12">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gold/10 text-gold mb-6">
+                    <i data-lucide="heart" class="w-8 h-8 fill-current"></i>
+                </div>
+                <h2 class="font-serif text-4xl font-bold text-obsidian mb-4">A Tribute to Our Inspiration</h2>
+                <p class="text-gray-500 text-sm max-w-lg mx-auto">This platform is not just a business; it is the
+                    fulfillment of a vision passed down by a mentor.</p>
+            </div>
+
+            <div class="bg-white rounded-sm shadow-xl p-8 md:p-12 border-t-4 border-gold relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-gray-100 rounded-full blur-2xl opacity-50 -mr-8 -mt-8">
+                </div>
+
+                <h3 class="font-serif text-3xl font-bold text-obsidian mb-2">Late Sh. Jai Gopal Judeja</h3>
+                <p class="text-xs text-gold font-bold uppercase tracking-widest mb-8">Advocate, Supreme Court of India
+                </p>
+
+                <div class="text-gray-600 leading-loose italic relative z-10">
+                    <p class="mb-4">
+                        "NyayaSetu is dedicated to the memory of my father's dear friend and my mentor, <strong>Mr. Jai
+                            Gopal Judeja</strong>. A distinguished lawyer at the Supreme Court, he possessed a vision
+                        for a digitally connected legal India long before it became a necessity."
+                    </p>
+                    <p>
+                        "During my early days in Delhi, when I was struggling to find my footing, he opened his home to
+                        me. He provided shelter, guidance, and unwavering support without ever accepting a single rupee.
+                        He taught me that the true purpose of law is service. <strong>NyayaSetu is my way of bringing
+                            his dream to life.</strong>"
+                    </p>
+                </div>
+
+                <div class="mt-8 pt-8 border-t border-gray-100 flex justify-center items-center gap-4">
+                    <span class="text-xs font-bold text-gray-400 uppercase tracking-widest">In Memoriam</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA FOOTER STRIP -->
+    <section class="py-20 bg-obsidian text-white text-center border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <h2 class="font-serif text-3xl mb-4">Ready to find the right counsel?</h2>
+            <p class="text-gray-400 mb-8 max-w-lg mx-auto">Join a community of 15,000+ citizens and professionals who
+                prioritize trust over transactions.</p>
+            <button onclick="window.location.href='lawyer.html'"
+                class="bg-gold hover:bg-goldhover text-white font-serif font-bold py-3 px-10 rounded-sm shadow-xl transition transform hover:scale-105">
+                Start Your Search
+            </button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-gray-500 py-8 text-center text-xs border-t border-gray-900 mt-auto">
+        <div class="container mx-auto">
+            <p>&copy; 2025 NyayaSetu Legal Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+
+    <script>
+        lucide.createIcons();
+    </script>

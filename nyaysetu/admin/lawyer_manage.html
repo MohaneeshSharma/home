@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lawyer Management | Admin Console</title>
+    
+    <!-- Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        paper: '#F8F9FA',
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #374151; border-radius: 4px; }
+        
+        /* Sidebar Collapsed State */
+        .sidebar-collapsed .sidebar-text { display: none; }
+        .sidebar-collapsed .group-heading { display: none; }
+        .sidebar-collapsed .sidebar-logo-text { display: none; }
+        .sidebar-collapsed { width: 5rem; }
+        
+        aside { transition: width 0.3s ease; }
+        
+        /* Modal Animation */
+        #profile-modal { transition: opacity 0.3s ease; }
+        #profile-modal.hidden { opacity: 0; pointer-events: none; }
+        #profile-modal:not(.hidden) { opacity: 1; pointer-events: auto; }
+    </style>
+</head>
+<body class="bg-paper font-sans text-obsidian flex h-screen overflow-hidden">
+
+    <!-- ADMIN SIDEBAR -->
+   <aside id="sidebar" class="w-64 bg-obsidian text-white flex flex-col flex-shrink-0 shadow-2xl transition-all duration-300 z-30">
+    <div class="h-16 flex items-center justify-between px-4 border-b border-gray-800">
+        <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
+            <i data-lucide="shield" class="text-gold w-6 h-6 flex-shrink-0"></i>
+            <span class="font-serif font-bold text-lg sidebar-logo-text">NyayaSetu <span class="text-gold text-xs">ADMIN</span></span>
+        </div>
+        <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">
+            <i data-lucide="chevron-left" class="w-5 h-5" id="toggle-icon"></i>
+        </button>
+    </div>
+    
+    <nav class="flex-1 py-4 space-y-1 px-2 custom-scroll overflow-y-auto">
+        
+        <!-- Dashboard -->
+        <a href="home.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="layout-grid" class="w-5 h-5 flex-shrink-0"></i> 
+            <span class="sidebar-text">Master Dashboard</span>
+        </a>
+
+        <!-- User Governance -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">User Governance</div>
+        <a href="lawyer_manage.html" class="flex items-center gap-3 px-3 py-2.5 bg-gold text-obsidian rounded-sm font-bold mb-4" >
+            <i data-lucide="briefcase" class="w-5 h-5 flex-shrink-0 text-gold group-hover:text-white"></i> 
+            <span class="sidebar-text">Lawyer Management</span>
+        </a>
+        <a href="user_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="users" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">User Management</span>
+        </a>
+        <a href="staff_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="user-cog" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Internal Staff</span>
+        </a>
+
+        <!-- Resolution Desk -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Resolution Center</div>
+        <a href="complaint.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0 text-red-400"></i> 
+            <span class="sidebar-text flex-1">Complaints</span>
+            <span class="sidebar-text bg-red-500 text-white text-[10px] px-1.5 rounded-full">5</span>
+        </a>
+        <a href="grivance.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="message-square-warning" class="w-5 h-5 flex-shrink-0 text-orange-400"></i> 
+            <span class="sidebar-text">Grievance Cell</span>
+        </a>
+        <a href="dispute.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="gavel" class="w-5 h-5 flex-shrink-0 text-yellow-400"></i> 
+            <span class="sidebar-text">Dispute Resolution</span>
+        </a>
+
+        <!-- Content & Comms -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Content & Comms</div>
+        <a href="blog_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="file-text" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Blog Manager</span>
+        </a>
+        <a href="E-book_library.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="book" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">E-Books & Library</span>
+        </a>
+        <a href="noticeboard.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="bell" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Notice Board</span>
+        </a>
+
+        <!-- Finance -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Finance</div>
+        <a href="Finance_refund.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="indian-rupee" class="w-5 h-5 flex-shrink-0 text-green-400"></i> 
+            <span class="sidebar-text">Finance & Refunds</span>
+        </a>
+    </nav>
+
+    <!-- Admin User -->
+    <div class="p-4 border-t border-gray-800 bg-gray-900">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-obsidian font-bold text-xs">
+                AD
+            </div>
+            <div class="overflow-hidden sidebar-text">
+                <p class="text-sm font-bold">Admin</p>
+                <p class="text-[10px] text-gray-400">Super User</p>
+            </div>
+        </div>
+    </div>
+</aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col overflow-hidden bg-gray-100">
+        
+        <!-- TOP NAV -->
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shadow-sm">
+            <div class="flex items-center gap-4">
+                <h1 class="font-serif text-xl font-bold text-obsidian">Lawyer Governance</h1>
+                <span class="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded border border-gray-200">Total: 15,240</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="bg-obsidian text-white px-4 py-2 rounded-sm text-xs font-bold hover:bg-black flex items-center gap-2">
+                    <i data-lucide="user-plus" class="w-4 h-4"></i> Add Manual Entry
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA -->
+        <div class="flex-1 overflow-y-auto p-6">
+            
+            <!-- 1. STATS OVERVIEW -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-gold">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Pending Verification</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-obsidian">45</h4>
+                        <span class="text-xs text-orange-600 font-bold bg-orange-50 px-1 rounded">Action Req.</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-green-500">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Verified Partners</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-obsidian">12,800</h4>
+                        <span class="text-xs text-gray-400 font-bold">84% Ratio</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-red-500">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Suspended / Rejected</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-obsidian">142</h4>
+                        <span class="text-xs text-red-600 font-bold bg-red-50 px-1 rounded">+2 this week</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-obsidian">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Premium Subscribers</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-gold">850</h4>
+                        <span class="text-xs text-gray-400 font-bold">₹4.2L ARR</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. FILTERS & SEARCH -->
+            <div class="bg-white p-4 rounded shadow-sm border border-gray-200 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center">
+                <div class="flex gap-4 w-full md:w-auto">
+                    <div class="relative w-full md:w-64">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                        <input type="text" placeholder="Search by Name, BCI ID..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-sm text-sm focus:border-gold outline-none w-full transition">
+                    </div>
+                    <select class="bg-gray-50 border border-gray-300 text-sm px-3 py-2 rounded-sm outline-none focus:border-gold">
+                        <option>Status: All</option>
+                        <option>Pending</option>
+                        <option>Verified</option>
+                        <option>Suspended</option>
+                    </select>
+                </div>
+                <div class="flex gap-2">
+                    <button class="p-2 border border-gray-300 rounded hover:bg-gray-50" title="Filter"><i data-lucide="filter" class="w-4 h-4 text-gray-600"></i></button>
+                    <button class="p-2 border border-gray-300 rounded hover:bg-gray-50" title="Export"><i data-lucide="download" class="w-4 h-4 text-gray-600"></i></button>
+                </div>
+            </div>
+
+            <!-- 3. LAWYER DATA TABLE -->
+            <div class="bg-white rounded shadow-sm border border-gray-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-600">
+                        <thead class="bg-gray-50 text-xs uppercase font-bold text-gray-500 border-b border-gray-200">
+                            <tr>
+                                <th class="px-6 py-4">Advocate Details</th>
+                                <th class="px-6 py-4">Verification</th>
+                                <th class="px-6 py-4">Plan</th>
+                                <th class="px-6 py-4">Stats</th>
+                                <th class="px-6 py-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            
+                            <!-- Row 1: Pending Verification -->
+                            <tr class="hover:bg-orange-50/30 transition bg-orange-50/10 border-l-4 border-l-orange-400 cursor-pointer" onclick="openProfileModal(1)">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center font-bold text-xs">SR</div>
+                                        <div>
+                                            <p class="font-bold text-obsidian">Suman Rao</p>
+                                            <p class="text-xs text-gray-500">Delhi High Court</p>
+                                            <p class="text-[10px] font-mono text-gray-400">BCI: MAH/1992/2024</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-orange-100 text-orange-700 px-2 py-1 rounded-full text-xs font-bold flex items-center w-fit gap-1">
+                                        <i data-lucide="clock" class="w-3 h-3"></i> Pending
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4"><span class="text-xs text-gray-500">Free Tier</span></td>
+                                <td class="px-6 py-4"><p class="text-xs text-gray-500">Joined: 2 hrs ago</p></td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="text-blue-600 hover:underline font-bold text-xs">Review</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2: Premium Verified User -->
+                            <tr class="hover:bg-gray-50 transition cursor-pointer" onclick="openProfileModal(2)">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rajesh" class="w-10 h-10 rounded-full border-2 border-gold">
+                                        <div>
+                                            <p class="font-bold text-obsidian flex items-center gap-1">
+                                                Rajesh Khanna <i data-lucide="crown" class="w-3 h-3 text-gold fill-current"></i>
+                                            </p>
+                                            <p class="text-xs text-gray-500">Supreme Court</p>
+                                            <p class="text-[10px] font-mono text-gray-400">BCI: DL/1234/2005</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-green-50 text-green-700 px-2 py-1 rounded-full text-xs font-bold flex items-center w-fit gap-1">
+                                        <i data-lucide="shield-check" class="w-3 h-3"></i> Verified
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-gold/10 text-gold px-2 py-1 rounded border border-gold/20 text-xs font-bold">Annual Premium</span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="text-xs text-gray-500">45 Cases • 4.9 <i data-lucide="star" class="w-3 h-3 text-gold inline"></i></p>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="p-2 text-gray-400 hover:text-obsidian transition"><i data-lucide="more-horizontal" class="w-4 h-4"></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 3: Regular Verified User -->
+                            <tr class="hover:bg-gray-50 transition cursor-pointer" onclick="openProfileModal(3)">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-xs">AK</div>
+                                        <div>
+                                            <p class="font-bold text-obsidian">Amit Kumar</p>
+                                            <p class="text-xs text-gray-500">District Court, Saket</p>
+                                            <p class="text-[10px] font-mono text-gray-400">BCI: DL/8821/2019</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-green-50 text-green-700 px-2 py-1 rounded-full text-xs font-bold flex items-center w-fit gap-1">
+                                        <i data-lucide="shield-check" class="w-3 h-3"></i> Verified
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4"><span class="text-xs text-gray-500">Free Tier</span></td>
+                                <td class="px-6 py-4">
+                                    <p class="text-xs text-gray-500">2 Cases • 4.2 <i data-lucide="star" class="w-3 h-3 text-gold inline"></i></p>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="p-2 text-gray-400 hover:text-obsidian transition"><i data-lucide="more-horizontal" class="w-4 h-4"></i></button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 4: Suspended User -->
+                            <tr class="hover:bg-red-50/30 transition bg-red-50/10 cursor-pointer" onclick="openProfileModal(4)">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-10 h-10 rounded-full bg-red-100 text-red-600 flex items-center justify-center font-bold text-xs">VJ</div>
+                                        <div>
+                                            <p class="font-bold text-gray-400 line-through">Vikram Joshi</p>
+                                            <p class="text-xs text-red-500 font-bold">Suspended</p>
+                                            <p class="text-[10px] font-mono text-gray-400">BCI: UP/1121/2010</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-bold flex items-center w-fit gap-1">
+                                        <i data-lucide="ban" class="w-3 h-3"></i> Revoked
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4"><span class="text-xs text-gray-400">N/A</span></td>
+                                <td class="px-6 py-4">
+                                    <p class="text-xs text-red-500">3 User Complaints</p>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="text-xs text-blue-600 hover:underline font-bold">View Case</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- PROFILE POPUP MODAL -->
+    <div id="profile-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white w-full max-w-3xl rounded-lg shadow-2xl overflow-hidden transform transition-all scale-100 max-h-[90vh] flex flex-col">
+            
+            <!-- Header -->
+            <div class="bg-obsidian text-white px-6 py-4 flex justify-between items-center flex-shrink-0">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="user-cog" class="text-gold w-5 h-5"></i>
+                    <h3 class="font-serif text-xl font-bold">Manage Advocate Profile</h3>
+                </div>
+                <button onclick="closeProfileModal()" class="text-gray-400 hover:text-white transition"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            
+            <!-- Body -->
+            <div class="p-6 overflow-y-auto custom-scroll flex-1">
+                <div class="flex flex-col md:flex-row gap-8">
+                    
+                    <!-- Left: Identity & Status -->
+                    <div class="w-full md:w-1/3 text-center border-b md:border-b-0 md:border-r border-gray-200 pb-6 md:pb-0 md:pr-6">
+                        <div class="relative inline-block mb-4">
+                            <img id="modal-img" src="" class="w-32 h-32 rounded-full border-4 border-white shadow-lg object-cover bg-gray-100">
+                            <div id="modal-status-badge" class="absolute bottom-1 right-1 p-2 rounded-full border-2 border-white shadow-sm bg-gray-200">
+                                <i data-lucide="help-circle" class="w-4 h-4 text-white"></i>
+                            </div>
+                        </div>
+                        
+                        <h2 id="modal-name" class="text-2xl font-serif font-bold text-obsidian"></h2>
+                        <p id="modal-court" class="text-sm text-gray-500 mb-6"></p>
+                        
+                        <div class="bg-gray-50 rounded p-4 text-left space-y-3 text-sm border border-gray-100">
+                            <div class="flex justify-between border-b border-gray-200 pb-2">
+                                <span class="text-gray-500">BCI ID</span>
+                                <span id="modal-bci" class="font-mono font-bold text-obsidian"></span>
+                            </div>
+                            <div class="flex justify-between border-b border-gray-200 pb-2">
+                                <span class="text-gray-500">Experience</span>
+                                <span id="modal-exp" class="font-bold text-obsidian"></span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-gray-500">Current Plan</span>
+                                <span id="modal-plan" class="font-bold"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Details & Stats -->
+                    <div class="w-full md:w-2/3 space-y-6">
+                        
+                        <!-- Quick Stats -->
+                        <div class="grid grid-cols-3 gap-4">
+                            <div class="bg-white border border-gray-200 p-4 rounded shadow-sm text-center">
+                                <span id="modal-cases" class="block text-xl font-bold text-obsidian"></span>
+                                <span class="text-[10px] text-gray-500 uppercase tracking-wide">Cases</span>
+                            </div>
+                            <div class="bg-white border border-gray-200 p-4 rounded shadow-sm text-center">
+                                <span id="modal-rating" class="block text-xl font-bold text-obsidian"></span>
+                                <span class="text-[10px] text-gray-500 uppercase tracking-wide">Rating</span>
+                            </div>
+                            <div class="bg-white border border-gray-200 p-4 rounded shadow-sm text-center">
+                                <span id="modal-joined" class="block text-xl font-bold text-obsidian"></span>
+                                <span class="text-[10px] text-gray-500 uppercase tracking-wide">Joined</span>
+                            </div>
+                        </div>
+
+                        <!-- Tabs -->
+                        <div class="border-b border-gray-200 flex gap-6 text-sm font-bold text-gray-500">
+                            <button class="text-obsidian border-b-2 border-gold pb-2 px-1">Contact Info</button>
+                            <button class="hover:text-obsidian pb-2 px-1 transition">Documents</button>
+                            <button class="hover:text-obsidian pb-2 px-1 transition">History</button>
+                        </div>
+
+                        <!-- Contact Grid -->
+                        <div class="space-y-4">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="text-xs font-bold text-gray-400 uppercase block mb-1">Email Address</label>
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="mail" class="w-4 h-4 text-gray-400"></i>
+                                        <p id="modal-email" class="text-sm text-obsidian font-medium truncate"></p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label class="text-xs font-bold text-gray-400 uppercase block mb-1">Phone Number</label>
+                                    <div class="flex items-center gap-2">
+                                        <i data-lucide="phone" class="w-4 h-4 text-gray-400"></i>
+                                        <p id="modal-phone" class="text-sm text-obsidian font-medium"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-gray-400 uppercase block mb-1">Specializations</label>
+                                <div id="modal-tags" class="flex flex-wrap gap-2 mt-2">
+                                    <!-- Tags injected via JS -->
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Admin Note -->
+                        <div class="bg-yellow-50 border border-yellow-100 p-3 rounded text-xs text-yellow-800">
+                            <strong>Admin Note:</strong> <span id="modal-note">No active warnings.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Actions -->
+            <div class="bg-gray-50 px-6 py-4 border-t border-gray-200 flex justify-between items-center flex-shrink-0">
+                <button class="text-red-600 text-sm font-bold hover:underline flex items-center gap-2">
+                    <i data-lucide="ban" class="w-4 h-4"></i> Suspend Account
+                </button>
+                <div class="flex gap-3">
+                    <button onclick="closeProfileModal()" class="px-4 py-2 border border-gray-300 bg-white rounded text-sm font-bold hover:bg-gray-50 transition">Cancel</button>
+                    <button class="px-4 py-2 bg-obsidian text-white rounded text-sm font-bold hover:bg-black flex items-center gap-2 transition shadow-md">
+                        <i data-lucide="edit-3" class="w-4 h-4"></i> Edit Profile
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        lucide.createIcons();
+
+        // Mock Data Store
+        const lawyers = {
+            1: {
+                name: "Suman Rao",
+                court: "Delhi High Court",
+                bci: "MAH/1992/2024",
+                exp: "2 Years",
+                plan: "Free Tier",
+                cases: "0",
+                rating: "N/A",
+                joined: "2 hrs ago",
+                email: "suman.r@example.com",
+                phone: "+91 98765 43210",
+                tags: ["Civil", "Family"],
+                img: "https://ui-avatars.com/api/?name=Suman+Rao&background=ffedd5&color=c2410c",
+                status: "pending",
+                note: "Pending verification of ID proof."
+            },
+            2: {
+                name: "Rajesh Khanna",
+                court: "Supreme Court of India",
+                bci: "DL/1234/2005",
+                exp: "22 Years",
+                plan: "Annual Premium",
+                cases: "450+",
+                rating: "4.9",
+                joined: "Jan 2024",
+                email: "adv.rajesh@nyayasetu.com",
+                phone: "+91 99887 76655",
+                tags: ["Criminal", "Constitutional", "White Collar"],
+                img: "https://api.dicebear.com/7.x/avataaars/svg?seed=Rajesh&clothingType=BlazerShirt",
+                status: "verified",
+                note: "Premium partner. Top 3 search result in Delhi."
+            },
+            3: {
+                name: "Amit Kumar",
+                court: "District Court, Saket",
+                bci: "DL/8821/2019",
+                exp: "6 Years",
+                plan: "Free Tier",
+                cases: "12",
+                rating: "4.2",
+                joined: "Mar 2025",
+                email: "amit.k_law@gmail.com",
+                phone: "+91 88776 65544",
+                tags: ["Civil", "Property"],
+                img: "https://ui-avatars.com/api/?name=Amit+Kumar&background=e5e7eb&color=374151",
+                status: "verified",
+                note: "Regular user. No issues."
+            },
+            4: {
+                name: "Vikram Joshi",
+                court: "Allahabad High Court",
+                bci: "UP/1121/2010",
+                exp: "15 Years",
+                plan: "Suspended",
+                cases: "N/A",
+                rating: "1.5",
+                joined: "Dec 2023",
+                email: "vikram.lawyer@yahoo.com",
+                phone: "+91 77665 54433",
+                tags: ["Criminal"],
+                img: "https://ui-avatars.com/api/?name=Vikram+Joshi&background=fee2e2&color=dc2626",
+                status: "suspended",
+                note: "Suspended due to 3 separate user complaints regarding fees."
+            }
+        };
+
+        function openProfileModal(id) {
+            const data = lawyers[id];
+            if(!data) return;
+
+            // Populate Fields
+            document.getElementById('modal-img').src = data.img;
+            document.getElementById('modal-name').innerText = data.name;
+            document.getElementById('modal-court').innerText = data.court;
+            document.getElementById('modal-bci').innerText = data.bci;
+            document.getElementById('modal-exp').innerText = data.exp;
+            document.getElementById('modal-plan').innerText = data.plan;
+            
+            document.getElementById('modal-cases').innerText = data.cases;
+            document.getElementById('modal-rating').innerText = data.rating;
+            document.getElementById('modal-joined').innerText = data.joined;
+            
+            document.getElementById('modal-email').innerText = data.email;
+            document.getElementById('modal-phone').innerText = data.phone;
+            document.getElementById('modal-note').innerText = data.note;
+
+            // Status Styling
+            const badge = document.getElementById('modal-status-badge');
+            const planText = document.getElementById('modal-plan');
+            
+            badge.className = "absolute bottom-1 right-1 p-2 rounded-full border-2 border-white shadow-sm"; // Reset
+            planText.className = "font-bold"; // Reset
+
+            if(data.status === 'verified') {
+                badge.classList.add('bg-green-500', 'text-white');
+                badge.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                if(data.plan.includes('Premium')) planText.classList.add('text-gold');
+                else planText.classList.add('text-green-600');
+            } else if(data.status === 'pending') {
+                badge.classList.add('bg-orange-500', 'text-white');
+                badge.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>';
+                planText.classList.add('text-orange-600');
+            } else if(data.status === 'suspended') {
+                badge.classList.add('bg-red-500', 'text-white');
+                badge.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>';
+                planText.classList.add('text-red-600');
+            }
+
+            // Tags
+            const tagContainer = document.getElementById('modal-tags');
+            tagContainer.innerHTML = '';
+            data.tags.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = "bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded border border-gray-200";
+                span.innerText = tag;
+                tagContainer.appendChild(span);
+            });
+
+            // Show Modal
+            document.getElementById('profile-modal').classList.remove('hidden');
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profile-modal').classList.add('hidden');
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const icon = document.getElementById('toggle-icon');
+            
+            sidebar.classList.toggle('sidebar-collapsed');
+            
+            if (sidebar.classList.contains('sidebar-collapsed')) {
+                icon.classList.remove('rotate-0');
+                icon.classList.add('rotate-180');
+                sidebar.classList.remove('w-64');
+            } else {
+                icon.classList.remove('rotate-180');
+                icon.classList.add('rotate-0');
+                sidebar.classList.add('w-64');
+            }
+        }
+    </script>
+</body>
+</html>

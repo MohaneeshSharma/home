@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Activity | NyayaSetu</title>
+    
+    <!-- Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        paper: '#F8F9FA',
+                        success: '#10B981'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-paper font-sans text-obsidian">
+
+    <!-- SIMPLE HEADER -->
+    <nav class="bg-white border-b border-gray-200 py-4 sticky top-0 z-20">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-2">
+                <i data-lucide="scale" class="h-6 w-6 text-gold"></i>
+                <span class="font-serif text-xl font-bold">NyayaSetu</span>
+            </a>
+            <div class="flex items-center gap-4">
+                <a href="search.html" class="text-sm font-bold text-gold hover:underline">+ Find Lawyer</a>
+                <div class="h-6 w-px bg-gray-200"></div>
+                <button class="text-sm text-gray-500 hover:text-obsidian">Log Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mx-auto px-4 py-8 max-w-4xl">
+        
+        <!-- 1. CONNECT LIMIT STATUS (The New Scarcity Hook) -->
+        <div class="bg-gradient-to-r from-obsidian to-gray-900 rounded-sm shadow-lg p-6 mb-8 text-white flex flex-col md:flex-row justify-between items-center gap-4">
+            <div>
+                <h2 class="font-serif text-2xl font-bold mb-1">Welcome,</h2>
+                <p class="text-sm text-gray-400">Daily connection status</p>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <div class="text-center">
+                    <span class="block text-3xl font-bold text-gold">2</span>
+                    <span class="text-[10px] uppercase tracking-wider text-gray-400">Connects Left</span>
+                </div>
+                <div class="h-8 w-px bg-gray-700"></div>
+                <div class="text-center">
+                    <span class="block text-3xl font-bold text-white">1</span>
+                    <span class="text-[10px] uppercase tracking-wider text-gray-400">Active Case</span>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="font-serif text-xl font-bold mb-4 flex items-center gap-2">
+            <i data-lucide="inbox" class="text-gold w-5 h-5"></i> My Requests
+        </h3>
+
+        <!-- 2. THE INTERACTION LIST -->
+        <div class="space-y-4">
+
+            <!-- CARD 1: PENDING REQUEST -->
+            <div class="bg-white border border-gray-200 rounded-sm p-6 shadow-sm">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex gap-4">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Priya" class="w-12 h-12 rounded-full bg-gray-100">
+                        <div>
+                            <h4 class="font-bold text-lg text-obsidian">Adv. Priya Sharma</h4>
+                            <p class="text-sm text-gray-500">Family Law • Mumbai</p>
+                        </div>
+                    </div>
+                    <span class="bg-yellow-50 text-yellow-700 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 border border-yellow-100">
+                        <i data-lucide="clock" class="w-3 h-3"></i> Awaiting Response
+                    </span>
+                </div>
+                <div class="bg-gray-50 p-3 rounded-sm text-sm text-gray-600 mb-4">
+                    <span class="font-bold text-xs text-gray-400 uppercase block mb-1">Your Query:</span>
+                    "I need advice regarding a mutual consent divorce petition..."
+                </div>
+                <div class="flex justify-end">
+                    <button class="text-xs text-red-500 font-bold hover:underline">Cancel Request</button>
+                </div>
+            </div>
+
+            <!-- CARD 2: ACTIVE CASE -->
+            <div class="bg-white border-l-4 border-gold rounded-sm p-6 shadow-md">
+                <div class="flex justify-between items-start mb-4">
+                    <div class="flex gap-4">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rajesh" class="w-12 h-12 rounded-full bg-gray-100 border-2 border-gold">
+                        <div>
+                            <h4 class="font-bold text-lg text-obsidian">Adv. Rajesh Khanna</h4>
+                            <p class="text-sm text-gray-500">Criminal Defense • Supreme Court</p>
+                        </div>
+                    </div>
+                    <span class="bg-green-50 text-green-700 px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1 border border-green-100">
+                        <i data-lucide="message-circle" class="w-3 h-3"></i> Connected
+                    </span>
+                </div>
+
+                <!-- Action Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="border-2 border-dashed border-gray-200 rounded-sm p-4 text-center hover:border-gold hover:bg-gold/5 transition cursor-pointer">
+                        <i data-lucide="upload-cloud" class="w-6 h-6 text-gray-400 mx-auto mb-2"></i>
+                        <p class="text-xs font-bold text-obsidian">Upload Case Documents</p>
+                        <p class="text-[10px] text-gray-400">PDF, JPG (Max 5MB)</p>
+                    </div>
+                    
+                    <div class="bg-blue-50 border border-blue-100 rounded-sm p-4">
+                        <p class="text-xs font-bold text-blue-800 uppercase mb-1">Next Step</p>
+                        <p class="text-sm text-blue-900 font-medium flex items-center gap-2">
+                            <i data-lucide="video" class="w-4 h-4"></i> Consultation Call
+                        </p>
+                        <p class="text-xs text-blue-700 mt-1">Today, 4:00 PM</p>
+                        <button class="mt-2 w-full bg-blue-600 text-white text-xs font-bold py-1.5 rounded-sm hover:bg-blue-700">Join Link</button>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center pt-4 border-t border-gray-100">
+                    <div class="text-xs text-gray-400">Case ID: #CASE-8821</div>
+                    <div class="flex gap-4">
+                        <button class="text-xs text-obsidian font-bold flex items-center gap-1 hover:text-gold"><i data-lucide="star" class="w-3 h-3"></i> Rate Lawyer</button>
+                        <button class="text-xs text-obsidian font-bold flex items-center gap-1 hover:text-gold"><i data-lucide="message-square" class="w-3 h-3"></i> Chat</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

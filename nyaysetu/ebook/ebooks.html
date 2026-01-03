@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Book Library | NyayaSetu</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        paper: '#F8F9FA',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        charcoal: '#2D2D2D'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            border-color: #C5A059;
+        }
+
+        /* Book Cover Generator */
+        .book-cover {
+            box-shadow: -5px 5px 10px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .book-cover::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 10px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.2), rgba(0, 0, 0, 0.1));
+            z-index: 10;
+        }
+
+        .glass-card:hover .book-cover {
+            transform: scale(1.05) rotate(-2deg);
+        }
+    </style>
+</head>
+
+<body class="font-sans text-obsidian bg-paper antialiased flex flex-col min-h-screen">
+
+    <!-- DYNAMIC HEADER -->
+    <div id="header-placeholder"></div>
+
+    <!-- HERO SECTION -->
+    <div class="relative bg-obsidian text-white py-20 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]">
+        </div>
+
+        <div class="container mx-auto px-4 relative z-10 flex flex-col md:flex-row items-center gap-12">
+            <div class="flex-1 text-center md:text-left">
+                <span class="text-gold font-bold text-xs uppercase tracking-[0.2em] mb-4 block">Knowledge Vault</span>
+                <h1 class="font-serif text-4xl md:text-5xl font-bold mb-6 leading-tight">
+                    Legal Wisdom,<br /> <span class="italic font-light text-gray-300">Digitized.</span>
+                </h1>
+                <p class="text-lg text-gray-400 font-light leading-relaxed max-w-xl">
+                    Access our curated collection of legal texts, from the Constitution to modern criminal law reforms.
+                    Free for all citizens.
+                </p>
+            </div>
+
+            <!-- Hero Book Display -->
+            <div class="w-full md:w-1/3 flex justify-center">
+                <div
+                    class="relative w-48 h-72 bg-gradient-to-br from-gold to-yellow-700 rounded-r-md rounded-l-sm book-cover flex flex-col items-center justify-center p-4 text-center shadow-2xl">
+                    <div class="border-2 border-white/30 p-2 w-full h-full flex flex-col justify-center">
+                        <span class="text-[10px] text-white/80 uppercase tracking-widest mt-2">Premium Edition</span>
+                        <h3 class="font-serif text-2xl font-bold text-white leading-tight">
+                            Bharatiya<br />Nyaya<br />Sanhita</h3>
+                        <div class="text-white/80">
+                            <i data-lucide="scale" class="w-8 h-8 mx-auto mb-2"></i>
+                            <span class="text-[10px] uppercase">2025 Reform</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- LIBRARY GRID -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+
+            <div class="flex justify-between items-center mb-10 border-b border-gray-200 pb-4">
+                <h2 class="font-serif text-2xl font-bold text-obsidian flex items-center gap-2">
+                    <i data-lucide="library" class="text-gold w-6 h-6"></i> Featured Collection
+                </h2>
+                <div class="flex gap-2">
+                    <button class="px-4 py-2 bg-obsidian text-white text-xs font-bold rounded-sm shadow-md">All
+                        Books</button>
+                    <button
+                        class="px-4 py-2 bg-white border border-gray-300 text-gray-600 text-xs font-bold rounded-sm hover:border-gold hover:text-gold transition">Constitutional</button>
+                    <button
+                        class="px-4 py-2 bg-white border border-gray-300 text-gray-600 text-xs font-bold rounded-sm hover:border-gold hover:text-gold transition">Criminal</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Book 1: Bharat ka samvidhan -->
+                <div class="glass-card rounded-sm p-6 flex flex-col h-full group">
+                    <div class="flex gap-6 mb-6">
+                        <!-- Cover -->
+                        <div
+                            class="w-28 h-40 bg-gradient-to-br from-orange-700 to-orange-900 rounded-r-md rounded-l-sm book-cover flex-shrink-0 flex items-center justify-center p-2 text-center text-white">
+                            <div class="border border-white/20 w-full h-full flex flex-col justify-center">
+                                <h4 class="font-serif font-bold text-lg leading-tight">भारत का<br />संविधान</h4>
+                                <span class="text-[8px] mt-2 opacity-80">Hindi Edition</span>
+                            </div>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="flex-1">
+                            <span
+                                class="text-[10px] font-bold text-gold uppercase tracking-wide mb-1 block">Constitutional
+                                Law</span>
+                            <h3 class="font-serif text-xl font-bold text-obsidian mb-2 leading-tight">Bharat ka
+                                samvidhan</h3>
+                            <p class="text-xs text-gray-500 line-clamp-3 mb-3">
+                                The supreme law of India, laying down the framework of fundamental political code,
+                                structure, procedures, powers, and duties of government institutions.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Stats & Action -->
+                    <div class="mt-auto pt-4 border-t border-gray-100">
+                        <div class="flex justify-between items-end mb-2">
+                            <span class="text-xs font-bold text-gray-400 uppercase">Avg. Completion</span>
+                            <span class="text-sm font-bold text-green-600">85%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-gray-100 rounded-full mb-4 overflow-hidden">
+                            <div class="h-full bg-green-500 w-[85%] rounded-full"></div>
+                        </div>
+
+                        <!-- UPDATED BUTTON LINK -->
+                        <button onclick="openBook('Bharat_ka_samvidhan.epub')"
+                            class="w-full bg-obsidian text-white py-3 rounded-sm font-bold text-sm hover:bg-gold hover:text-white transition flex items-center justify-center gap-2">
+                            <i data-lucide="book-open" class="w-4 h-4"></i> Read E-Book
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Book 2: Criminal Law -->
+                <div class="glass-card rounded-sm p-6 flex flex-col h-full group">
+                    <div class="flex gap-6 mb-6">
+                        <!-- Cover -->
+                        <div
+                            class="w-28 h-40 bg-gradient-to-br from-red-800 to-red-950 rounded-r-md rounded-l-sm book-cover flex-shrink-0 flex items-center justify-center p-2 text-center text-white">
+                            <div class="border border-white/20 w-full h-full flex flex-col justify-center">
+                                <h4 class="font-serif font-bold text-lg">Criminal<br />Law</h4>
+                                <i data-lucide="gavel" class="w-5 h-5 mx-auto mt-2 opacity-80"></i>
+                            </div>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="flex-1">
+                            <span class="text-[10px] font-bold text-gold uppercase tracking-wide mb-1 block"> penal
+                                Code</span>
+                            <h3 class="font-serif text-xl font-bold text-obsidian mb-2 leading-tight">Indian Criminal
+                                Law</h3>
+                            <p class="text-xs text-gray-500 line-clamp-3 mb-3">
+                                A comprehensive guide to the Indian Penal Code (IPC) and the emerging Bharatiya Nyaya
+                                Sanhita (BNS) reforms for modern practitioners.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Stats & Action -->
+                    <div class="mt-auto pt-4 border-t border-gray-100">
+                        <div class="flex justify-between items-end mb-2">
+                            <span class="text-xs font-bold text-gray-400 uppercase">Avg. Completion</span>
+                            <span class="text-sm font-bold text-gold">62%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-gray-100 rounded-full mb-4 overflow-hidden">
+                            <div class="h-full bg-gold w-[62%] rounded-full"></div>
+                        </div>
+
+                        <button onclick="window.location.href='read.html?book=Bharat_ka_samvidhan.epub'"
+                            class="w-full bg-obsidian text-white py-3 rounded-sm font-bold text-sm hover:bg-gold hover:text-white transition flex items-center justify-center gap-2">
+                            <i data-lucide="book-open" class="w-4 h-4"></i> Read E-Book
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Book 3: Basic Concepts -->
+                <div class="glass-card rounded-sm p-6 flex flex-col h-full group">
+                    <div class="flex gap-6 mb-6">
+                        <!-- Cover -->
+                        <div
+                            class="w-28 h-40 bg-gradient-to-br from-blue-800 to-slate-900 rounded-r-md rounded-l-sm book-cover flex-shrink-0 flex items-center justify-center p-2 text-center text-white">
+                            <div class="border border-white/20 w-full h-full flex flex-col justify-center">
+                                <h4 class="font-serif font-bold text-lg">Basic<br />Concepts</h4>
+                                <span class="text-[8px] mt-2 opacity-80">Of Criminal Law</span>
+                            </div>
+                        </div>
+
+                        <!-- Info -->
+                        <div class="flex-1">
+                            <span class="text-[10px] font-bold text-gold uppercase tracking-wide mb-1 block">For
+                                Beginners</span>
+                            <h3 class="font-serif text-xl font-bold text-obsidian mb-2 leading-tight">Basic Concepts of
+                                Criminal Law</h3>
+                            <p class="text-xs text-gray-500 line-clamp-3 mb-3">
+                                A primer on the fundamental principles of criminal liability, mens rea, actus reus, and
+                                general exceptions for law students.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Stats & Action -->
+                    <div class="mt-auto pt-4 border-t border-gray-100">
+                        <div class="flex justify-between items-end mb-2">
+                            <span class="text-xs font-bold text-gray-400 uppercase">Avg. Completion</span>
+                            <span class="text-sm font-bold text-blue-600">94%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-gray-100 rounded-full mb-4 overflow-hidden">
+                            <div class="h-full bg-blue-500 w-[94%] rounded-full"></div>
+                        </div>
+
+                        <button onclick="window.location.href='read.html?book=E-book/Basic_Concepts.epub'"
+                            class="w-full bg-obsidian text-white py-3 rounded-sm font-bold text-sm hover:bg-gold hover:text-white transition flex items-center justify-center gap-2">
+                            <i data-lucide="book-open" class="w-4 h-4"></i> Read E-Book
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black text-gray-500 py-8 text-center text-xs border-t border-gray-900 mt-auto">
+        <div class="container mx-auto">
+            <p>&copy; 2025 NyayaSetu Legal Services. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="components.js"></script>
+    <script>
+        lucide.createIcons();
+
+
+        function openBook(fileName) {
+            window.location.href = `reader.html?book=${encodeURIComponent(fileName)}`;
+        }
+
+    </script>
+</body>
+
+</html>

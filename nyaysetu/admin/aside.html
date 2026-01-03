@@ -1,0 +1,159 @@
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Admin Console | NyayaSetu</title>
+    
+    <!-- Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        paper: '#F8F9FA',
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #374151; border-radius: 4px; }
+        
+        /* Sidebar Collapsed State */
+        .sidebar-collapsed .sidebar-text { display: none; }
+        .sidebar-collapsed .group-heading { display: none; }
+        .sidebar-collapsed .sidebar-logo-text { display: none; }
+        .sidebar-collapsed { width: 5rem; }
+        
+        aside { transition: width 0.3s ease; }
+    </style>
+</head>
+  
+  
+  <!-- ADMIN SIDEBAR -->
+  <aside id="sidebar" class="w-64 bg-obsidian text-white flex flex-col flex-shrink-0 shadow-2xl transition-all duration-300 z-30">
+    <div class="h-16 flex items-center justify-between px-4 border-b border-gray-800">
+        <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
+            <i data-lucide="shield" class="text-gold w-6 h-6 flex-shrink-0"></i>
+            <span class="font-serif font-bold text-lg sidebar-logo-text">NyayaSetu <span class="text-gold text-xs">ADMIN</span></span>
+        </div>
+        <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">
+            <i data-lucide="chevron-left" class="w-5 h-5" id="toggle-icon"></i>
+        </button>
+    </div>
+    
+    <nav class="flex-1 py-4 space-y-1 px-2 custom-scroll overflow-y-auto">
+        
+        <!-- Dashboard -->
+         <a href="admin_dashboard.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="layout-grid" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+                <span class="sidebar-text">Master Dashboard</span>
+            </a>
+        <!-- User Governance -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">User Governance</div>
+        <a href="lawyer_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="briefcase" class="w-5 h-5 flex-shrink-0 text-gold group-hover:text-white"></i> 
+            <span class="sidebar-text">Lawyer Management</span>
+        </a>
+        <a href="user_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="users" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">User Management</span>
+        </a>
+        <a href="staff_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="user-cog" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Internal Staff</span>
+        </a>
+
+        <!-- Resolution Desk -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Resolution Center</div>
+       <a href="#" class="flex items-center gap-3 px-3 py-2.5 bg-gold text-obsidian rounded-sm font-bold">
+                <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0"></i> 
+                <span class="sidebar-text flex-1">Complaints</span>
+                <span class="sidebar-text bg-red-500 text-white text-[10px] px-1.5 rounded-full">5</span>
+            </a>
+        <a href="grivance.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="message-square-warning" class="w-5 h-5 flex-shrink-0 text-orange-400"></i> 
+            <span class="sidebar-text">Grievance Cell</span>
+        </a>
+        <a href="dispute.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="gavel" class="w-5 h-5 flex-shrink-0 text-yellow-400"></i> 
+            <span class="sidebar-text">Dispute Resolution</span>
+        </a>
+
+        <!-- Content & Comms -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Content & Comms</div>
+        <a href="blog_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="file-text" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Blog Manager</span>
+        </a>
+        <a href="E-book_library.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="book" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">E-Books & Library</span>
+        </a>
+        <a href="noticeboard.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="bell" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Notice Board</span>
+        </a>
+
+        <!-- Finance -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Finance</div>
+        <a href="Finance_refund.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="indian-rupee" class="w-5 h-5 flex-shrink-0 text-green-400"></i> 
+            <span class="sidebar-text">Finance & Refunds</span>
+        </a>
+    </nav>
+
+    <!-- Admin User -->
+    <div class="p-4 border-t border-gray-800 bg-gray-900">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-obsidian font-bold text-xs">
+                AD
+            </div>
+            <div class="overflow-hidden sidebar-text">
+                <p class="text-sm font-bold">Admin</p>
+                <p class="text-[10px] text-gray-400">Super User</p>
+            </div>
+        </div>
+    </div>
+</aside>
+
+
+  <script>
+        lucide.createIcons();
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const icon = document.getElementById('toggle-icon');
+            
+            sidebar.classList.toggle('sidebar-collapsed');
+            
+            // Rotate Icon
+            if (sidebar.classList.contains('sidebar-collapsed')) {
+                icon.classList.remove('rotate-0');
+                icon.classList.add('rotate-180');
+                sidebar.classList.remove('w-64');
+            } else {
+                icon.classList.remove('rotate-180');
+                icon.classList.add('rotate-0');
+                sidebar.classList.add('w-64');
+            }
+        }
+    </script>
+</body>
+</html>

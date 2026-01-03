@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upgrade to Partner Premium | NyayaSetu</title>
+    
+    <!-- Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        paper: '#F8F9FA',
+                        success: '#10B981'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .ribbon {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+        }
+        .ribbon::before {
+            content: 'BEST VALUE';
+            position: absolute;
+            width: 150%;
+            height: 30px;
+            background: #C5A059;
+            transform: rotate(45deg) translateY(-20px) translateX(25px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 10px;
+            box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body class="bg-paper font-sans text-obsidian antialiased">
+
+    <!-- HEADER (Simplified for Checkout Flow) -->
+    <nav class="bg-white border-b border-gray-200 py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <i data-lucide="scale" class="h-6 w-6 text-gold"></i>
+                <span class="font-serif text-xl font-bold">NyayaSetu <span class="text-gold">Premium</span></span>
+            </div>
+            <a href="free_lawyer_dashboard.html" class="text-sm text-gray-500 hover:text-obsidian flex items-center gap-1">
+                <i data-lucide="x" class="w-4 h-4"></i> Close
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <div class="bg-obsidian text-white py-16 text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <span class="bg-gold/20 text-gold text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-gold/30 mb-4 inline-block">
+                Limited Time Offer
+            </span>
+            <h1 class="font-serif text-3xl md:text-5xl font-bold mb-4">Invest in Your Practice</h1>
+            <p class="text-gray-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+                Unlock premium tools, stand out in search results, and manage your clients effortlessly. 
+                Join the top 1% of digital advocates today.
+            </p>
+            
+            <!-- Trust Signals -->
+            <div class="flex justify-center gap-6 mt-8 text-xs text-gray-400">
+                <div class="flex items-center gap-2"><i data-lucide="check-circle" class="text-gold w-4 h-4"></i> 1 Month Free Trial</div>
+                <div class="flex items-center gap-2"><i data-lucide="shield-check" class="text-gold w-4 h-4"></i> Conditional Money Back*</div>
+                <div class="flex items-center gap-2"><i data-lucide="lock" class="text-gold w-4 h-4"></i> Cancel Anytime</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRICING CARDS -->
+    <div class="container mx-auto px-4 -mt-10 pb-16 relative z-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <!-- PLAN 1: MONTHLY -->
+            <div class="bg-white rounded-sm shadow-lg border border-gray-100 p-6 hover:border-gold transition-colors group relative">
+                <h3 class="font-bold text-gray-500 text-sm uppercase tracking-wider mb-2">Starter</h3>
+                <div class="flex items-end gap-2 mb-4">
+                    <span class="text-3xl font-serif font-bold text-obsidian">₹199</span>
+                    <span class="text-sm text-gray-400 line-through mb-1">₹499</span>
+                    <span class="text-xs text-gray-500 mb-1">/mo</span>
+                </div>
+                <p class="text-xs text-gray-500 mb-6 min-h-[40px]">Good for trying out the platform features.</p>
+                
+                <button class="w-full border border-obsidian text-obsidian font-bold py-2 rounded-sm hover:bg-obsidian hover:text-white transition mb-6">Select Monthly</button>
+                
+                <ul class="space-y-3 text-xs text-gray-600">
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Basic Profile Listing</li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Verified Badge (ID Required)</li>
+                    <li class="flex gap-2 opacity-50"><i data-lucide="x" class="w-4 h-4 text-gray-400"></i> No Client Management</li>
+                    <li class="flex gap-2 opacity-50"><i data-lucide="x" class="w-4 h-4 text-gray-400"></i> Standard Visibility</li>
+                </ul>
+            </div>
+
+            <!-- PLAN 2: QUARTERLY -->
+            <div class="bg-white rounded-sm shadow-lg border border-gray-100 p-6 hover:border-gold transition-colors group">
+                <h3 class="font-bold text-gray-500 text-sm uppercase tracking-wider mb-2">Quarterly</h3>
+                <div class="flex items-end gap-2 mb-4">
+                    <span class="text-3xl font-serif font-bold text-obsidian">₹499</span>
+                    <span class="text-sm text-gray-400 line-through mb-1">₹999</span>
+                    <span class="text-xs text-gray-500 mb-1">/3mo</span>
+                </div>
+                <p class="text-xs text-gray-500 mb-6 min-h-[40px]">Save 50% compared to monthly billing.</p>
+                
+                <button class="w-full border border-obsidian text-obsidian font-bold py-2 rounded-sm hover:bg-obsidian hover:text-white transition mb-6">Select Quarterly</button>
+                
+                <ul class="space-y-3 text-xs text-gray-600">
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> All Starter Features</li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> <strong>Client Management</strong></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Schedule Appointments</li>
+                    <li class="flex gap-2 opacity-50"><i data-lucide="x" class="w-4 h-4 text-gray-400"></i> Standard Visibility</li>
+                </ul>
+            </div>
+
+            <!-- PLAN 3: ANNUAL (HERO) -->
+            <div class="bg-white rounded-sm shadow-2xl border-2 border-gold p-6 relative transform md:-translate-y-4">
+                <div class="ribbon"></div>
+                <h3 class="font-bold text-gold text-sm uppercase tracking-wider mb-2">Professional</h3>
+                <div class="flex items-end gap-2 mb-4">
+                    <span class="text-4xl font-serif font-bold text-obsidian">₹1499</span>
+                    <span class="text-sm text-gray-400 line-through mb-1">₹3599</span>
+                    <span class="text-xs text-gray-500 mb-1">/yr</span>
+                </div>
+                <p class="text-xs text-green-600 font-bold mb-6 min-h-[40px]">🎉 Massive Savings! Equivalent to ₹125/mo.</p>
+                
+                <button class="w-full bg-gold hover:bg-goldhover text-white font-bold py-3 rounded-sm shadow-md transition mb-6 flex justify-center items-center gap-2">
+                    Start 1 Month Free Trial <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+                
+                <ul class="space-y-3 text-xs text-gray-600 font-medium">
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i> <strong>Premium Gold Badge</strong></li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i> Standout in Search (Top 3)</li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i> Full Client Management Suite</li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i> Access E-Books & Case Studies</li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-gold"></i> Appointment Scheduling</li>
+                </ul>
+            </div>
+
+            <!-- PLAN 4: SEMI-ANNUAL -->
+            <div class="bg-white rounded-sm shadow-lg border border-gray-100 p-6 hover:border-gold transition-colors group">
+                <h3 class="font-bold text-gray-500 text-sm uppercase tracking-wider mb-2">Semi-Annual</h3>
+                <div class="flex items-end gap-2 mb-4">
+                    <span class="text-3xl font-serif font-bold text-obsidian">₹799</span>
+                    <span class="text-sm text-gray-400 line-through mb-1">₹1899</span>
+                    <span class="text-xs text-gray-500 mb-1">/6mo</span>
+                </div>
+                <p class="text-xs text-gray-500 mb-6 min-h-[40px]">Balanced plan for steady growth.</p>
+                
+                <button class="w-full border border-obsidian text-obsidian font-bold py-2 rounded-sm hover:bg-obsidian hover:text-white transition mb-6">Select 6 Months</button>
+                
+                <ul class="space-y-3 text-xs text-gray-600">
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Client Management</li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> Appointment Scheduling</li>
+                    <li class="flex gap-2"><i data-lucide="check" class="w-4 h-4 text-green-500"></i> E-Books Access</li>
+                    <li class="flex gap-2 opacity-50"><i data-lucide="x" class="w-4 h-4 text-gray-400"></i> No Gold Badge</li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FEATURE COMPARISON TABLE -->
+    <section class="py-12 bg-white border-t border-gray-200">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <h2 class="text-2xl font-serif font-bold text-center mb-10">Why Go Premium?</h2>
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-600">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-4 rounded-l-sm">Feature</th>
+                            <th class="px-6 py-4 text-center">Free / Monthly</th>
+                            <th class="px-6 py-4 text-center rounded-r-sm bg-gold/10 text-obsidian font-bold border-b-2 border-gold">Annual (Premium)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-obsidian">Verified Badge</td>
+                            <td class="px-6 py-4 text-center"><i data-lucide="check" class="w-4 h-4 text-green-500 mx-auto"></i></td>
+                            <td class="px-6 py-4 text-center bg-gold/5"><i data-lucide="check" class="w-4 h-4 text-green-500 mx-auto"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-obsidian">
+                                Client Management CRM
+                                <p class="text-[10px] text-gray-400 font-normal">Save case notes, docs & history</p>
+                            </td>
+                            <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-4 h-4 text-gray-300 mx-auto"></i></td>
+                            <td class="px-6 py-4 text-center bg-gold/5"><i data-lucide="check" class="w-4 h-4 text-green-500 mx-auto"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-obsidian">
+                                Appointment Scheduler
+                                <p class="text-[10px] text-gray-400 font-normal">Clients book slots, no cold calls</p>
+                            </td>
+                            <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-4 h-4 text-gray-300 mx-auto"></i></td>
+                            <td class="px-6 py-4 text-center bg-gold/5"><i data-lucide="check" class="w-4 h-4 text-green-500 mx-auto"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-obsidian">
+                                Knowledge Hub Access
+                                <p class="text-[10px] text-gray-400 font-normal">Latest SC Judgments & E-books</p>
+                            </td>
+                            <td class="px-6 py-4 text-center"><i data-lucide="x" class="w-4 h-4 text-gray-300 mx-auto"></i></td>
+                            <td class="px-6 py-4 text-center bg-gold/5"><i data-lucide="check" class="w-4 h-4 text-green-500 mx-auto"></i></td>
+                        </tr>
+                        <tr class="border-b border-gray-100">
+                            <td class="px-6 py-4 font-medium text-obsidian">
+                                Search Visibility
+                                <p class="text-[10px] text-gray-400 font-normal">Where you appear in results</p>
+                            </td>
+                            <td class="px-6 py-4 text-center">Standard</td>
+                            <td class="px-6 py-4 text-center bg-gold/5 font-bold text-gold">Top 3 (Standout)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- MONEY BACK GUARANTEE (The Safe Version) -->
+    <section class="py-12 bg-paper text-center">
+        <div class="container mx-auto px-4">
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-sm border border-gold/30 shadow-sm relative group cursor-help">
+                <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i data-lucide="shield-check" class="w-8 h-8 text-gold"></i>
+                </div>
+                <h3 class="font-serif text-xl font-bold text-obsidian mb-2">90-Day Growth Guarantee*</h3>
+                <p class="text-sm text-gray-500 leading-relaxed">
+                    We are confident that NyayaSetu will transform your practice. If you don't see value after <span class="font-bold text-obsidian">active participation</span>, we will refund your subscription.
+                </p>
+                <p class="text-[10px] text-gray-400 mt-2 uppercase tracking-widest font-bold">*Hover to see terms</p>
+
+                <!-- TOOLTIP (Hidden by default, shown on hover) -->
+                <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-80 bg-obsidian text-white text-xs p-4 rounded shadow-xl opacity-0 group-hover:opacity-100 transition pointer-events-none z-30 text-left">
+                    <p class="font-bold text-gold mb-2">Fair Usage Policy:</p>
+                    <ul class="list-disc pl-4 space-y-1 text-gray-300">
+                        <li>Profile must be 100% completed (Photo + Bio).</li>
+                        <li>Bar Council ID must be verified.</li>
+                        <li>Must have responded to at least 5 client leads.</li>
+                    </ul>
+                    <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 w-3 h-3 bg-obsidian rotate-45"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-obsidian text-white py-8 text-center text-xs border-t border-gray-800">
+        <p>&copy; 2025 NyayaSetu Legal Services. All rights reserved.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

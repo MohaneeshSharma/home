@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knowledge Hub | NyayaSetu</title>
+    
+    <!-- Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        paper: '#F8F9FA',
+                        success: '#10B981'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #E5E7EB; border-radius: 4px; }
+        
+        /* Book Cover Overlay */
+        .resource-card:hover .resource-overlay { opacity: 1; }
+        
+        /* Reader Modal Animation */
+        #reader-modal { transition: opacity 0.3s ease; }
+        #reader-modal.hidden { opacity: 0; pointer-events: none; }
+        #reader-modal:not(.hidden) { opacity: 1; pointer-events: auto; }
+    </style>
+</head>
+<body class="bg-paper font-sans text-obsidian flex h-screen overflow-hidden">
+
+   <!-- SIDEBAR (Premium Version) -->
+    <aside class="w-64 bg-obsidian text-white hidden md:flex flex-col flex-shrink-0 shadow-2xl z-30">
+        <div class="h-20 flex items-center px-6 border-b border-gray-800">
+            <i data-lucide="scale" class="text-gold w-6 h-6 mr-2"></i>
+            <span class="font-serif font-bold text-xl tracking-wide">NyayaSetu</span>
+        </div>
+        
+        <nav class="flex-1 py-6 space-y-1 px-3 custom-scroll overflow-y-auto">
+            <div class="px-3 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold">Practice Management</div>
+            
+            <a href="Lawyer_Dashboard.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-sm transition group">
+                <i data-lucide="layout-dashboard" class="w-5 h-5 group-hover:text-gold transition"></i> Dashboard
+            </a>
+            <a href="crm.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-sm transition group">
+                <i data-lucide="users" class="w-5 h-5 group-hover:text-gold transition"></i> Clients (CRM)
+            </a>
+            <a href="appointment.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-sm transition group">
+                <i data-lucide="calendar-check" class="w-5 h-5 group-hover:text-gold transition"></i> Appointments
+            </a>
+        
+
+            <div class="px-3 mt-6 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold">Growth & Insights</div>
+
+            <a href="analytics.html" class="flex items-center gap-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-800 rounded-sm transition group">
+                <i data-lucide="bar-chart-2" class="w-5 h-5"></i> Analytics
+            </a>
+            <a href="knowledge_hub.html" class="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-gray-800 to-obsidian text-gold rounded-sm border-l-4 border-gold shadow-inner">
+                <i data-lucide="book-open" class="w-5 h-5 group-hover:text-gold transition"></i> Knowledge Hub
+            </a>
+        </nav>
+
+        <div class="p-4 border-t border-gray-800 bg-gray-900/50">
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rajesh&clothingType=BlazerShirt" class="w-10 h-10 rounded-full border-2 border-gold bg-gray-800">
+                    <div class="absolute -bottom-1 -right-1 bg-gold text-white rounded-full p-0.5 border border-obsidian">
+                        <i data-lucide="shield-check" class="w-3 h-3"></i>
+                    </div>
+                </div>
+                <div class="overflow-hidden">
+                    <p class="text-sm font-bold truncate">Adv. Rajesh K.</p>
+                    <p class="text-[10px] text-gold uppercase tracking-wider font-bold">Premium Partner</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col overflow-hidden relative">
+        
+        <!-- HEADER -->
+        <header class="bg-white border-b border-gray-200 h-20 flex items-center justify-between px-8 sticky top-0 z-20">
+            <div class="flex items-center gap-4">
+                <h2 class="font-serif text-2xl font-bold text-obsidian">Knowledge Hub</h2>
+                <span class="bg-gold/10 text-gold text-xs px-2 py-1 rounded border border-gold/20 font-bold flex items-center gap-1">
+                    <i data-lucide="crown" class="w-3 h-3"></i> Premium Access
+                </span>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                    <input type="text" placeholder="Search case laws, e-books..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-sm text-sm focus:border-gold outline-none w-64 transition">
+                </div>
+                <button class="bg-white border border-gray-300 text-gray-600 px-4 py-2 rounded-sm text-xs font-bold hover:bg-gray-50 flex items-center gap-2">
+                    <i data-lucide="bookmark" class="w-4 h-4"></i> Saved Items
+                </button>
+            </div>
+        </header>
+
+        <!-- HUB CONTENT -->
+        <div class="flex-1 overflow-y-auto p-8 custom-scroll">
+            
+            <!-- 1. HERO SECTION: LATEST BOOK UPLOAD (Featured) -->
+            <div class="bg-gradient-to-r from-obsidian to-gray-900 rounded-lg shadow-lg p-0 mb-10 relative overflow-hidden text-white flex flex-col md:flex-row">
+                <!-- Decorative Circle -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-gold rounded-full opacity-10 -mr-16 -mt-16 pointer-events-none"></div>
+                
+                <!-- Book Cover (Left) -->
+                <div class="w-full md:w-1/3 bg-gray-800/50 relative flex items-center justify-center p-8">
+                    <div class="relative shadow-2xl transform rotate-3 transition-transform hover:rotate-0 duration-500">
+                        <div class="w-32 h-48 bg-gradient-to-br from-blue-900 to-black rounded-r-md border-l-4 border-gray-200 flex flex-col items-center justify-center text-center p-2">
+                            <span class="text-[8px] tracking-widest uppercase text-gray-400 mb-2">NyayaSetu Editions</span>
+                            <h3 class="font-serif font-bold text-lg leading-tight mb-1 text-white">The BNS<br/>Code 2025</h3>
+                            <p class="text-[8px] text-gray-400">Complete Annotation</p>
+                        </div>
+                        <!-- Spine Shadow -->
+                        <div class="absolute inset-y-0 left-0 w-2 bg-gradient-to-r from-black/20 to-transparent"></div>
+                    </div>
+                    <!-- "Just Added" Badge -->
+                    <div class="absolute top-4 left-4 bg-green-500 text-white text-[10px] font-bold px-3 py-1 rounded-full shadow-lg animate-pulse">
+                        Just Added
+                    </div>
+                </div>
+
+                <!-- Content (Right) -->
+                <div class="w-full md:w-2/3 p-8 flex flex-col justify-center relative z-10">
+                    <span class="text-gold font-bold text-xs uppercase tracking-widest mb-2 flex items-center gap-2">
+                        <i data-lucide="star" class="w-3 h-3"></i> Latest Arrival
+                    </span>
+                    <h1 class="font-serif text-3xl md:text-4xl font-bold mb-4">New Criminal Laws (BNS) 2025 Guide</h1>
+                    <p class="text-gray-300 text-sm leading-relaxed mb-6 max-w-lg">
+                        A comprehensive E-Book analyzing the Bharatiya Nyaya Sanhita replacing the IPC. Includes comparison charts, procedural changes, and impact on ongoing trials.
+                    </p>
+                    <div class="flex gap-3">
+                        <button onclick="openReader('BNS 2025 Guide')" class="bg-gold hover:bg-goldhover text-white px-6 py-3 rounded-sm font-bold text-sm flex items-center gap-2 shadow-md transition">
+                            <i data-lucide="book-open" class="w-4 h-4"></i> Read E-Book
+                        </button>
+                        <button class="bg-transparent border border-gray-600 hover:bg-gray-800 text-white px-6 py-3 rounded-sm font-bold text-sm flex items-center gap-2 transition">
+                            <i data-lucide="plus" class="w-4 h-4"></i> Add to Library
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. FILTERS -->
+            <div class="flex border-b border-gray-200 mb-8">
+                <button class="px-6 py-3 text-sm font-bold border-b-2 border-gold text-obsidian">All Resources</button>
+                <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-obsidian transition">E-Books</button>
+                <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-obsidian transition">Case Studies</button>
+                <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-obsidian transition">Legal Templates</button>
+                <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-obsidian transition">Webinars</button>
+            </div>
+
+            <!-- 3. RESOURCE GRID -->
+            
+            <!-- Section: Popular E-Books -->
+            <h3 class="font-serif text-xl font-bold text-obsidian mb-6 flex items-center gap-2">
+                <i data-lucide="book" class="text-gold w-5 h-5"></i> Trending in Library
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                
+                <!-- Card 1 -->
+                <div class="bg-white border border-gray-200 rounded-sm hover:shadow-md transition group cursor-pointer" onclick="openReader('Data Privacy Verdict 2024')">
+                    <div class="p-5">
+                        <span class="text-[10px] text-blue-600 font-bold bg-blue-50 px-2 py-1 rounded uppercase tracking-wide">Constitutional</span>
+                        <h4 class="font-bold text-lg text-obsidian mt-3 mb-2 group-hover:text-gold transition">Data Privacy Verdict 2024</h4>
+                        <p class="text-xs text-gray-500 line-clamp-3 mb-4">Detailed summary of the SC judgment on digital personal data protection and its implications for corporate compliance.</p>
+                        <div class="flex justify-between items-center text-[10px] text-gray-400">
+                            <span><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i> 150 Pages</span>
+                            <span>Nov 22, 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="bg-white border border-gray-200 rounded-sm hover:shadow-md transition group cursor-pointer" onclick="openReader('Bail Reform Guidelines')">
+                    <div class="p-5">
+                        <span class="text-[10px] text-red-600 font-bold bg-red-50 px-2 py-1 rounded uppercase tracking-wide">Criminal</span>
+                        <h4 class="font-bold text-lg text-obsidian mt-3 mb-2 group-hover:text-gold transition">Bail Reform Guidelines</h4>
+                        <p class="text-xs text-gray-500 line-clamp-3 mb-4">New directives issued by the Apex Court regarding bail conditions for undertrials in non-heinous crimes.</p>
+                        <div class="flex justify-between items-center text-[10px] text-gray-400">
+                            <span><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i> 80 Pages</span>
+                            <span>Nov 18, 2025</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white border border-gray-200 rounded-sm hover:shadow-md transition group cursor-pointer" onclick="openReader('EV Policy & Taxation')">
+                    <div class="p-5">
+                        <span class="text-[10px] text-green-600 font-bold bg-green-50 px-2 py-1 rounded uppercase tracking-wide">Corporate / Tax</span>
+                        <h4 class="font-bold text-lg text-obsidian mt-3 mb-2 group-hover:text-gold transition">EV Policy & Taxation</h4>
+                        <p class="text-xs text-gray-500 line-clamp-3 mb-4">Understanding the new tax rebates for electric vehicle manufacturers and the associated legal framework.</p>
+                        <div class="flex justify-between items-center text-[10px] text-gray-400">
+                            <span><i data-lucide="clock" class="inline w-3 h-3 mr-1"></i> 200 Pages</span>
+                            <span>Nov 10, 2025</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section: Legal Drafts & Templates -->
+            <h3 class="font-serif text-xl font-bold text-obsidian mb-6 flex items-center gap-2">
+                <i data-lucide="file-text" class="text-gold w-5 h-5"></i> Drafting Templates
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Template 1 -->
+                <div class="bg-white border border-gray-200 rounded-sm p-4 flex items-center gap-4 hover:border-gold transition cursor-pointer">
+                    <div class="w-12 h-12 bg-blue-50 text-blue-600 flex items-center justify-center rounded">
+                        <i data-lucide="file" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-sm text-obsidian truncate">Vakalatnama Format</h4>
+                        <p class="text-[10px] text-gray-500">Updated 2025 • DOCX</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-obsidian"><i data-lucide="download" class="w-4 h-4"></i></button>
+                </div>
+
+                <!-- Template 2 -->
+                <div class="bg-white border border-gray-200 rounded-sm p-4 flex items-center gap-4 hover:border-gold transition cursor-pointer">
+                    <div class="w-12 h-12 bg-purple-50 text-purple-600 flex items-center justify-center rounded">
+                        <i data-lucide="file" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-sm text-obsidian truncate">Bail Application</h4>
+                        <p class="text-[10px] text-gray-500">Section 437/439 • DOCX</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-obsidian"><i data-lucide="download" class="w-4 h-4"></i></button>
+                </div>
+
+                <!-- Template 3 -->
+                <div class="bg-white border border-gray-200 rounded-sm p-4 flex items-center gap-4 hover:border-gold transition cursor-pointer">
+                    <div class="w-12 h-12 bg-orange-50 text-orange-600 flex items-center justify-center rounded">
+                        <i data-lucide="file" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-sm text-obsidian truncate">Divorce Petition</h4>
+                        <p class="text-[10px] text-gray-500">Mutual Consent • PDF</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-obsidian"><i data-lucide="download" class="w-4 h-4"></i></button>
+                </div>
+
+                <!-- Template 4 -->
+                <div class="bg-white border border-gray-200 rounded-sm p-4 flex items-center gap-4 hover:border-gold transition cursor-pointer">
+                    <div class="w-12 h-12 bg-gray-50 text-gray-600 flex items-center justify-center rounded">
+                        <i data-lucide="file" class="w-6 h-6"></i>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                        <h4 class="font-bold text-sm text-obsidian truncate">Rent Agreement</h4>
+                        <p class="text-[10px] text-gray-500">11 Months • DOCX</p>
+                    </div>
+                    <button class="text-gray-400 hover:text-obsidian"><i data-lucide="download" class="w-4 h-4"></i></button>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <!-- READER MODAL (Distraction Free) -->
+    <div id="reader-modal" class="fixed inset-0 bg-white z-50 hidden flex flex-col">
+        
+        <!-- Reader Header -->
+        <div class="h-16 border-b border-gray-100 flex items-center justify-between px-8 lg:px-64 bg-white sticky top-0 z-10">
+            <div class="flex items-center gap-4">
+                <button onclick="closeReader()" class="text-gray-400 hover:text-obsidian"><i data-lucide="arrow-left" class="w-6 h-6"></i></button>
+                <span class="text-sm font-bold text-gray-500">NyayaSetu Reader</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="text-gray-400 hover:text-obsidian" title="Bookmark"><i data-lucide="bookmark" class="w-5 h-5"></i></button>
+                <button class="text-gray-400 hover:text-obsidian" title="Font Size"><i data-lucide="type" class="w-5 h-5"></i></button>
+                <button class="bg-obsidian text-white px-4 py-1.5 rounded-sm text-xs font-bold hover:bg-black flex items-center gap-2">
+                    <i data-lucide="download" class="w-3 h-3"></i> PDF
+                </button>
+            </div>
+        </div>
+
+        <!-- Reader Body -->
+        <div class="flex-1 overflow-y-auto bg-gray-50">
+            <div class="max-w-3xl mx-auto bg-white min-h-full p-12 shadow-sm">
+                <h1 class="font-serif text-4xl font-bold text-obsidian mb-6" id="reader-title">Document Title</h1>
+                
+                <div class="flex items-center gap-4 text-xs text-gray-500 mb-8 border-b border-gray-100 pb-6">
+                    <span><i data-lucide="user" class="inline w-3 h-3 mr-1"></i> NyayaSetu Legal Team</span>
+                    <span><i data-lucide="calendar" class="inline w-3 h-3 mr-1"></i> Updated Nov 2025</span>
+                    <span class="bg-gold/10 text-gold px-2 py-0.5 rounded font-bold">Premium Content</span>
+                </div>
+
+                <div class="prose prose-slate text-gray-700 leading-relaxed">
+                    <p class="mb-4">This represents a placeholder for the full text content of the legal document or case study. In a real application, this area would be populated dynamically with the article text, formatted for readability.</p>
+                    
+                    <h3 class="text-xl font-bold text-obsidian mt-8 mb-4">Key Highlights</h3>
+                    <ul class="list-disc pl-5 space-y-2 mb-6">
+                        <li>Overview of the legal framework.</li>
+                        <li>Critical analysis of the judgment.</li>
+                        <li>Implications for future litigation.</li>
+                    </ul>
+
+                    <p class="mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    
+                    <div class="bg-blue-50 border-l-4 border-blue-500 p-4 my-6 text-sm italic text-blue-800">
+                        "The court observed that the right to privacy is intrinsic to the right to life and personal liberty."
+                    </div>
+
+                    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        lucide.createIcons();
+
+        function openReader(title) {
+            document.getElementById('reader-title').innerText = title;
+            document.getElementById('reader-modal').classList.remove('hidden');
+            document.body.classList.add('overflow-hidden'); // Prevent body scroll
+        }
+
+        function closeReader() {
+            document.getElementById('reader-modal').classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }
+    </script>
+</body>
+</html>

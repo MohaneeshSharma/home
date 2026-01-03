@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reading Mode | NyayaSetu</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- EPUB.JS Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/epub.js/0.3.88/epub.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        paper: '#F8F9FA'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Disable text selection for basic security */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+        #viewer {
+            width: 100%;
+            height: calc(100vh - 4rem);
+            /* Adjust based on header/footer */
+            background-color: #fff;
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Loading Spinner */
+        #loader {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: white;
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-obsidian bg-paper h-screen flex flex-col overflow-hidden">
+
+    <!-- READER HEADER -->
+    <header class="bg-obsidian text-white h-16 flex items-center justify-between px-6 shadow-md z-20 flex-shrink-0">
+        <div class="flex items-center gap-4">
+            <a href="ebook.html" class="text-gray-400 hover:text-white transition" title="Exit Reader">
+                <i data-lucide="arrow-left" class="w-6 h-6"></i>
+            </a>
+            <div>
+                <h1 class="font-serif text-lg font-bold" id="book-title">Loading Book...</h1>
+                <p class="text-[10px] text-gold uppercase tracking-widest">NyayaSetu Reader</p>
+            </div>
+        </div>
+
+        <div class="flex items-center gap-4">
+            <button onclick="changeFontSize(120)" class="text-gray-400 hover:text-white" title="Increase Font">
+                <i data-lucide="type" class="w-6 h-6"></i>
+            </button>
+            <button onclick="changeFontSize(100)" class="text-gray-400 hover:text-white" title="Reset Font">
+                <i data-lucide="refresh-ccw" class="w-4 h-4"></i>
+            </button>
+            <button onclick="changeFontSize(80)" class="text-gray-400 hover:text-white" title="Decrease Font">
+                <i data-lucide="minus" class="w-4 h-4"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- MAIN VIEWER AREA -->
+    <main class="flex-1 relative">
+        <div id="loader">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-gold"></div>
+        </div>
+        <div id="viewer"></div>
+
+        <!-- Navigation Overlays -->
+        <button id="prev" onclick="rendition.prev()"
+            class="absolute left-4 top-1/2 transform -translate-y-1/2 bg-obsidian/10 hover:bg-obsidian text-obsidian hover:text-white p-3 rounded-full transition z-20 shadow-sm hidden md:block">
+            <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <button id="next" onclick="rendition.next()"
+            class="absolute right-4 top-1/2 transform -translate-y-1/2 bg-obsidian/10 hover:bg-obsidian text-obsidian hover:text-white p-3 rounded-full transition z-20 shadow-sm hidden md:block">
+            <i data-lucide="chevron-right" class="w-6 h-6"></i>
+        </button>
+    </main>
+
+    <!-- READER FOOTER (Progress) -->
+    <footer
+        class="bg-white border-t border-gray-200 h-10 flex items-center justify-between px-6 text-xs text-gray-500 flex-shrink-0 z-20">
+        <span id="chapter-name">Loading Chapter...</span>
+        <span id="page-location">Loc: ...</span>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        let rendition;
+        let book;
+        let currentFontSize = 100;
+
+        // 1. Get Book URL from Query Param
+        const params = new URLSearchParams(window.location.search);
+        let bookPath = params.get('book');
+
+        // Fallback book
+        if (!bookPath) {
+            bookPath = 'Bharat_ka_samvidhan.epub';
+        }
+
+        const storageKey = `nyayasetu-reader-${bookPath}`;
+
+        // 2. Init EPUB
+        try {
+            book = ePub(bookPath);
+        } catch (e) {
+            showError("Invalid EPUB file.");
+            throw e;
+        }
+
+        rendition = book.renderTo("viewer", {
+            width: "100%",
+            height: "100%",
+            flow: "paginated",
+            manager: "default"
+        });
+
+        // 3. Restore last location
+        const savedLocation = localStorage.getItem(storageKey);
+        rendition.display(savedLocation || undefined);
+
+        // 4. Loader handling
+        rendition.on("rendered", () => {
+            document.getElementById("loader").style.display = "none";
+        });
+
+        rendition.on("relocated", (location) => {
+            if (!location || !location.start) return;
+
+            // Save reading progress
+            localStorage.setItem(storageKey, location.start.cfi);
+
+            // Page counter
+            if (location.start.displayed) {
+                document.getElementById("page-location").innerText =
+                    `Page ${location.start.displayed.page} / ${location.start.displayed.total}`;
+            }
+
+            // Chapter name
+            if (location.start.href && book.navigation) {
+                const chapter = book.navigation.toc.find(
+                    item => location.start.href.includes(item.href)
+                );
+                document.getElementById("chapter-name").innerText =
+                    chapter ? chapter.label : "Reading…";
+            }
+        });
+
+        // 5. Metadata (Title)
+        book.loaded.metadata.then(meta => {
+            document.getElementById("book-title").innerText =
+                meta?.title || "NyayaSetu Reader";
+        });
+
+        // 6. Font Controls
+        function changeFontSize(size) {
+            currentFontSize = size;
+            rendition.themes.fontSize(size + "%");
+        }
+
+        // Expose to buttons
+        window.changeFontSize = changeFontSize;
+
+        // 7. Navigation buttons
+        document.getElementById("next").addEventListener("click", () => {
+            rendition && rendition.next();
+        });
+
+        document.getElementById("prev").addEventListener("click", () => {
+            rendition && rendition.prev();
+        });
+
+        // 8. Keyboard navigation
+        document.addEventListener("keyup", (e) => {
+            if (!rendition) return;
+            if (e.key === "ArrowLeft") rendition.prev();
+            if (e.key === "ArrowRight") rendition.next();
+        });
+
+        // 9. Disable right click (basic protection)
+        document.addEventListener("contextmenu", e => e.preventDefault());
+
+        // 10. Error UI
+        function showError(message) {
+            document.getElementById("loader").innerHTML = `
+            <div class="text-center px-4">
+                <p class="text-red-600 font-bold mb-2">${message}</p>
+                <p class="text-xs text-gray-500">
+                    Make sure the EPUB file exists in the same folder.
+                </p>
+            </div>
+        `;
+        }
+
+        // 11. Catch load errors
+        book.loaded.spine.catch(() => {
+            showError("Failed to load EPUB file.");
+        });
+    </script>
+
+</body>
+
+</html>

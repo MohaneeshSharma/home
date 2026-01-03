@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a Lawyer | NyayaSetu</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        paper: '#F8F9FA',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        charcoal: '#2D2D2D',
+                        success: '#10B981',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F8F9FA;
+        }
+
+        .filter-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .filter-scroll::-webkit-scrollbar-thumb {
+            background-color: #E5E7EB;
+            border-radius: 4px;
+        }
+
+        .lawyer-card {
+            transition: all 0.3s ease;
+            border: 1px solid #E5E7EB;
+        }
+
+        .lawyer-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+            border-color: #C5A059;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #C5A059;
+            cursor: pointer;
+            margin-top: -6px;
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            background: #E5E7EB;
+            border-radius: 2px;
+        }
+    </style>
+</head>
+
+<body class="font-sans text-obsidian bg-paper antialiased flex flex-col min-h-screen">
+
+    <!-- BRANDED HEADER -->
+    <nav class="bg-obsidian text-white sticky top-0 z-50 border-b border-gray-800 shadow-lg">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <a href="index.html" class="flex items-center gap-3 cursor-pointer group">
+                    <i data-lucide="scale" class="h-8 w-8 text-gold group-hover:scale-110 transition-transform"></i>
+                    <div class="flex flex-col">
+                        <span class="font-serif text-2xl font-bold tracking-wide text-white">NyayaSetu</span>
+                        <span class="text-[10px] uppercase tracking-widest text-gray-400">The Legal Bridge</span>
+                    </div>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="index.html" class="text-sm font-medium text-gray-300 hover:text-gold transition">Home</a>
+                    <a href="about.html" class="text-sm font-medium text-gray-300 hover:text-gold transition">About
+                        Us</a>
+                    <a href="#" class="text-sm font-medium text-gray-300 hover:text-gold transition">Court News</a>
+                    <a href="#" class="text-sm font-bold text-gold border-b-2 border-gold pb-1 transition">Find
+                        Lawyer</a>
+                </div>
+                <!-- Auth Buttons -->
+                <div class="hidden md:flex items-center gap-4">
+                    <button class="text-sm font-medium text-white hover:text-gold transition"
+                        onclick="openLoginModal()">Lawyer Login</button>
+                    <button onclick="window.location.href='Lawyer_register.html'"
+                        class="bg-gold hover:bg-goldhover text-white px-5 py-2 rounded-sm text-sm font-semibold transition shadow-md">
+                        Lawyer Sign Up
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SEARCH HEADER -->
+    <div class="bg-white border-b border-gray-200 py-6">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-end gap-4">
+                <div>
+                    <div class="text-xs text-gray-400 mb-2 uppercase tracking-wider flex items-center gap-2">
+                        <span>Home</span> <i data-lucide="chevron-right" class="w-3 h-3"></i> <span
+                            class="text-gold font-bold">Search Lawyers</span>
+                    </div>
+                    <h1 class="font-serif text-3xl font-bold text-obsidian">Find Your Legal Counsel</h1>
+                    <p class="text-sm text-gray-500 mt-1">Browse unlimited verified profiles. Connection limits apply.
+                    </p>
+                </div>
+
+                <!-- New Connect Limit Counter -->
+                <div class="bg-blue-50 border border-blue-100 px-4 py-3 rounded-sm flex items-center gap-3">
+                    <div class="relative">
+                        <svg class="w-10 h-10 transform -rotate-90">
+                            <circle cx="20" cy="20" r="16" stroke="#DBEAFE" stroke-width="3" fill="none" />
+                            <circle cx="20" cy="20" r="16" stroke="#2563EB" stroke-width="3" fill="none"
+                                stroke-dasharray="100" stroke-dashoffset="66" /> <!-- 2/3 full -->
+                        </svg>
+                        <span
+                            class="absolute inset-0 flex items-center justify-center text-xs font-bold text-blue-700">2/3</span>
+                    </div>
+                    <div>
+                        <div class="text-xs font-bold text-blue-800 uppercase tracking-wide">Connect Limit</div>
+                        <div class="text-[10px] text-blue-600">1 more lawyer contact allowed today</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT GRID -->
+    <div class="container mx-auto px-4 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+
+            <!-- SIDEBAR FILTERS -->
+            <aside class="w-full lg:w-1/4 space-y-6">
+                <div class="bg-white p-6 rounded-sm shadow-sm border border-gray-100 h-fit sticky top-24">
+                    <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                        <h3 class="font-serif font-bold text-lg">Filter Results</h3>
+                        <button class="text-xs text-gold hover:underline">Reset</button>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">City & Court</label>
+                        <select
+                            class="w-full bg-paper border border-gray-200 rounded-sm px-3 py-2 text-sm focus:border-gold outline-none mb-3">
+                            <option>All Cities</option>
+                            <option>Delhi NCR</option>
+                        </select>
+                        <select
+                            class="w-full bg-paper border border-gray-200 rounded-sm px-3 py-2 text-sm focus:border-gold outline-none">
+                            <option>All Courts</option>
+                            <option>Supreme Court</option>
+                        </select>
+                    </div>
+                    <div class="mb-6">
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Practice Area</label>
+                        <div class="space-y-2 max-h-40 overflow-y-auto filter-scroll">
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="accent-gold w-4 h-4" checked>
+                                <span class="text-sm text-gray-700">Criminal Defense</span>
+                            </label>
+                            <label class="flex items-center space-x-2 cursor-pointer">
+                                <input type="checkbox" class="accent-gold w-4 h-4">
+                                <span class="text-sm text-gray-700">Family & Divorce</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button
+                        class="w-full bg-obsidian text-white py-3 rounded-sm font-bold text-sm hover:bg-black transition">Apply
+                        Filters</button>
+                </div>
+            </aside>
+
+            <!-- RESULTS AREA -->
+            <main class="w-full lg:w-3/4">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-gray-700 font-medium">Found <span class="font-bold text-obsidian">3</span> Verified
+                        Advocates</h2>
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm text-gray-500 hidden sm:inline">Sort by:</span>
+                        <select
+                            class="bg-white border border-gray-200 text-sm px-3 py-2 rounded-sm outline-none focus:border-gold">
+                            <option>Relevance</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- STATIC LAWYER GRID -->
+                <div id="lawyer-grid" class="space-y-6">
+
+                    <!-- CARD 1: HIGH DEMAND -->
+                    <div
+                        class="lawyer-card bg-white rounded-sm p-6 flex flex-col md:flex-row gap-6 relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 bg-red-50 text-red-600 text-[10px] font-bold px-3 py-1 uppercase tracking-wide border-bl rounded-bl-md flex items-center gap-1">
+                            <i data-lucide="flame" class="inline w-3 h-3"></i> High Demand: 2 Slots Left
+                        </div>
+
+                        <div
+                            class="flex-shrink-0 flex flex-col items-center md:items-start text-center md:text-left w-full md:w-auto">
+                            <div class="relative mb-3">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Rajesh&clothingType=BlazerShirt&topType=ShortHairTheCaesar"
+                                    alt="Adv Rajesh"
+                                    class="w-24 h-24 rounded-sm border-2 border-gray-100 shadow-sm object-cover bg-gray-50">
+                                <div class="absolute -bottom-2 -right-2 bg-white rounded-full p-1 shadow-sm"
+                                    title="Verified by BCI">
+                                    <i data-lucide="shield-check" class="w-6 h-6 text-gold fill-current"></i>
+                                </div>
+                            </div>
+                            <div class="text-[10px] text-gray-400 mt-2 flex items-center gap-1">
+                                <div class="w-2 h-2 rounded-full bg-green-500"></div> Active Now
+                            </div>
+                        </div>
+
+                        <div class="flex-grow border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-6">
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="font-serif text-xl font-bold text-obsidian">Adv. Rajesh Khanna</h3>
+                                <span
+                                    class="bg-gray-100 text-gray-600 text-[10px] px-2 py-0.5 rounded-sm font-medium uppercase tracking-wider">Delhi</span>
+                            </div>
+                            <p class="text-sm text-gold font-medium mb-3">Senior Advocate, Supreme Court</p>
+
+                            <div class="flex gap-4 mb-4 text-sm">
+                                <div class="pr-4 border-r border-gray-200">
+                                    <span class="block font-bold text-obsidian text-lg">22 Yrs</span>
+                                    <span class="text-gray-400 text-xs">Experience</span>
+                                </div>
+                                <div class="pr-4 border-r border-gray-200">
+                                    <span class="block font-bold text-obsidian text-lg">450+</span>
+                                    <span class="text-gray-400 text-xs">Cases Won</span>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-obsidian text-lg flex items-center gap-1">
+                                        4.9 <i data-lucide="star" class="w-3 h-3 text-gold fill-current"></i>
+                                    </span>
+                                    <span class="text-gray-400 text-xs">124 Reviews</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 italic leading-relaxed mb-4">"Specializing in high-profile
+                                criminal defense. Dedicated to protecting civil liberties with a track record of
+                                overturning complex verdicts."</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-2 py-1 bg-gray-50 text-gray-600 text-xs border border-gray-200 rounded-sm">Criminal</span>
+                                <span
+                                    class="px-2 py-1 bg-gray-50 text-gray-600 text-xs border border-gray-200 rounded-sm">Constitutional</span>
+                            </div>
+                        </div>
+
+                        <div class="w-full md:w-64 flex-shrink-0 flex flex-col justify-between pt-4 md:pt-0 md:pl-6">
+                            <div class="space-y-3 mb-6">
+                                <div class="flex items-start gap-2 text-xs">
+                                    <i data-lucide="languages" class="w-4 h-4 text-gray-400 mt-0.5"></i>
+                                    <div>
+                                        <span class="block font-bold text-gray-700">Speaks</span>
+                                        <span class="text-gray-500">English, Hindi, Punjabi</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-2 text-xs">
+                                    <i data-lucide="clock" class="w-4 h-4 text-gray-400 mt-0.5"></i>
+                                    <div>
+                                        <span class="block font-bold text-gray-700">Response Time</span>
+                                        <span class="text-green-600 font-medium">Usually replies in 2 hrs</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-3 mt-auto">
+                                <button onclick="openLoginModal()"
+                                    class="w-full bg-gold hover:bg-goldhover text-white font-serif font-bold py-3 px-4 rounded-sm shadow-md transition flex items-center justify-center gap-2">
+                                    <i data-lucide="phone-call" class="w-4 h-4"></i> Book Consultation
+                                </button>
+                                <button id="lawyerBtn"
+                                    class="w-full bg-white text-obsidian text-xs font-bold py-3 px-4 rounded-sm border border-gray-200 hover:bg-gray-50 transition uppercase tracking-wide">
+                                    View Full Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 2: AVAILABLE -->
+                    <div
+                        class="lawyer-card bg-white rounded-sm p-6 flex flex-col md:flex-row gap-6 relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 bg-green-50 text-green-600 text-[10px] font-bold px-3 py-1 uppercase tracking-wide border-bl rounded-bl-md flex items-center gap-1">
+                            <i data-lucide="check-circle" class="inline w-3 h-3"></i> Available Today
+                        </div>
+
+                        <div
+                            class="flex-shrink-0 flex flex-col items-center md:items-start text-center md:text-left w-full md:w-auto">
+                            <div class="relative mb-3">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Priya&clothingType=BlazerShirt&topType=LongHairBob"
+                                    alt="Adv Priya"
+                                    class="w-24 h-24 rounded-sm border-2 border-gray-100 shadow-sm object-cover bg-gray-50">
+                                <div class="absolute -bottom-2 -right-2 bg-white rounded-full p-1 shadow-sm">
+                                    <i data-lucide="shield-check" class="w-6 h-6 text-gold fill-current"></i>
+                                </div>
+                            </div>
+                            <div class="text-[10px] text-gray-400 mt-2 flex items-center gap-1">
+                                <div class="w-2 h-2 rounded-full bg-gray-300"></div> 1 hr ago
+                            </div>
+                        </div>
+
+                        <div class="flex-grow border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-6">
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="font-serif text-xl font-bold text-obsidian">Adv. Priya Sharma</h3>
+                                <span
+                                    class="bg-gray-100 text-gray-600 text-[10px] px-2 py-0.5 rounded-sm font-medium uppercase tracking-wider">Mumbai</span>
+                            </div>
+                            <p class="text-sm text-gold font-medium mb-3">Family Law Expert</p>
+
+                            <div class="flex gap-4 mb-4 text-sm">
+                                <div class="pr-4 border-r border-gray-200">
+                                    <span class="block font-bold text-obsidian text-lg">12 Yrs</span>
+                                    <span class="text-gray-400 text-xs">Experience</span>
+                                </div>
+                                <div class="pr-4 border-r border-gray-200">
+                                    <span class="block font-bold text-obsidian text-lg">210+</span>
+                                    <span class="text-gray-400 text-xs">Cases Won</span>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-obsidian text-lg flex items-center gap-1">
+                                        4.7 <i data-lucide="star" class="w-3 h-3 text-gold fill-current"></i>
+                                    </span>
+                                    <span class="text-gray-400 text-xs">89 Reviews</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-600 italic leading-relaxed mb-4">"Empathetic counsel for
+                                sensitive family matters. I prioritize amicable settlements in divorce and custody
+                                battles to minimize emotional stress."</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span
+                                    class="px-2 py-1 bg-gray-50 text-gray-600 text-xs border border-gray-200 rounded-sm">Family</span>
+                                <span
+                                    class="px-2 py-1 bg-gray-50 text-gray-600 text-xs border border-gray-200 rounded-sm">Divorce</span>
+                            </div>
+                        </div>
+
+                        <div class="w-full md:w-64 flex-shrink-0 flex flex-col justify-between pt-4 md:pt-0 md:pl-6">
+                            <div class="space-y-3 mb-6">
+                                <div class="flex items-start gap-2 text-xs">
+                                    <i data-lucide="languages" class="w-4 h-4 text-gray-400 mt-0.5"></i>
+                                    <div>
+                                        <span class="block font-bold text-gray-700">Speaks</span>
+                                        <span class="text-gray-500">English, Hindi, Marathi</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-2 text-xs">
+                                    <i data-lucide="clock" class="w-4 h-4 text-gray-400 mt-0.5"></i>
+                                    <div>
+                                        <span class="block font-bold text-gray-700">Response Time</span>
+                                        <span class="text-green-600 font-medium">Replies within 30 mins</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-3 mt-auto">
+                                <button onclick="openLoginModal()"
+                                    class="w-full bg-gold hover:bg-goldhover text-white font-serif font-bold py-3 px-4 rounded-sm shadow-md transition flex items-center justify-center gap-2">
+                                    <i data-lucide="phone-call" class="w-4 h-4"></i> Book Consultation
+                                </button>
+                                <button id="lawyerBtn"
+                                    class="w-full bg-white text-obsidian text-xs font-bold py-3 px-4 rounded-sm border border-gray-200 hover:bg-gray-50 transition uppercase tracking-wide">
+                                    View Full Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CARD 3: LOCKED -->
+                    <div
+                        class="lawyer-card bg-white rounded-sm p-6 flex flex-col md:flex-row gap-6 relative overflow-hidden bg-gray-50/50">
+                        <div
+                            class="absolute top-0 right-0 bg-gray-200 text-gray-600 text-[10px] font-bold px-3 py-1 uppercase tracking-wide border-bl rounded-bl-md">
+                            <i data-lucide="lock" class="inline w-3 h-3 mr-1"></i>Fully Booked
+                        </div>
+
+                        <div
+                            class="flex-shrink-0 flex flex-col items-center md:items-start text-center md:text-left w-full md:w-auto opacity-75">
+                            <div class="relative mb-3">
+                                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Amit&clothingType=BlazerSweater&glassesType=Round"
+                                    alt="Adv Amit"
+                                    class="w-24 h-24 rounded-sm border-2 border-gray-200 shadow-sm object-cover grayscale">
+                                <div class="absolute -bottom-2 -right-2 bg-white rounded-full p-1 shadow-sm">
+                                    <i data-lucide="shield-check" class="w-6 h-6 text-gray-400 fill-current"></i>
+                                </div>
+                            </div>
+                            <div class="text-[10px] text-gray-400 mt-2 flex items-center gap-1">
+                                <div class="w-2 h-2 rounded-full bg-gray-300"></div> 3 hrs ago
+                            </div>
+                        </div>
+
+                        <div class="flex-grow border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-6">
+                            <div class="flex items-center gap-2 mb-1">
+                                <h3 class="font-serif text-xl font-bold text-gray-600">Adv. Amit Verma</h3>
+                                <span
+                                    class="bg-gray-100 text-gray-500 text-[10px] px-2 py-0.5 rounded-sm font-medium uppercase tracking-wider">Bangalore</span>
+                            </div>
+                            <p class="text-sm text-gray-500 font-medium mb-3">Corporate Legal Consultant</p>
+
+                            <div class="flex gap-4 mb-4 text-sm opacity-60">
+                                <div class="pr-4 border-r border-gray-200">
+                                    <span class="block font-bold text-obsidian text-lg">15 Yrs</span>
+                                    <span class="text-gray-400 text-xs">Experience</span>
+                                </div>
+                                <div class="pr-4 border-r border-gray-200">
+                                    <span class="block font-bold text-obsidian text-lg">300+</span>
+                                    <span class="text-gray-400 text-xs">Cases Won</span>
+                                </div>
+                                <div>
+                                    <span class="block font-bold text-obsidian text-lg flex items-center gap-1">
+                                        4.8 <i data-lucide="star" class="w-3 h-3 text-gold fill-current"></i>
+                                    </span>
+                                    <span class="text-gray-400 text-xs">56 Reviews</span>
+                                </div>
+                            </div>
+                            <p class="text-sm text-gray-500 italic leading-relaxed mb-4">"Strategic legal advisor for
+                                tech startups and enterprises. Handling mergers, acquisitions, and intellectual property
+                                disputes efficiently."</p>
+                            <div class="flex flex-wrap gap-2 opacity-60">
+                                <span
+                                    class="px-2 py-1 bg-gray-50 text-gray-500 text-xs border border-gray-200 rounded-sm">Corporate</span>
+                                <span
+                                    class="px-2 py-1 bg-gray-50 text-gray-500 text-xs border border-gray-200 rounded-sm">IPR</span>
+                            </div>
+                        </div>
+
+                        <div class="w-full md:w-64 flex-shrink-0 flex flex-col justify-between pt-4 md:pt-0 md:pl-6">
+                            <div class="space-y-3 mb-6 opacity-60">
+                                <div class="flex items-start gap-2 text-xs">
+                                    <i data-lucide="languages" class="w-4 h-4 text-gray-400 mt-0.5"></i>
+                                    <div>
+                                        <span class="block font-bold text-gray-600">Speaks</span>
+                                        <span class="text-gray-400">English, Kannada</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-start gap-2 text-xs">
+                                    <i data-lucide="map-pin" class="w-4 h-4 text-gray-400 mt-0.5"></i>
+                                    <div>
+                                        <span class="block font-bold text-gray-600">Practicing At</span>
+                                        <span class="text-gray-400">High Court of Karnataka</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="space-y-3 mt-auto">
+                                <button disabled
+                                    class="w-full bg-gray-100 text-gray-400 font-bold py-3 px-4 rounded-sm border border-gray-200 cursor-not-allowed flex items-center justify-center gap-2">
+                                    <i data-lucide="calendar-off" class="w-4 h-4"></i> No Slots Available
+                                </button>
+                                <button id="lawyerBtn"
+                                    class="w-full bg-white text-gray-400 text-xs font-bold py-3 px-4 rounded-sm border border-gray-200 hover:bg-gray-50 transition uppercase tracking-wide">
+                                    View Full Profile
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Load More -->
+                <div class="mt-10 text-center">
+                    <button
+                        class="border border-gray-300 bg-white text-gray-600 px-6 py-3 rounded-sm font-medium hover:border-gold hover:text-gold transition">
+                        Load More Advocates
+                    </button>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- LOGIN MODAL -->
+    <div id="login-modal" class="fixed inset-0 bg-black/80 z-[100] hidden items-center justify-center backdrop-blur-sm">
+        <div class="bg-white w-full max-w-md rounded-sm shadow-2xl overflow-hidden relative">
+            <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-obsidian"><i
+                    data-lucide="x" class="w-6 h-6"></i></button>
+            <div class="bg-obsidian p-6 text-center">
+                <i data-lucide="shield" class="w-10 h-10 text-gold mx-auto mb-3"></i>
+                <h3 class="font-serif text-2xl font-bold text-white">Login Required</h3>
+                <p class="text-xs text-gray-400 uppercase tracking-widest mt-1">To Contact Lawyer</p>
+            </div>
+            <div class="p-8">
+                <p class="text-center text-sm text-gray-600 mb-6">You need to verify your number to book a consultation
+                    with this advocate.</p>
+                <div class="flex border border-gray-300 rounded-sm overflow-hidden mb-6">
+                    <span class="bg-gray-100 px-3 py-3 text-gray-600 font-medium">+91</span>
+                    <input type="tel" placeholder="Mobile Number" class="w-full px-4 py-3 outline-none">
+                </div>
+                <button onclick="window.location.href='userpage.html'"
+                    class="w-full bg-gold text-white font-bold py-3 rounded-sm">Get OTP</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Init Script for Icons & Modal -->
+    <script>
+        // Icons
+        lucide.createIcons();
+
+        // Modal Logic
+        function openLoginModal() {
+            document.getElementById('login-modal').classList.remove('hidden');
+            document.getElementById('login-modal').classList.add('flex');
+        }
+        function closeLoginModal() {
+            document.getElementById('login-modal').classList.add('hidden');
+            document.getElementById('login-modal').classList.remove('flex');
+        }
+
+        // Mobile Menu Logic
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+
+        document.getElementById("lawyerBtn").addEventListener("click", () => {
+            window.location.href = "lawyerprofile.html";
+        });
+
+    </script>
+
+    <!-- search.js commented out for static preview -->
+    <!-- <script src="search.js"></script> -->
+</body>
+
+</html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Partner Access | NyayaSetu</title>
+
+    <!-- Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        paper: '#F8F9FA',
+                        success: '#10B981',
+                        danger: '#EF4444'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.4s ease-out forwards',
+                        'slide-up': 'slideUp 0.5s ease-out forwards'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .step-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        .file-drop-zone {
+            background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' rx='4' ry='4' stroke='%23CBD5E1FF' stroke-width='2' stroke-dasharray='6%2c 14' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+        }
+
+        /* Hide Scrollbar for cleaner look */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+    </style>
+</head>
+
+<body class="bg-paper font-sans text-obsidian h-screen flex overflow-hidden">
+
+    <!-- LEFT: BRAND & VISUAL (Fixed 40%) -->
+    <div
+        class="hidden lg:flex w-2/5 bg-obsidian text-white relative overflow-hidden flex-col justify-between p-12 shadow-2xl z-10">
+        <!-- Background Pattern -->
+        <div
+            class="absolute inset-0 opacity-20 bg-[url('https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center">
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-obsidian via-obsidian/80 to-transparent"></div>
+
+        <!-- Logo -->
+        <div class="relative z-10 flex items-center gap-3">
+            <i data-lucide="scale" class="w-8 h-8 text-gold"></i>
+            <span class="font-serif text-2xl font-bold tracking-wide">NyayaSetu</span>
+        </div>
+
+        <!-- Quote -->
+        <div class="relative z-10 max-w-md animate-slide-up">
+            <div class="w-12 h-1 bg-gold mb-6"></div>
+            <h1 class="font-serif text-3xl xl:text-4xl font-bold leading-tight mb-4">
+                "The administration of justice is the firmest pillar of government."
+            </h1>
+            <p class="text-sm text-gray-400 font-medium uppercase tracking-widest">— George Washington</p>
+
+            <!-- Trust Signals -->
+            <div class="mt-12 flex gap-8 border-t border-gray-800 pt-6">
+                <div>
+                    <span class="block text-2xl font-bold text-white">15k+</span>
+                    <span class="text-xs text-gray-500 uppercase tracking-wider">Advocates</span>
+                </div>
+                <div>
+                    <span class="block text-2xl font-bold text-white">100%</span>
+                    <span class="text-xs text-gray-500 uppercase tracking-wider">BCI Verified</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="relative z-10 text-xs text-gray-500">
+            &copy; 2025 NyayaSetu Legal Services.
+        </div>
+    </div>
+
+    <!-- RIGHT: INTERACTION AREA (Scrollable 60%) -->
+    <div class="w-full lg:w-3/5 flex flex-col relative bg-white h-full overflow-y-auto no-scrollbar">
+
+        <!-- Mobile Header (Visible only on small screens) -->
+        <div class="lg:hidden p-6 flex justify-between items-center border-b border-gray-100">
+            <div class="flex items-center gap-2">
+                <i data-lucide="scale" class="w-6 h-6 text-gold"></i>
+                <span class="font-serif text-xl font-bold text-obsidian">NyayaSetu</span>
+            </div>
+            <a href="index.html" class="text-gray-400"><i data-lucide="x" class="w-6 h-6"></i></a>
+        </div>
+
+        <!-- Back Link (Desktop) -->
+        <a href="index.html"
+            class="hidden lg:flex absolute top-8 right-8 text-sm font-bold text-gray-400 hover:text-obsidian items-center gap-2 transition z-20">
+            Back to Home <i data-lucide="x" class="w-4 h-4"></i>
+        </a>
+
+        <!-- ========================== -->
+        <!-- VIEW 1: LOGIN FORM -->
+        <!-- ========================== -->
+        <div id="view-login" class="flex-grow flex items-center justify-center p-8 animate-fade-in">
+            <div class="max-w-md w-full">
+
+                <div class="text-center mb-10">
+                    <div class="w-16 h-16 bg-gold/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i data-lucide="shield-check" class="w-8 h-8 text-gold"></i>
+                    </div>
+                    <h2 class="font-serif text-3xl font-bold text-obsidian mb-2">Welcome Back</h2>
+                    <p class="text-gray-500 text-sm">Secure login for registered partners.</p>
+                </div>
+
+                <!-- LOGIN STEP 1: MOBILE -->
+                <div id="login-step-1" class="space-y-6">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-2">Mobile Number</label>
+                        <div class="relative group">
+                            <span
+                                class="absolute left-4 top-3.5 text-gray-500 font-medium border-r border-gray-300 pr-3 group-focus-within:text-obsidian transition">+91</span>
+                            <input type="tel" id="mobile-input" placeholder="98765 43210" maxlength="10"
+                                class="w-full pl-16 pr-4 py-3.5 border border-gray-300 rounded-sm focus:border-gold focus:ring-1 focus:ring-gold outline-none transition font-medium text-lg placeholder-gray-300">
+                            <i data-lucide="smartphone"
+                                class="absolute right-4 top-4 w-5 h-5 text-gray-400 group-focus-within:text-gold transition"></i>
+                        </div>
+                        <p class="text-xs text-red-500 mt-2 hidden" id="mobile-error">Please enter a valid 10-digit
+                            mobile number.</p>
+                    </div>
+
+                    <button onclick="loginSendOtp()"
+                        class="w-full bg-obsidian text-white font-bold py-4 rounded-sm hover:bg-black transition shadow-lg flex items-center justify-center gap-2 group">
+                        Send Secure OTP <i data-lucide="arrow-right"
+                            class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                    </button>
+                </div>
+
+                <!-- LOGIN STEP 2: OTP -->
+                <div id="login-step-2" class="hidden space-y-6">
+                    <div class="bg-blue-50 border border-blue-100 rounded-sm p-4 flex items-start gap-3 mb-6">
+                        <i data-lucide="message-square" class="w-5 h-5 text-blue-600 mt-0.5"></i>
+                        <div>
+                            <p class="text-sm text-blue-900 font-medium">OTP Sent Successfully</p>
+                            <p class="text-xs text-blue-700">Code sent to <span id="display-mobile"
+                                    class="font-bold">+91 ...</span></p>
+                            <p class="text-[10px] text-blue-500 mt-1">(Demo Code: 1234)</p>
+                        </div>
+                        <button onclick="loginEditMobile()"
+                            class="text-xs text-blue-600 font-bold hover:underline ml-auto">Edit</button>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-center gap-4">
+                            <input type="text" maxlength="1"
+                                class="otp-input w-14 h-14 border border-gray-300 rounded-sm text-center text-2xl font-bold focus:border-gold focus:ring-1 focus:ring-gold outline-none transition"
+                                onkeyup="moveFocus(this, 'otp2')">
+                            <input type="text" id="otp2" maxlength="1"
+                                class="otp-input w-14 h-14 border border-gray-300 rounded-sm text-center text-2xl font-bold focus:border-gold focus:ring-1 focus:ring-gold outline-none transition"
+                                onkeyup="moveFocus(this, 'otp3')">
+                            <input type="text" id="otp3" maxlength="1"
+                                class="otp-input w-14 h-14 border border-gray-300 rounded-sm text-center text-2xl font-bold focus:border-gold focus:ring-1 focus:ring-gold outline-none transition"
+                                onkeyup="moveFocus(this, 'otp4')">
+                            <input type="text" id="otp4" maxlength="1"
+                                class="otp-input w-14 h-14 border border-gray-300 rounded-sm text-center text-2xl font-bold focus:border-gold focus:ring-1 focus:ring-gold outline-none transition"
+                                onkeyup="verifyOtp()">
+                        </div>
+                        <p class="text-xs text-red-500 mt-4 text-center hidden" id="otp-error">Invalid OTP.</p>
+                    </div>
+
+                    <button onclick="verifyOtp()"
+                        class="w-full bg-gold hover:bg-goldhover text-white font-bold py-4 rounded-sm transition shadow-lg flex items-center justify-center gap-2 mt-6">
+                        Verify & Login <i data-lucide="check-circle" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+                <!-- TOGGLE TO REGISTER -->
+                <div class="mt-10 pt-6 border-t border-gray-100 text-center">
+                    <p class="text-sm text-gray-500 mb-4">Not a partner yet?</p>
+                    <button onclick="switchView('register')"
+                        class="text-gold font-bold hover:text-obsidian hover:underline transition flex items-center justify-center gap-2 mx-auto">
+                        Register as Advocate <i data-lucide="user-plus" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ========================== -->
+        <!-- VIEW 2: REGISTRATION FORM -->
+        <!-- ========================== -->
+        <div id="view-register" class="flex-grow flex flex-col items-center p-8 hidden animate-fade-in">
+            <div class="max-w-2xl w-full">
+
+                <div class="mb-8">
+                    <h2 class="font-serif text-3xl font-bold text-obsidian mb-2">Join NyayaSetu</h2>
+                    <p class="text-gray-500 text-sm">Create your professional profile in 3 simple steps.</p>
+                </div>
+
+                <!-- Stepper -->
+                <div
+                    class="flex items-center justify-between mb-8 sticky top-0 bg-white z-10 py-4 border-b border-gray-100">
+                    <div class="flex items-center gap-2">
+                        <span id="step-number" class="text-3xl font-serif font-bold text-gold">01</span>
+                        <div class="text-xs uppercase tracking-widest font-bold text-gray-400">
+                            <span id="step-title" class="text-obsidian">Credentials</span> / 03
+                        </div>
+                    </div>
+                    <div class="flex gap-1">
+                        <div id="bar-1" class="w-8 h-1 bg-gold rounded-full transition-all duration-500"></div>
+                        <div id="bar-2" class="w-8 h-1 bg-gray-200 rounded-full transition-all duration-500"></div>
+                        <div id="bar-3" class="w-8 h-1 bg-gray-200 rounded-full transition-all duration-500"></div>
+                    </div>
+                </div>
+
+                <!-- REG STEP 1: ESSENTIALS -->
+                <div id="reg-step-1" class="step-content active">
+                    <form class="space-y-5">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1">First Name</label>
+                                <input type="text" placeholder="Rajesh"
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-sm focus:border-gold outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Last Name</label>
+                                <input type="text" placeholder="Khanna"
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-sm focus:border-gold outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Mobile Number</label>
+                            <input type="tel" placeholder="+91 98765 43210"
+                                class="w-full px-4 py-3 border border-gray-200 rounded-sm focus:border-gold outline-none">
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-sm border border-gray-200">
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Bar Council ID</label>
+                            <input type="text" placeholder="e.g. MAH/1234/2015"
+                                class="w-full px-4 py-3 border border-gray-300 rounded-sm focus:border-gold outline-none font-mono uppercase">
+                            <p class="text-[10px] text-gray-500 mt-2"><i data-lucide="info" class="inline w-3 h-3"></i>
+                                Required for verification badge.</p>
+                        </div>
+                        <div class="pt-4">
+                            <button type="button" onclick="nextRegStep(2)"
+                                class="w-full bg-obsidian text-white font-bold py-4 rounded-sm hover:bg-black transition flex items-center justify-center gap-2">
+                                Continue <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- REG STEP 2: PROFILE -->
+                <div id="reg-step-2" class="step-content">
+                    <form class="space-y-5">
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1">City</label>
+                                <select
+                                    class="w-full px-3 py-3 border border-gray-200 rounded-sm bg-white focus:border-gold outline-none">
+                                    <option>Delhi NCR</option>
+                                    <option>Mumbai</option>
+                                    <option>Bangalore</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Experience
+                                    (Yrs)</label>
+                                <input type="number" placeholder="0"
+                                    class="w-full px-4 py-3 border border-gray-200 rounded-sm focus:border-gold outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Practice Areas</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <label class="cursor-pointer"><input type="checkbox" class="peer sr-only">
+                                    <div
+                                        class="px-2 py-2 border border-gray-200 rounded-sm text-xs text-center peer-checked:bg-gold peer-checked:text-white transition">
+                                        Criminal</div>
+                                </label>
+                                <label class="cursor-pointer"><input type="checkbox" class="peer sr-only">
+                                    <div
+                                        class="px-2 py-2 border border-gray-200 rounded-sm text-xs text-center peer-checked:bg-gold peer-checked:text-white transition">
+                                        Civil</div>
+                                </label>
+                                <label class="cursor-pointer"><input type="checkbox" class="peer sr-only">
+                                    <div
+                                        class="px-2 py-2 border border-gray-200 rounded-sm text-xs text-center peer-checked:bg-gold peer-checked:text-white transition">
+                                        Family</div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 pt-4">
+                            <button type="button" onclick="nextRegStep(1)"
+                                class="w-1/3 border border-gray-300 text-gray-600 font-bold py-4 rounded-sm hover:bg-gray-50">Back</button>
+                            <button type="button" onclick="nextRegStep(3)"
+                                class="w-2/3 bg-obsidian text-white font-bold py-4 rounded-sm hover:bg-black transition">Continue</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- REG STEP 3: DOCS -->
+                <div id="reg-step-3" class="step-content">
+                    <form class="space-y-6">
+                        <div
+                            class="file-drop-zone rounded-sm p-8 text-center border-2 border-gray-200 border-dashed cursor-pointer hover:border-gold group transition">
+                            <i data-lucide="upload-cloud"
+                                class="w-8 h-8 text-gray-400 mx-auto mb-2 group-hover:text-gold"></i>
+                            <h4 class="font-bold text-sm text-gray-700">Upload ID Card</h4>
+                            <p class="text-xs text-gray-400">PDF/JPG (Max 5MB)</p>
+                        </div>
+                        <div class="flex gap-3 pt-4">
+                            <button type="button" onclick="nextRegStep(2)"
+                                class="w-1/3 border border-gray-300 text-gray-600 font-bold py-4 rounded-sm hover:bg-gray-50">Back</button>
+                            <button type="button" onclick="finishRegistration()"
+                                class="w-2/3 bg-gold text-white font-bold py-4 rounded-sm hover:bg-goldhover transition shadow-lg">Complete
+                                Registration</button>
+                        </div>
+                        <div class="text-center">
+                            <button type="button" onclick="finishRegistration()"
+                                class="text-xs text-gray-400 hover:text-obsidian underline">Skip for now</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- TOGGLE TO LOGIN -->
+                <div class="mt-12 pt-6 border-t border-gray-100 text-center">
+                    <p class="text-sm text-gray-500 mb-4">Already registered?</p>
+                    <button onclick="switchView('login')"
+                        class="text-obsidian font-bold hover:text-gold hover:underline transition flex items-center justify-center gap-2 mx-auto">
+                        Login Here <i data-lucide="log-in" class="w-4 h-4"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        lucide.createIcons();
+
+        /* -----------------------------
+           INIT VIEW (LOGIN / REGISTER)
+        ----------------------------- */
+        window.onload = function () {
+            const params = new URLSearchParams(window.location.search);
+            const view = params.get('view');
+            switchView(view === 'register' ? 'register' : 'login');
+        };
+
+        function switchView(viewName) {
+            const loginView = document.getElementById('view-login');
+            const registerView = document.getElementById('view-register');
+
+            if (viewName === 'register') {
+                loginView.classList.add('hidden');
+                registerView.classList.remove('hidden');
+                history.replaceState({}, '', '?view=register');
+            } else {
+                registerView.classList.add('hidden');
+                loginView.classList.remove('hidden');
+                history.replaceState({}, '', '?view=login');
+            }
+        }
+
+        /* -----------------------------
+           LOGIN → SEND OTP
+        ----------------------------- */
+        function loginSendOtp() {
+            const mobileInput = document.getElementById("mobile-input");
+            const mobileError = document.getElementById("mobile-error");
+            const step1 = document.getElementById("login-step-1");
+            const step2 = document.getElementById("login-step-2");
+            const displayMobile = document.getElementById("display-mobile");
+
+            const mobile = mobileInput.value.trim();
+
+            if (!/^\d{10}$/.test(mobile)) {
+                mobileError.classList.remove("hidden");
+                return;
+            }
+
+            mobileError.classList.add("hidden");
+            displayMobile.innerText = `+91 ${mobile.slice(0, 2)}******${mobile.slice(-2)}`;
+
+            step1.classList.add("hidden");
+            step2.classList.remove("hidden");
+
+            document.querySelector(".otp-input").focus();
+        }
+
+        /* -----------------------------
+           OTP INPUT AUTO MOVE
+        ----------------------------- */
+        function moveFocus(current, nextId) {
+            if (current.value.length === 1 && nextId) {
+                document.getElementById(nextId).focus();
+            }
+        }
+
+        /* -----------------------------
+           VERIFY OTP (DEMO: 1234)
+        ----------------------------- */
+        function verifyOtp() {
+            const inputs = document.querySelectorAll(".otp-input");
+            let otp = "";
+
+            inputs.forEach(input => otp += input.value);
+
+            if (otp === "1234") {
+                document.getElementById("otp-error").classList.add("hidden");
+
+                // SINGLE PAGE FLOW → redirect only here
+                window.location.href = "free_lawyer_dashboard.html";
+            } else {
+                document.getElementById("otp-error").classList.remove("hidden");
+            }
+        }
+
+        /* -----------------------------
+           EDIT MOBILE NUMBER
+        ----------------------------- */
+        function loginEditMobile() {
+            document.getElementById("login-step-2").classList.add("hidden");
+            document.getElementById("login-step-1").classList.remove("hidden");
+
+            document.querySelectorAll(".otp-input").forEach(i => i.value = "");
+        }
+
+        /* -----------------------------
+           REGISTRATION STEPPER
+        ----------------------------- */
+        function nextRegStep(step) {
+            document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+            document.getElementById(`reg-step-${step}`).classList.add('active');
+
+            const titles = ["Credentials", "Profile", "Verification"];
+            document.getElementById('step-number').innerText = `0${step}`;
+            document.getElementById('step-title').innerText = titles[step - 1];
+
+            const bars = ['bar-1', 'bar-2', 'bar-3'];
+            bars.forEach((id, i) => {
+                document.getElementById(id).className =
+                    i < step ? 'w-8 h-1 bg-gold rounded-full' : 'w-8 h-1 bg-gray-200 rounded-full';
+            });
+        }
+
+        function finishRegistration() {
+            window.location.href = "free_lawyer_dashboard.html";
+        }
+    </script>
+
+</body>
+
+</html>

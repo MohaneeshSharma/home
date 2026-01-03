@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finance & Refunds | Admin Console</title>
+    
+    <!-- Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#1A1A1A',
+                        gold: '#C5A059',
+                        goldhover: '#B08D45',
+                        paper: '#F8F9FA',
+                        success: '#10B981',
+                        danger: '#EF4444',
+                        warning: '#F59E0B'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Times New Roman', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scroll::-webkit-scrollbar { width: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb { background-color: #374151; border-radius: 4px; }
+        
+        /* Sidebar Collapsed State */
+        .sidebar-collapsed .sidebar-text { display: none; }
+        .sidebar-collapsed .group-heading { display: none; }
+        .sidebar-collapsed .sidebar-logo-text { display: none; }
+        .sidebar-collapsed { width: 5rem; }
+        
+        aside { transition: width 0.3s ease; }
+        
+        /* Modal Animation */
+        #refund-modal { transition: opacity 0.3s ease; }
+        #refund-modal.hidden { opacity: 0; pointer-events: none; }
+        #refund-modal:not(.hidden) { opacity: 1; pointer-events: auto; }
+    </style>
+</head>
+<body class="bg-paper font-sans text-obsidian flex h-screen overflow-hidden">
+
+    <!-- ADMIN SIDEBAR -->
+  <aside id="sidebar" class="w-64 bg-obsidian text-white flex flex-col flex-shrink-0 shadow-2xl transition-all duration-300 z-30">
+    <div class="h-16 flex items-center justify-between px-4 border-b border-gray-800">
+        <div class="flex items-center gap-2 overflow-hidden whitespace-nowrap">
+            <i data-lucide="shield" class="text-gold w-6 h-6 flex-shrink-0"></i>
+            <span class="font-serif font-bold text-lg sidebar-logo-text">NyayaSetu <span class="text-gold text-xs">ADMIN</span></span>
+        </div>
+        <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">
+            <i data-lucide="chevron-left" class="w-5 h-5" id="toggle-icon"></i>
+        </button>
+    </div>
+    
+    <nav class="flex-1 py-4 space-y-1 px-2 custom-scroll overflow-y-auto">
+        
+
+
+        <!-- Dashboard -->
+         <a href="home.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+                <i data-lucide="layout-grid" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+                <span class="sidebar-text">Master Dashboard</span>
+            </a>
+        <!-- User Governance -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">User Governance</div>
+        <a href="lawyer_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="briefcase" class="w-5 h-5 flex-shrink-0 text-gold group-hover:text-white"></i> 
+            <span class="sidebar-text">Lawyer Management</span>
+        </a>
+        <a href="user_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="users" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">User Management</span>
+        </a>
+        <a href="staff_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="user-cog" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Internal Staff</span>
+        </a>
+
+        <!-- Resolution Desk -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Resolution Center</div>
+     
+
+ <a href="complaint.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0"></i> 
+            <span class="sidebar-text">Complaints</span>
+        </a>
+
+        <a href="grivance.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="message-square-warning" class="w-5 h-5 flex-shrink-0 text-orange-400"></i> 
+            <span class="sidebar-text">Grievance Cell</span>
+        </a>
+
+         <a href="dispute.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="alert-octagon" class="w-5 h-5 flex-shrink-0"></i> 
+            <span class="sidebar-text">Dispute Resolution</span>
+        </a>
+
+        <!-- Content & Comms -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Content & Comms</div>
+        <a href="blog_manage.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="file-text" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Blog Manager</span>
+        </a>
+       
+    <a href="E-book_library.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+               <i data-lucide="book" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+                <span class="sidebar-text flex-1">E-Books & Library</span>
+                <span class="sidebar-text bg-red-500 text-white text-[10px] px-1.5 rounded-full">5</span>
+            </a>
+
+
+        <a href="noticeboard.html" class="flex items-center gap-3 px-3 py-2 text-gray-300 hover:bg-gray-800 hover:text-white rounded-sm transition group">
+            <i data-lucide="bell" class="w-5 h-5 flex-shrink-0 group-hover:text-white"></i> 
+            <span class="sidebar-text">Notice Board</span>
+        </a>
+
+        <!-- Finance -->
+        <div class="px-3 mt-4 mb-2 text-[10px] uppercase tracking-widest text-gray-500 font-bold group-heading">Finance</div>
+        <a href="Finance_refund.html" class="flex items-center gap-3 px-3 py-2.5 bg-gold text-obsidian rounded-sm font-bold">
+            <i data-lucide="indian-rupee" class="w-5 h-5 flex-shrink-0 text-green-400"></i> 
+            <span class="sidebar-text">Finance & Refunds</span>
+        </a>
+    </nav>
+
+    <!-- Admin User -->
+    <div class="p-4 border-t border-gray-800 bg-gray-900">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-gold flex items-center justify-center text-obsidian font-bold text-xs">
+                AD
+            </div>
+            <div class="overflow-hidden sidebar-text">
+                <p class="text-sm font-bold">Admin</p>
+                <p class="text-[10px] text-gray-400">Super User</p>
+            </div>
+        </div>
+    </div>
+</aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="flex-1 flex flex-col overflow-hidden bg-gray-100">
+        
+        <!-- TOP NAV -->
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 shadow-sm">
+            <div class="flex items-center gap-4">
+                <h1 class="font-serif text-xl font-bold text-obsidian">Financial Overview</h1>
+                <span class="bg-green-50 text-green-700 text-xs px-2 py-1 rounded border border-green-200 font-bold">
+                    <i data-lucide="trending-up" class="inline w-3 h-3"></i> +12% vs Last Month
+                </span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="bg-white border border-gray-300 text-gray-600 px-4 py-2 rounded-sm text-xs font-bold hover:bg-gray-50 flex items-center gap-2">
+                    <i data-lucide="download" class="w-4 h-4"></i> Download GST Report
+                </button>
+            </div>
+        </header>
+
+        <!-- CONTENT AREA -->
+        <div class="flex-1 overflow-y-auto p-6">
+            
+            <!-- 1. REVENUE STATS -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-green-600">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Total Revenue (Nov)</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-green-700">₹ 12,45,000</h4>
+                        <span class="text-xs text-green-600 font-bold bg-green-50 px-1 rounded">Gross</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-red-500">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Refunds Processed</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-red-600">₹ 24,500</h4>
+                        <span class="text-xs text-red-500 font-bold">~2% Rate</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-yellow-500">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Held in Escrow</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-obsidian">₹ 1,10,000</h4>
+                        <span class="text-xs text-yellow-600 font-bold">Disputed Funds</span>
+                    </div>
+                </div>
+                <div class="bg-white p-5 rounded shadow-sm border-l-4 border-obsidian">
+                    <p class="text-xs text-gray-500 uppercase font-bold tracking-wider">Subscription ARR</p>
+                    <div class="flex justify-between items-end mt-1">
+                        <h4 class="text-2xl font-bold text-gold">₹ 1.2 Cr</h4>
+                        <span class="text-xs text-gray-400 font-bold">Proj. Annual</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. TABS & FILTERS -->
+            <div class="flex border-b border-gray-200 mb-6">
+                <button class="px-6 py-3 text-sm font-bold border-b-2 border-obsidian text-obsidian">All Transactions</button>
+                <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-obsidian transition relative">
+                    Refund Requests
+                    <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full"></span>
+                </button>
+                <button class="px-6 py-3 text-sm font-medium text-gray-500 hover:text-obsidian transition">Failed Payments</button>
+            </div>
+
+            <div class="bg-white p-4 rounded shadow-sm border border-gray-200 mb-6 flex flex-col md:flex-row gap-4 justify-between items-center">
+                <div class="flex gap-4 w-full md:w-auto">
+                    <div class="relative w-full md:w-64">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
+                        <input type="text" placeholder="Search Order ID, Payer..." class="pl-10 pr-4 py-2 border border-gray-300 rounded-sm text-sm focus:border-gold outline-none w-full transition">
+                    </div>
+                    <select class="bg-gray-50 border border-gray-300 text-sm px-3 py-2 rounded-sm outline-none focus:border-gold">
+                        <option>Type: All</option>
+                        <option>Premium Subscription</option>
+                        <option>Consultation Fee</option>
+                    </select>
+                    <input type="date" class="bg-gray-50 border border-gray-300 text-sm px-3 py-2 rounded-sm outline-none focus:border-gold">
+                </div>
+                <div class="flex gap-2">
+                    <button class="p-2 border border-gray-300 rounded hover:bg-gray-50" title="Export CSV"><i data-lucide="file-spreadsheet" class="w-4 h-4 text-green-600"></i></button>
+                </div>
+            </div>
+
+            <!-- 3. TRANSACTION TABLE -->
+            <div class="bg-white rounded shadow-sm border border-gray-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-600">
+                        <thead class="bg-gray-50 text-xs uppercase font-bold text-gray-500 border-b border-gray-200">
+                            <tr>
+                                <th class="px-6 py-4">TXN ID / Date</th>
+                                <th class="px-6 py-4">Payer Details</th>
+                                <th class="px-6 py-4">Service Type</th>
+                                <th class="px-6 py-4">Amount</th>
+                                <th class="px-6 py-4">Status</th>
+                                <th class="px-6 py-4 text-right">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100">
+                            
+                            <!-- Row 1: Refund Request (Actionable) -->
+                            <tr class="hover:bg-red-50/10 transition border-l-4 border-l-red-500 bg-red-50/5">
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-obsidian font-mono">#TXN-99210</p>
+                                    <p class="text-[10px] text-gray-400">23 Nov, 10:00 AM</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-sm text-obsidian">Rahul Verma</p>
+                                    <p class="text-[10px] text-gray-500">User • HDFC Bank</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="text-xs bg-gray-100 px-2 py-1 rounded border border-gray-200">Consultation Fee</span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-obsidian">₹ 2,500</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-red-100 text-red-700 px-2 py-1 rounded-full text-xs font-bold flex items-center w-fit gap-1">
+                                        <i data-lucide="alert-circle" class="w-3 h-3"></i> Refund Req
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button onclick="openRefundModal('#TXN-99210', 'Rahul Verma', '2500')" class="bg-obsidian text-white px-3 py-1 rounded text-xs font-bold hover:bg-black shadow-sm">Review</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 2: Successful Subscription -->
+                            <tr class="hover:bg-gray-50 transition">
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-obsidian font-mono">#TXN-88421</p>
+                                    <p class="text-[10px] text-gray-400">Today, 09:15 AM</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-sm text-obsidian">Adv. Rajesh K.</p>
+                                    <p class="text-[10px] text-gray-500">Lawyer • UPI</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="text-xs bg-gold/10 text-gold px-2 py-1 rounded border border-gold/20 font-bold">Premium Annual</span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-green-700">+ ₹ 14,999</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-green-100 text-green-700 px-2 py-1 rounded-full text-xs font-bold">Captured</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="text-gray-400 hover:text-obsidian text-xs font-bold border border-gray-200 px-2 py-1 rounded"><i data-lucide="download" class="w-3 h-3 inline"></i> Invoice</button>
+                                </td>
+                            </tr>
+
+                            <!-- Row 3: Failed Payment -->
+                            <tr class="hover:bg-gray-50 transition opacity-75">
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-gray-500 font-mono">#TXN-77210</p>
+                                    <p class="text-[10px] text-gray-400">Yesterday</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-sm text-gray-600">Adv. Amit K.</p>
+                                    <p class="text-[10px] text-gray-500">Lawyer • Credit Card</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="text-xs bg-gray-100 px-2 py-1 rounded border border-gray-200">Premium Monthly</span>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="font-bold text-gray-400">₹ 499</p>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-gray-100 text-gray-500 px-2 py-1 rounded-full text-xs font-bold">Failed</span>
+                                </td>
+                                <td class="px-6 py-4 text-right">
+                                    <button class="text-blue-600 hover:underline text-xs font-bold">View Log</button>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="px-6 py-4 border-t border-gray-200 flex justify-between items-center">
+                    <p class="text-xs text-gray-500">Showing 1-10 of 2,450</p>
+                    <div class="flex gap-2">
+                        <button class="px-3 py-1 border border-gray-300 rounded text-xs hover:bg-gray-50">Next</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- REFUND MODAL -->
+    <div id="refund-modal" class="fixed inset-0 bg-black/50 z-50 hidden flex items-center justify-center backdrop-blur-sm">
+        <div class="bg-white w-full max-w-md rounded-lg shadow-2xl overflow-hidden transform transition-all scale-100">
+            
+            <div class="bg-red-600 text-white px-6 py-4 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="alert-triangle" class="text-white w-5 h-5"></i>
+                    <h3 class="font-serif text-xl font-bold">Process Refund</h3>
+                </div>
+                <button onclick="closeRefundModal()" class="text-red-200 hover:text-white transition"><i data-lucide="x" class="w-6 h-6"></i></button>
+            </div>
+            
+            <div class="p-6">
+                <div class="bg-red-50 border border-red-100 rounded p-3 mb-4 text-sm text-red-800">
+                    <p class="font-bold">Warning:</p>
+                    <p>This action is irreversible. Funds will be returned to the source payment method.</p>
+                </div>
+
+                <div class="space-y-3 mb-6">
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">Transaction ID:</span>
+                        <span class="font-bold font-mono" id="ref-id">#TXN-000</span>
+                    </div>
+                    <div class="flex justify-between text-sm">
+                        <span class="text-gray-500">Payee:</span>
+                        <span class="font-bold" id="ref-name">User Name</span>
+                    </div>
+                    <div class="flex justify-between text-sm border-t border-gray-100 pt-2 mt-2">
+                        <span class="text-gray-500">Refund Amount:</span>
+                        <span class="font-bold text-lg text-red-600" id="ref-amount">₹ 0</span>
+                    </div>
+                </div>
+
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Reason for Refund</label>
+                        <select class="w-full px-3 py-2 border border-gray-300 rounded-sm focus:border-red-500 outline-none text-sm bg-white">
+                            <option>Service Not Delivered (Dispute)</option>
+                            <option>Duplicate Payment</option>
+                            <option>Technical Error</option>
+                            <option>Fraudulent Transaction</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Admin Remarks</label>
+                        <textarea class="w-full px-3 py-2 border border-gray-300 rounded-sm focus:border-red-500 outline-none text-sm h-20 resize-none" placeholder="Internal audit note..."></textarea>
+                    </div>
+                </form>
+
+                <div class="mt-6 flex gap-3">
+                    <button onclick="closeRefundModal()" class="flex-1 border border-gray-300 py-2 rounded-sm font-bold text-gray-600 hover:bg-gray-50">Cancel</button>
+                    <button class="flex-1 bg-red-600 text-white py-2 rounded-sm font-bold hover:bg-red-700 shadow-md">Confirm Refund</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        lucide.createIcons();
+
+        function openRefundModal(id, name, amount) {
+            document.getElementById('ref-id').innerText = id;
+            document.getElementById('ref-name').innerText = name;
+            document.getElementById('ref-amount').innerText = "₹ " + amount;
+            document.getElementById('refund-modal').classList.remove('hidden');
+        }
+
+        function closeRefundModal() {
+            document.getElementById('refund-modal').classList.add('hidden');
+        }
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const icon = document.getElementById('toggle-icon');
+            sidebar.classList.toggle('sidebar-collapsed');
+            if (sidebar.classList.contains('sidebar-collapsed')) {
+                icon.classList.remove('rotate-0'); icon.classList.add('rotate-180'); sidebar.classList.remove('w-64');
+            } else {
+                icon.classList.remove('rotate-180'); icon.classList.add('rotate-0'); sidebar.classList.add('w-64');
+            }
+        }
+    </script>
+</body>
+</html>
