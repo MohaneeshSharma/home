@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figma Plans Comparison - Team Recommendation</title>
+    <style>
+        :root {
+            --primary: #0abc84;
+            --secondary: #1ab5ff;
+            --dark: #1e1f22;
+            --light: #f6f7f8;
+            --gray: #7c7c7c;
+            --border: #e6e6e6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #0abc84 0%, #1ab5ff 100%);
+            color: white;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .recommendation {
+            background-color: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .recommendation h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .recommendation p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .plans-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .plan {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .plan:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+        }
+        
+        .plan-header {
+            padding: 25px;
+            text-align: center;
+            background: var(--light);
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .starter .plan-header { background: #e6f7f3; }
+        .professional .plan-header { background: #e6f5ff; }
+        .organization .plan-header { background: #f0e8ff; }
+        .enterprise .plan-header { background: #fff0e8; }
+        
+        .plan-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .plan-price {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        
+        .plan-billing {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        .recommended-badge {
+            position: absolute;
+            top: 15px;
+            right: -30px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 40px;
+            transform: rotate(45deg);
+            font-weight: bold;
+            font-size: 0.85rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+        
+        .plan-features {
+            padding: 25px;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feature-list li:before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .best-for {
+            background-color: #f0f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+        
+        .seats-section {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .seats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .seat-card {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .seat-card:hover {
+            border-color: var(--primary);
+        }
+        
+        .seat-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark);
+        }
+        
+        .seat-features {
+            list-style: none;
+        }
+        
+        .seat-features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .seat-features li:before {
+            content: "•";
+            position: absolute;
+            left: 10px;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .cta-section {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(135deg, #1e1f22 0%, #3a3a3a 100%);
+            color: white;
+            border-radius: 12px;
+            margin: 40px 0;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .cta-button:hover {
+            background: #089e6f;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .plans-container, .seats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Figma Pricing Comparison</h1>
+            <p class="subtitle">Designed to help stakeholders understand which plan best fits our team's needs for collaborative design and development</p>
+        </header>
+        
+        <div class="recommendation">
+            <h2>Our Team Recommendation</h2>
+            <p>Based on our organization's needs for collaborative design work across multiple teams, we recommend the <strong>Organization Plan</strong> with a mix of Full and Dev seats.</p>
+            <p>This plan provides the perfect balance of advanced features, centralized asset management, and security controls needed for our growing design and development workflow.</p>
+        </div>
+        
+        <div class="plans-container">
+            <!-- Starter Plan -->
+            <div class="plan starter">
+                <div class="plan-header">
+                    <div class="plan-name">Starter</div>
+                    <div class="plan-price">Free</div>
+                    <div class="plan-billing">Forever free plan</div>
+                </div>
+                <div class="plan-features">
+                    <ul class="feature-list">
+                        <li>Unlimited drafts</li>
+                        <li>UI kits and templates</li>
+                        <li>Basic design file inspection</li>
+                        <li>150 AI credits/day (up to 500/mo)</li>
+                    </ul>
+                    <div class="best-for">
+                        Best for: Individuals working on personal projects or trying Figma tools
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Professional Plan -->
+            <div class="plan professional">
+                <div class="plan-header">
+                    <div class="plan-name">Professional</div>
+                    <div class="plan-price">$12/mo</div>
+                    <div class="plan-billing">or $3/mo billed annually</div>
+                </div>
+                <div class="plan-features">
+                    <ul class="feature-list">
+                        <li>Unlimited files and projects</li>
+                        <li>Team-wide design libraries</li>
+                        <li>Advanced Dev Mode inspection</li>
+                        <li>3,000 AI credits/mo for Full seat</li>
+                        <li>MCP Server support</li>
+                    </ul>
+                    <div class="best-for">
+                        Best for: Professional designers or small teams working on single products
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Organization Plan -->
+            <div class="plan organization">
+                <div style="position: relative;">
+                    <div class="recommended-badge">RECOMMENDED</div>
+                    <div class="plan-header">
+                        <div class="plan-name">Organization</div>
+                        <div class="plan-price">$55/mo</div>
+                        <div class="plan-billing">or $25/mo billed annually</div>
+                    </div>
+                </div>
+                <div class="plan-features">
+                    <ul class="feature-list">
+                        <li>All Professional features</li>
+                        <li>Unlimited teams</li>
+                        <li>Shared libraries and fonts</li>
+                        <li>Centralized admin tools</li>
+                        <li>3,500 AI credits/mo for Full seat</li>
+                        <li>Basic security features</li>
+                    </ul>
+                    <div class="best-for">
+                        Best for: Businesses designing products across multiple departments
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Enterprise Plan -->
+            <div class="plan enterprise">
+                <div class="plan-header">
+                    <div class="plan-name">Enterprise</div>
+                    <div class="plan-price">$90/mo</div>
+                    <div class="plan-billing">or $35/mo billed annually</div>
+                </div>
+                <div class="plan-features">
+                    <ul class="feature-list">
+                        <li>All Organization features</li>
+                        <li>Custom team workspaces</li>
+                        <li>Design system theming and APIs</li>
+                        <li>SCIM seat management</li>
+                        <li>4,250 AI credits/mo for Full seat</li>
+                        <li>Enterprise-level security</li>
+                    </ul>
+                    <div class="best-for">
+                        Best for: Large organizations with multiple products or strict security requirements
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="seats-section">
+            <h2 style="text-align: center; margin-bottom: 20px; color: var(--dark);">Seat Types & Team Allocation</h2>
+            <p style="text-align: center; margin-bottom: 30px; color: var(--gray);">Different team members need different levels of access. Here's how we can allocate seats:</p>
+            
+            <div class="seats-grid">
+                <div class="seat-card">
+                    <h3 class="seat-title">Collab Seat</h3>
+                    <ul class="seat-features">
+                        <li>Ideal for stakeholders, product managers, and marketing team members</li>
+                        <li>Brainstorm in FigJam</li>
+                        <li>Present in Figma Slides</li>
+                        <li>Comment and review designs</li>
+                        <li>View all team projects</li>
+                    </ul>
+                </div>
+                
+                <div class="seat-card">
+                    <h3 class="seat-title">Dev Seat</h3>
+                    <ul class="seat-features">
+                        <li>Perfect for developers and engineers</li>
+                        <li>All Collab seat capabilities</li>
+                        <li>Build directly in Dev Mode</li>
+                        <li>Promote in Figma Buzz</li>
+                        <li>Detailed code inspection and export</li>
+                        <li>Handoff designs to development</li>
+                    </ul>
+                </div>
+                
+                <div class="seat-card">
+                    <h3 class="seat-title">Full Seat</h3>
+                    <ul class="seat-features">
+                        <li>Essential for designers and design leads</li>
+                        <li>All Dev seat capabilities</li>
+                        <li>Create in Figma Design</li>
+                        <li>Illustrate in Figma Draw</li>
+                        <li>Publish in Figma Sites</li>
+                        <li>Explore in Figma Make</li>
+                        <li>Complete design system management</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h2>Ready to Transform Our Design Workflow?</h2>
+            <p>With Figma's Organization plan, our team can collaborate seamlessly across departments, maintain design consistency, and accelerate our product development cycle.</p>
+            <p>Estimated team cost: Approximately $1,200/year for 4 Full seats + 6 Dev seats (billed annually)</p>
+            <a href="https://www.figma.com/pricing/" class="cta-button" target="_blank">Request Demo & Pricing Details</a>
+        </div>
+        
+        <div class="footer">
+            <p>Prepared for stakeholder review • Figma pricing information as of January 2026 • <a href="https://www.figma.com/pricing/" style="color: var(--secondary);">Official Figma Pricing Page</a></p>
+        </div>
+    </div>
+</body>
+</html>
