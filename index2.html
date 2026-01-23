@@ -1,290 +1,277 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mohaneesh Sharma | UI/UX Product Designer</title>
-    <meta name="description" content="Certified UI/UX Designer with 6+ years experience reducing support queries and building scalable systems.">
-   <script src="assets/js/tailwind.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AQAR 2024–25 – Annual Quality Assurance Report</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"Inter"', 'sans-serif'],
-                        serif: ['"Playfair Display"', 'serif'],
-                    },
-                    colors: {
-                        brand: {
-                            50: '#F0F9FF',
-                            100: '#E0F2FE',
-                            500: '#0EA5E9', /* Sky Blue - Professional & Calm */
-                            600: '#0284C7',
-                            900: '#0C4A6E',
-                        },
-                        dark: '#0F172A',
-                    },
-                    animation: {
-                        'fade-in': 'fadeIn 1s ease-out',
-                    },
-                    keyframes: {
-                        fadeIn: {
-                            '0%': { opacity: '0', transform: 'translateY(10px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        }
-                    }
-                }
+    <style>
+        /* A4 Portrait Dimensions: 210mm x 297mm = 595px x 842px */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 0;
             }
         }
-    </script>
-    <style>
-        .timeline-line::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 20px;
-            width: 2px;
-            background: #E2E8F0;
-            z-index: 0;
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
-        @media (min-width: 768px) {
-            .timeline-line::before { left: 50%; margin-left: -1px; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9fb;
+            color: #333;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+        }
+
+        .aqar-container {
+            width: 595px;
+            min-height: 842px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1b3192, #1b3192);
+            color: white;
+            padding: 28px 32px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+
+        .section {
+            padding: 26px 32px;
+            border-bottom: 1px solid #edf2f7;
+        }
+
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1b3192;
+            margin-bottom: 18px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #fed7d7;
+        }
+
+        .content {
+            font-size: 14px;
+            color: #444;
+        }
+
+        .content p {
+            margin-bottom: 14px;
+            text-align: justify;
+        }
+
+        .image-placeholder {
+            width: 100%;
+            height: 130px;
+            background: #fef2f2;
+            border-radius: 8px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1b3192;
+            font-size: 13px;
+            text-align: center;
+            font-weight: 600;
+            border: 1px dashed #1b3192;
+        }
+
+        .modules-list {
+            list-style-type: disc;
+            padding-left: 24px;
+            margin: 16px 0;
+        }
+
+        .modules-list li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .feature-card {
+            background: #fff5f5;
+            border: 1px solid #fed7d7;
+            border-radius: 8px;
+            padding: 18px;
+        }
+
+        .feature-card h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #1b3192;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 24px 32px;
+            font-size: 13px;
+            color: #1b3192;
+            background: #fff5f5;
+            line-height: 1.6;
+        }
+
+        .scrollable-container {
+            max-height: 100vh;
+            overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .scrollable-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        .subheading {
+            font-weight: 600;
+            margin: 16px 0 10px;
+            color: #2d3748;
         }
     </style>
 </head>
 
-<body class="text-slate-800 antialiased bg-white">
+<body>
+    <div class="scrollable-container">
 
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex items-center gap-2">
-                    <span class="font-bold text-xl tracking-tight text-slate-900">Mohaneesh.</span>
-                </div>
-                
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#about" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">About</a>
-                    <a href="#experience" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Experience</a>
-                    <a href="#projects" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Work</a>
-                    <a href="Mohaneesh_UX_Designer.pdf" download class="px-5 py-2.5 rounded-full bg-slate-900 text-white text-sm font-semibold hover:bg-brand-600 transition-all shadow-md">
-                        Download CV
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
 
-    <section id="about" class="pt-32 pb-20 lg:pt-48 lg:pb-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-       <section class="pt-32 pb-20 lg:pt-48 lg:pb-32 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-4xl">
-            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-brand-600 text-sm font-semibold mb-6 animate-fade-in-up">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-500"></span>
-                </span>
-                Open to new opportunities
-            </div>
-            
-            <h1 class="text-5xl lg:text-7xl font-extrabold text-slate-900 leading-[1.1] mb-6 tracking-tight">
-                Designing systems that <br>
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 to-purple-600">solve real problems.</span>
-            </h1>
-            
-            <p class="text-xl text-slate-600 leading-relaxed mb-10 max-w-2xl">
-                Hi, I’m <strong>Mohaneesh Sharma</strong>. A Product Designer blending research and visuals to create scalable solutions. Recently reduced support queries by 40% at Subharti University.
-            </p>
-
-             <div class="relative z-10 w-64 h-64 sm:w-80 sm:h-80 mx-auto rounded-full overflow-hidden border-8 border-white/50 shadow-2xl">
-                    <img src="assets/images/Mohaneesh_Sharma.webp" alt="Mohaneesh Sharma" class="w-full h-full object-cover">
-                </div>
-
-            <div class="flex gap-4">
-                <a href="about.html" class="group px-8 py-4 bg-slate-900 text-white font-semibold rounded-xl shadow-lg shadow-slate-500/20 hover:bg-slate-800 transition-all flex items-center gap-2">
-                    More About Me
-                    <i class="fas fa-arrow-right text-xs transform group-hover:translate-x-1 transition-transform"></i>
-                </a>
-                <a href="#projects" class="px-8 py-4 bg-white text-slate-700 border border-slate-200 font-semibold rounded-xl hover:bg-slate-50 transition-all">
-                    View Work
-                </a>
-            </div>
-        </div>
-    </section>
-    </section>
-
-    <section id="experience" class="py-24 bg-slate-50">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-slate-900">Professional Journey</h2>
-                <p class="text-slate-500 mt-2">My career timeline and contributions.</p>
+        <div id="report-content" class="aqar-container">
+            <!-- Header -->
+            <div class="header">
+                <h1>Annual Quality Assurance Report (AQAR)</h1>
+                <p>Academic Year: 2024–2025</p>
             </div>
 
-            <div class="relative timeline-line space-y-12">
-                
-                <div class="relative z-10">
-                    <div class="md:flex items-center justify-between bg-white p-8 rounded-2xl shadow-sm border border-slate-200 md:w-[calc(100%)] ml-auto hover:border-brand-500 transition-colors">
-                        <div class="mb-4 md:mb-0 md:w-1/3">
-                            <span class="text-brand-600 font-bold text-sm tracking-wider uppercase">April 2025 - Present</span>
-                            <h3 class="text-xl font-bold text-slate-900 mt-1">UI/UX Designer</h3>
-                            <p class="text-slate-600">Subharti University</p>
-                        </div>
-                        <div class="md:w-2/3 md:pl-8 border-l-0 md:border-l border-slate-100">
-                            <ul class="space-y-2 text-slate-600 text-sm">
-                                <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i> Led UX strategy for EMS & UMS apps, serving 25k+ students.</li>
-                                <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i> Reduced support queries by 40% through rigorous usability testing[cite: 16].</li>
-                                <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i> Trained RAG-based AI assistant for query resolution[cite: 19].</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+            <!-- STUDENT-CENTRIC DIGITAL MODULES -->
+            <div class="section">
+                <h2 class="section-title">STUDENT-CENTRIC DIGITAL MODULES (2024–25)</h2>
+                <div class="content">
+                    <p>In the academic year 2024–25, the university has launched several new digital modules to enhance
+                        student experience, streamline administrative workflows, and promote transparency in grievance
+                        redressal and attendance management.</p>
 
-                <div class="relative z-10">
-                    <div class="md:flex items-center justify-between bg-white p-8 rounded-2xl shadow-sm border border-slate-200 md:w-[calc(100%)] ml-auto hover:border-brand-500 transition-colors">
-                        <div class="mb-4 md:mb-0 md:w-1/3">
-                            <span class="text-slate-500 font-bold text-sm tracking-wider uppercase">Oct 2024 - Mar 2025</span>
-                            <h3 class="text-xl font-bold text-slate-900 mt-1">Lead UI/UX Designer</h3>
-                            <p class="text-slate-600">010 Softwares</p>
-                        </div>
-                        <div class="md:w-2/3 md:pl-8 border-l-0 md:border-l border-slate-100">
-                            <ul class="space-y-2 text-slate-600 text-sm">
-                                <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i> Defined PRDs and prototypes directly with the CEO[cite: 25].</li>
-                                <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i> Created a design system that reduced dev time by 30%[cite: 27].</li>
-                                <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i> Mentored junior designers on Agile processes[cite: 29].</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                    <p class="subheading">1. Student Grievance Module</p>
+                    <p>A dedicated Student Grievance module has been integrated into both the University Management
+                        System (UMS) and the Subhartian mobile application. Through this feature, students can register
+                        formal complaints related to academic matters, college infrastructure, hostel facilities, or any
+                        other institutional issue. All grievances are tracked in real time with automated escalation
+                        protocols and resolution timelines.</p>
+                    <!-- <div class="image-placeholder">Student Grievance Module – Subhartian App</div> -->
+                    <img src="images/student_grievance_module.png" alt="Student Grievance Module – Subhartian App"
+                        style="width:100%; height:auto; margin:20px 0; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
 
-                <div class="relative z-10">
-                    <div class="md:flex items-center justify-between bg-white p-8 rounded-2xl shadow-sm border border-slate-200 md:w-[calc(100%)] ml-auto hover:border-brand-500 transition-colors">
-                        <div class="mb-4 md:mb-0 md:w-1/3">
-                            <span class="text-slate-500 font-bold text-sm tracking-wider uppercase">Feb 2024 - Sep 2024</span>
-                            <h3 class="text-xl font-bold text-slate-900 mt-1">UI/UX & Graphic Designer</h3>
-                            <p class="text-slate-600">Pactap (Aeroplast Group)</p>
-                        </div>
-                        <div class="md:w-2/3 md:pl-8 border-l-0 md:border-l border-slate-100">
-                            <ul class="space-y-2 text-slate-600 text-sm">
-                                <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i> Designed a 75-slide pitch deck aiding multi-million rupee deal closures[cite: 33].</li>
-                                <li class="flex gap-2"><i class="fas fa-check text-green-500 mt-1"></i> Conducted competitive analysis at industry expos to inform design[cite: 35].</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                    <p class="subheading">2. Hostel Leave Module</p>
+                    <p>The Hostel Leave process has been fully digitized via the Subhartian app. Students residing in
+                        university hostels can now apply for short-term or long-term leaves directly through their
+                        mobile devices. The request flows digitally to wardens and administrative authorities for
+                        approval, with automatic SMS/email notifications at every stage. This eliminates paperwork and
+                        ensures timely processing.</p>
+                    <img src="images/leave.png" alt="Hostel Leave Module – Subhartian App"
+                        style="width:100%; height:auto; margin:20px 0; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
 
+                    <p class="subheading">3. Digital Attendance Module</p>
+                    <p>Attendance marking has transitioned to a fully digital system. Faculty members can now mark
+                        student attendance in real time using the Subhartian app under their Teaching role in the UMS
+                        portal. The system supports location-based validation, prevents proxy attendance, and instantly
+                        syncs data with academic records for internal assessment calculations.</p>
+                    <img src="images/attendance.png" alt="Digital Attendance Module – Subhartian App"
+                        style="width:100%; height:auto; margin:20px 0; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+                </div>
             </div>
-        </div>
-    </section>
 
-    <section id="projects" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-end mb-12">
-            <div>
-                <h2 class="text-3xl font-bold text-slate-900 mb-4">Selected Projects</h2>
-                <p class="text-lg text-slate-600 max-w-xl">Solving complex user problems through research and design.</p>
+            <!-- ADMINISTRATION & STAFF MODULES -->
+            <div class="section">
+                <h2 class="section-title">ADMINISTRATION & STAFF MODULES (2024–25)</h2>
+                <div class="content">
+                    <p>To empower teaching and non-teaching staff with seamless workplace support, the university has
+                        introduced advanced modules within the S-Touch and EMS platforms during 2024–25.</p>
+
+                    <p class="subheading">1. Complaint Management System</p>
+                    <p>Staff members can now report infrastructure or facility-related issues—such as electricity
+                        failures, water supply disruptions, internet outages, or hardware malfunctions—through the
+                        S-Touch app or EMS portal. Each complaint is assigned a unique ticket number, routed to the
+                        relevant department (Civil, Electrical, IT, etc.), and tracked until resolution.</p>
+                    <img src="images/dept-complaint.png" alt="Complaint Management System – S-Touch App"
+                        style="width:100%; height:auto; margin:20px 0; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+
+                    <p class="subheading">2. Staff Accommodation Module</p>
+                    <p>Eligible teaching and non-teaching staff can apply for on-campus accommodation directly via
+                        S-Touch or EMS. The application includes document upload, preference selection, and real-time
+                        status tracking. Approvals are managed by the Estate Office with automated waiting list updates.
+                    </p>
+                    <img src="images/accommodation.png" alt="Staff Accommodation Module – S-Touch App"
+                        style="width:100%; height:auto; margin:20px 0; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+
+                    <p class="subheading">3. Research & Academic Performance (RAP) Module</p>
+                    <p>The RAP module enables teaching faculty to submit evidence of research output—including journal
+                        publications, books, patents, or conference presentations—for incentive consideration as per
+                        university norms. Submissions are verified by the R&D Cell, and eligible incentives are
+                        processed through payroll integration. Applications are accepted via both S-Touch and EMS.</p>
+                    <img src="images/rap.png" alt="Research & Academic Performance (RAP) Module – S-Touch App"
+                        style="width:100%; height:auto; margin:20px 0; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+
+                    <p class="subheading">4. Gate Entry Facial Recognition System</p>
+                    <p>A state-of-the-art facial recognition system has been deployed at all campus entry points.
+                        Authorized individuals—including students, staff, and family members of accommodated
+                        employees—are enrolled in the EMS biometric database. Entry is granted only after successful
+                        facial verification, enhancing campus security and eliminating unauthorized access.</p>
+                    <img src="images/facial_recognition.png" alt="Gate Entry Facial Recognition System"
+                        style="width:100%; height:auto; margin:20px 0; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
+                </div>
             </div>
-        </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            
-            <a href="projects/S-touch.html" class="group block cursor-pointer">
-                <div class="relative overflow-hidden rounded-2xl bg-slate-100 border border-slate-200 aspect-[4/3] mb-6">
-                    <img src="assets/images/s-touch.webp" alt="S-Touch App" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="flex gap-3 mb-3">
-                    <span class="px-3 py-1 bg-blue-50 text-blue-700 text-xs font-bold rounded-full">SaaS</span>
-                    <span class="px-3 py-1 bg-purple-50 text-purple-700 text-xs font-bold rounded-full">Research</span>
-                </div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-2 group-hover:text-brand-600">S-Touch App Redesign</h3>
-                <p class="text-slate-600">Reduced leave-related queries by 50% through improved UX flows and grievance submission features.</p>
-            </a>
-
-            <a href="projects/mentora.html" class="group block cursor-pointer">
-                <div class="relative overflow-hidden rounded-2xl bg-slate-100 border border-slate-200 aspect-[4/3] mb-6">
-                    <img src="assets/images/mentora.webp" alt="Mentora" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="flex gap-3 mb-3">
-                    <span class="px-3 py-1 bg-green-50 text-green-700 text-xs font-bold rounded-full">EdTech</span>
-                    <span class="px-3 py-1 bg-orange-50 text-orange-700 text-xs font-bold rounded-full">Case Study</span>
-                </div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-2 group-hover:text-brand-600">Mentora Alumni Platform</h3>
-                <p class="text-slate-600">A complete end-to-end UX process including journey maps, wireframes, and prototypes for alumni connection.</p>
-            </a>
-            
-             <a href="projects/121vibes.html" class="group block cursor-pointer">
-                <div class="relative overflow-hidden rounded-2xl bg-slate-100 border border-slate-200 aspect-[4/3] mb-6">
-                    <img src="assets/images/121vibes.webp" alt="121Vibes" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500">
-                </div>
-                <div class="flex gap-3 mb-3">
-                    <span class="px-3 py-1 bg-pink-50 text-pink-700 text-xs font-bold rounded-full">Mobile App</span>
-                    <span class="px-3 py-1 bg-gray-50 text-gray-700 text-xs font-bold rounded-full">Interactive</span>
-                </div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-2 group-hover:text-brand-600">121Vibes Productivity</h3>
-                <p class="text-slate-600">Designed cross-platform flows for chat, calls, and wallet integration, improving engagement.</p>
-            </a>
-
-        </div>
-    </section>
-
-    <section class="py-20 bg-slate-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold mb-12">Technical Proficiency</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div>
-                    <h4 class="text-lg font-bold text-brand-500 mb-4">Design & Prototyping</h4>
-                    <ul class="space-y-2 text-slate-300">
-                        <li>Figma (Auto Layout, Design Systems)</li>
-                        <li>Adobe Photoshop & CorelDraw</li>
-                        <li>Micro-Interactions</li>
-                        <li>Responsive Design</li>
+            <!-- INTEGRATION & IMPACT -->
+            <div class="section">
+                <h2 class="section-title">INTEGRATION & INSTITUTIONAL IMPACT</h2>
+                <div class="content">
+                    <p>All newly developed modules are natively integrated with the university’s core ERP, UMS, EMS, and
+                        Subhartian ecosystems. This ensures:</p>
+                    <ul class="modules-list">
+                        <li>Single Sign-On (SSO) across platforms</li>
+                        <li>Real-time data synchronization</li>
+                        <li>Role-based access control</li>
+                        <li>Audit trails for compliance</li>
+                        <li>Reduced manual intervention and paper usage</li>
                     </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold text-brand-500 mb-4">Research & Strategy</h4>
-                    <ul class="space-y-2 text-slate-300">
-                        <li>User Personas & Journey Maps</li>
-                        <li>Usability Testing & Heatmaps (Maze)</li>
-                        <li>Information Architecture (FigJam)</li>
-                        <li>Accessibility (WCAG Compliance)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-bold text-brand-500 mb-4">Development & Ops</h4>
-                    <ul class="space-y-2 text-slate-300">
-                        <li>HTML5 / CSS3</li>
-                        <li>FlutterFlow / Firebase Basics</li>
-                        <li>Agile / Scrum Methodology</li>
-                        <li>PRD Documentation</li>
-                    </ul>
+                    <p>These enhancements reflect the university’s commitment to digital governance, operational
+                        excellence, and stakeholder-centric service delivery in alignment with NAAC and NIRF benchmarks.
+                    </p>
+                    <img src="images/integration_impact.png" alt="Integration & Institutional Impact"
+                        style="width:100%; height:auto; margin:20px 0; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1);">
                 </div>
             </div>
-        </div>
-    </section>
 
-    <footer id="contact" class="bg-white pt-24 pb-12 border-t border-slate-100">
-        <div class="max-w-4xl mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold text-slate-900 mb-6">Let's build something scalable.</h2>
-            <p class="text-slate-600 mb-10">I am currently open to full-time opportunities. <br>Based in India, open to relocation[cite: 9].</p>
-            
-            <div class="flex flex-col sm:flex-row justify-center gap-4 mb-16">
-                <a href="mailto:mohaneesh.uiux@gmail.com" class="px-8 py-4 bg-slate-900 text-white font-bold rounded-full hover:bg-slate-800 transition-colors shadow-lg">
-                    mohaneesh.uiux@gmail.com
-                </a>
-                <a href="tel:+917618187979" class="px-8 py-4 bg-white border border-slate-200 text-slate-700 font-bold rounded-full hover:bg-slate-50 transition-colors">
-                    +91-7618187979
-                </a>
+            <!-- Footer -->
+            <div class="footer">
+                <p>Annual Quality Assurance Report (AQAR) • Academic Year 2024–2025<br>
+                    Prepared in accordance with NAAC SSR Guidelines • Confidential Document</p>
             </div>
-
-            <p class="text-slate-400 text-sm">© <span id="year"></span> Mohaneesh Sharma.</p>
         </div>
-    </footer>
+    </div>
 
-    <script>
-        document.getElementById('year').textContent = new Date().getFullYear();
-    </script>
 </body>
+
 </html>
