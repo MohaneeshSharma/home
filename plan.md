@@ -222,7 +222,23 @@ MongoDB's own Windows service installer (the MSI) installs system-wide and runs 
    `--bind_ip 127.0.0.1` keeps it unreachable from outside the machine, per `gaurdrail.md` §6. Leave this terminal window running while developing; `Ctrl+C` to stop it.
 6. `MONGODB_URI=mongodb://127.0.0.1:27017/portfolio` in `.env.local` (already the default in `.env.local.example`) then just works — no path changes needed, since `mongod` listens on the same `localhost:27017` regardless of where its files live on disk.
 
-(An `mongod --install` Windows-service variant, or Docker Desktop, both remain valid alternatives if the owner later prefers not to start it manually each session — not needed for now.)
+### Windows: auto-starting alternative — install as a Windows Service
+
+If starting `mongod.exe` manually every session is annoying, register it as a Windows Service instead — same portable ZIP, same project-folder data path, but Windows starts it automatically at boot rather than needing a terminal window kept open.
+
+1. Copy `mongod.cfg.example` (repo root) to `mongod.cfg` — already gitignored; edit the two paths inside only if your clone isn't at `D:\2026\mohaneesh.com\home`.
+2. Create the log folder: `D:\2026\mohaneesh.com\home\mongodb-logs\` (also gitignored).
+3. Open **Command Prompt as Administrator** (service install/start requires elevation), then:
+   ```
+   cd D:\2026\mohaneesh.com\home\mongodb\bin
+   mongod.exe --config "D:\2026\mohaneesh.com\home\mongod.cfg" --install --serviceName "PortfolioMongoDB" --serviceDisplayName "Portfolio MongoDB (local dev)"
+   ```
+   A custom `--serviceName` avoids clashing with any other "MongoDB" service already on the machine from a prior install.
+4. Start it: `net start PortfolioMongoDB` (and `net stop PortfolioMongoDB` to stop). `mongod --install` registers the service as Automatic-start by default — confirm with `sc qc PortfolioMongoDB` (look for `START_TYPE : AUTO_START`), or force it with `sc config PortfolioMongoDB start= auto` if it isn't.
+5. `MONGODB_URI` in `.env.local` stays the same (`mongodb://127.0.0.1:27017/portfolio`) — it's still listening on the same port, just started by Windows instead of manually.
+6. To remove it later: from an elevated prompt, `net stop PortfolioMongoDB` then `mongod.exe --remove --serviceName "PortfolioMongoDB"`.
+
+Both methods write to the same `mongodb-data\` folder, so you can switch between manual-start and service-mode without losing data — just don't run both at once (they'd fight over the same port/files).
 
 ### All platforms
 
