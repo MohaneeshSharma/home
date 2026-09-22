@@ -1,0 +1,38 @@
+/**
+ * Glassmorphism surface primitives (spec.md §2).
+ *
+ * Decorative container/surface treatment ONLY — applied to nav, hero/bento
+ * cards, stat badges, and modals. Never applied to text or interactive
+ * elements directly; those keep UX4G's own solid component styling and sit
+ * on top of a glass surface, not styled by it. Contrast of content placed
+ * inside a .glass-surface MUST be verified against the effective rendered
+ * backdrop in both themes (gaurdrail.md §3) — this file only provides the
+ * surface, not a guarantee that arbitrary content on it is readable.
+ */
+
+.glass-surface {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(15, 23, 42, 0.08);
+}
+
+[data-theme="dark"] .glass-surface {
+  background: rgba(15, 23, 42, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+/* Fallback for browsers without backdrop-filter support (per MDN, all
+   current evergreen browsers support it, but this keeps the surface legible
+   — higher opacity, no blur — rather than showing near-transparent text). */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass-surface {
+    background: rgba(255, 255, 255, 0.92);
+  }
+
+  [data-theme="dark"] .glass-surface {
+    background: rgba(15, 23, 42, 0.92);
+  }
+}

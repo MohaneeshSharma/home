@@ -1,0 +1,22 @@
+# Dependencies
+node_modules/
+
+# Next.js
+.next/
+out/
+next-env.d.ts
+
+# Local env files (never commit secrets)
+.env
+.env.local
+.env.*.local
+
+# Local file storage (runtime state, not source — plan.md §10)
+/uploads/
+
+# Build/debug
+*.tsbuildinfo
+npm-debug.log*
+
+# OS/editor
+.DS_Store
