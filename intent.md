@@ -1,113 +1,109 @@
-# Intent Document (v2.0)
-## Confirmed Direction: Real Dynamic Site (DB + API) + Admin CRM
+# Intent Document (v3.0)
+## Confirmed Direction: Dynamic Multi-Discipline Portfolio + CMS + CRM on a New Domain
 
-Version: 2.0 — supersedes v1.0's open "Option A vs Option B" question
+Version: 3.0 — resolves v2.0 open question §8 Q1 and adds two new confirmed requirements: domain change, multi-discipline work sections
 Date: 2026-09-22
-Context: `brd.md` / `plan.md` / `gaurdrail.md` scoped a static React rebuild. v1.0 of this document flagged that "dynamic" conflicts with a pure static build and left the rendering strategy open (Option A: rebuild-on-publish vs Option B: real backend). **The owner has now decided**: build a genuinely dynamic site — real database, real API — plus a dedicated **admin CRM** to manage all content (projects, blogs, certificates) without touching code.
+Context: v2.0 locked in a real dynamic backend (DB + API) and proposed a unified CMS+CRM admin panel, leaving several questions open. The owner has now answered and added scope: **both CMS and CRM are wanted**, the site is moving to a **new domain (`www.mohaneesh.com`)**, and — because the owner works both a job and freelance, across **UI/UX design, graphic design, and video editing** — the Work section must support **multiple creative disciplines**, not just UI/UX case studies.
 
 ---
 
-## 1. Decision Confirmed
+## 1. Decisions Confirmed in This Update
 
-- v1.0 §5 **Option B is chosen**: this is a real server-backed dynamic application, not a static site with an auto-rebuild trigger.
-- The current site is explicitly **fake-dynamic** (owner's own words, confirmed): `Project.json`/`Blogs.json`/`Certificates.json`/`Contact.json` are static files in the repo; `admin.html` has no auth and doesn't persist anything (it just `console.log`s an updated in-memory array for manual copy-paste). None of this carries forward.
-- A **new, explicit requirement** is added on top of everything in v1.0: a proper **CRM (admin panel)** so the owner can create/edit/delete Projects, Blog posts, and Certificates directly from the browser, backed by a real database and a real authenticated API — no code change, no redeploy, no manual JSON editing.
-
-## 2. Terminology: "CRM" in This Context
-
-The owner asked for a "CRM" to manage content dynamically. Taken literally, CRM (Customer Relationship Management) is about managing customer/lead relationships, while what manages Projects/Blogs/Certificates content is technically a CMS (Content Management System). Business-requirements research for a solo portfolio site shows these two needs are small enough to **merge into one admin panel** rather than build/host two separate systems:
-
-- **CMS function** (the owner's primary ask): manage Projects, Blog posts, Certificates.
-- **CRM function** (a natural extension, and arguably the more literal reading of "CRM"): the Contact page today only offers `mailto:`/`tel:`/WhatsApp links — there is no record of who reached out. Once a real backend exists, capturing and tracking inbound inquiries (name, message, date, status: new/contacted/closed) is a near-zero-cost addition that makes "CRM" true in the literal sense too, and is genuinely useful for a freelance/portfolio site where every inquiry is a lead worth not losing track of.
-
-**Recommendation**: build one unified **Admin Panel** with two areas — **Content** (CMS) and **Leads** (CRM) — rather than a content-only tool. This is called "the CRM" throughout the rest of this document per the owner's naming, but functionally covers both. Confirm scope in §8 if the Leads/inquiry-tracking piece is not wanted.
-
-## 3. CRM / Admin Panel — Business Requirements (researched)
-
-### 3.1 Core Modules
-
-| Module | Purpose |
+| v2.0 open question | Answer |
 |---|---|
-| **Dashboard** | At-a-glance overview on login: total projects, published vs draft blog posts, total certificates, new/unread leads count, recent activity. |
-| **Projects manager** | Full CRUD for case studies: title, short/long description, cover image + gallery images, tags, external links, **slug** (for the public URL), status (draft/published), display order (for "Selected Work" ordering on Home). |
-| **Blogs manager** | Full CRUD for posts: title, slug, summary, **rich-text body** (not raw HTML pasted by hand — see §3.3), cover image, author, tags, **status (draft/scheduled/published)**, published date, view count (the existing `Blogs.json` already has a `views` field — decide in §8 whether this becomes a real tracked counter). |
-| **Certificates manager** | Full CRUD: title, issuing category (matches the current grouping on `certificate.html`), description, **PDF upload** (replacing today's manually-placed files in `assets/Certificates/`). |
-| **Leads / Inquiries** (CRM proper) | List of contact-page submissions (if a real contact form is added per v1.0 §7 Q5): name, email/phone, message, received date, status (new/contacted/closed), notes field. |
-| **Settings** | Editable site-level fields the owner currently has to hand-edit in HTML: resume PDF (replace/upload), social links, hero stats, "trusted by" logos — scope to be confirmed (could be minimal for v1, expanded later). |
-| **Auth** | Single-admin login (email/password or magic link) gating the entire admin panel. No public sign-up. |
+| §8 Q1 — Leads/CRM scope | **Confirmed: both CMS (content) and CRM (leads) are required.** The Contact page needs a real form feeding the Leads module — link-only contact CTAs are no longer sufficient on their own. |
+| Domain | **Changing from `www.foxwise.in` to `www.mohaneesh.com`.** `CNAME` and DNS must be updated as part of deployment (see §5). |
+| Work/Projects scope | **Expanding beyond UI/UX.** The owner does paid work in UI/UX design, graphic design, and video editing (job + freelance) — the portfolio must represent all three, not just the current UI/UX case studies. This also resolves `brd.md`'s open question about `graphic.html` ("Visuals & Content"): it is **now in scope**, and becomes a real, dynamic content type rather than an orphan static page. |
 
-### 3.2 Functional Requirements (per module)
+## 2. New Requirement: Multi-Discipline Work Section
 
-- **FR-C1**: Every content type (Project, Blog, Certificate) supports Create, Read, Update, Delete, and the public site reflects changes without a code deploy.
-- **FR-C2**: Blog and Project records have a **draft/published** state; only `published` records are ever served to the public site/API — this gives the owner a safe way to prepare content before it goes live.
-- **FR-C3**: Every content type has its own **SEO fields** (meta title, meta description, slug) editable in the admin panel — this directly extends the SEO work already planned in `plan.md`, so SEO isn't just a one-time build-time setup but something the owner can tune per post/project going forward.
-- **FR-C4**: Image/file uploads (project images, certificate PDFs, blog cover images) go through a real upload flow with type/size validation — not "commit a file to the repo."
-- **FR-C5**: The Blogs manager uses a **rich text / WYSIWYG editor** (e.g., a block or Markdown editor) instead of the current pattern of hand-writing raw HTML into a `content` JSON field — removes the XSS-prone raw-HTML-paste pattern flagged in `gaurdrail.md` §4 at the source, since the editor produces sanitized structured content rather than arbitrary pasted HTML.
-- **FR-C6**: If Leads/CRM is in scope (see §2), every Contact-page form submission is stored and visible in the admin panel with a status the owner can update.
-- **FR-C7**: Admin panel is **fully separate from and inaccessible without** authentication — replacing `admin.html`'s current zero-auth state, this is a hard requirement, not a nice-to-have (already a MUST in `gaurdrail.md` §4).
-- **FR-C8**: Deleting a Project/Blog/Certificate should be a confirmed, soft-delete-or-archived action where reasonable (avoid one mis-click permanently destroying content with no recovery).
+### 2.1 Business context (why this matters)
 
-### 3.3 Non-Functional Requirements Specific to the CRM
+The current site (per the original audit in `brd.md`) only really represents UI/UX work: `Projects.html`/`Project.json` are UI/UX case studies, and `graphic.html` ("Visuals & Content" — branding/social/video work) exists but is disconnected from the main site (no nav link, not in the sitemap, inconsistent styling). Since the owner earns from **three distinct disciplines** and pursues **both salaried job opportunities and freelance clients**, the portfolio's job is now to let each type of visitor (a hiring manager vs. a freelance client looking for a video editor, say) quickly find the relevant work — a single undifferentiated project grid no longer serves that.
 
-- **Security**: server-side auth checks on every write endpoint (never trust a hidden admin route alone); rate-limit the login endpoint; sanitize/validate all incoming content server-side (extends `gaurdrail.md`'s sanitization guardrail from "the blog content field" to "every field coming from the admin panel's API").
-- **Usability**: admin panel should be usable from a phone/tablet too (the owner may want to publish a blog post or check a new lead on the go) — responsive admin UI, not desktop-only.
-- **Reliability**: uploads and content edits should give clear success/error feedback; no silent failures (a real regression from today's admin.html, which silently just logs to console).
-- **Auditability (nice-to-have, not a blocker)**: basic "last updated" timestamps on every record are enough for v1; a full audit log/history is a possible future enhancement, not required now.
+### 2.2 Data model implication
 
-## 4. Updated Technical Architecture
+`Project` (the existing content type) needs a **discipline/category** field so the same underlying CMS module serves all three kinds of work instead of building three separate systems:
 
-This confirms and replaces v1.0 §5's open question with a concrete recommendation:
+- `category`: `ui_ux` | `graphic_design` | `video_editing` (extensible — owner may add more later, e.g. "branding" as its own category if it grows large enough to deserve one).
+- **Media shape differs by category** and the admin form/schema should account for it:
+  - `ui_ux`: long-form case study (problem/process/outcome), image gallery, external prototype link (existing pattern, unchanged).
+  - `graphic_design`: primarily an **image gallery** (branding assets, social posts, posters) — shorter description, less long-form writing.
+  - `video_editing`: primarily **video embeds** (see §2.3 on hosting) plus a cover thumbnail, with a short description/credits (client, role, tools used).
+- All three still share the common fields from v2.0 §5 (`status`, `slug`, `seo_title`, `seo_description`, `tags`, `created_at`/`updated_at`), so they remain one unified `projects` table/CMS module with a `category`-driven form, not three unrelated systems.
 
-| Layer | Recommendation | Why |
-|---|---|---|
-| **Frontend framework** | **Next.js** (React, App Router) | Still React as originally requested; unlike the earlier `vite-react-ssg` static plan, Next.js natively supports **SSR/ISR**, so public pages stay fast and SEO-crawlable (title/meta/OG/JSON-LD present in real server-rendered HTML) while reflecting live database content — this is the piece that resolves v1.0's static-vs-dynamic conflict. |
-| **Backend/API** | Next.js **API routes / Route Handlers** (no separate backend service needed) | Keeps one codebase/one deploy for both the public site and the admin CRM's API — appropriate for a single-owner portfolio, avoids over-engineering with a separate microservice. |
-| **Database** | **PostgreSQL via Supabase** (managed) | Supabase bundles Postgres + Auth + File Storage + auto-generated APIs in one managed service — for a solo-owner project this cuts setup time significantly versus self-hosting Postgres + rolling custom auth + wiring S3 separately, while still being a "real" database (not a toy). Prisma (or Supabase's client) as the ORM/query layer for type-safe access from Next.js. |
-| **Auth (admin login)** | **Supabase Auth** (email/password or magic link), a single admin user | Matches FR-C7; no need for a custom auth system or third-party identity provider for a one-person CRM. |
-| **File storage** (images, certificate PDFs, resume) | **Supabase Storage** | Same platform as the DB/auth — one bill, one dashboard, avoids adding a second vendor (e.g. Cloudinary/S3) unless a specific need (image transforms/CDN) justifies it later. |
-| **Rich text editor (blogs)** | **Tiptap** (or similar block/Markdown editor) | Produces structured, sanitizable content — satisfies FR-C5. |
-| **Hosting** | **Vercel** (first-party Next.js host) + Supabase (DB/Auth/Storage) | Moves off GitHub Pages (which cannot run a backend) — this was already flagged as a consequence of "dynamic" in v1.0 §6; Vercel + Supabase is a well-trodden, low-ops pairing for exactly this kind of app. |
-| **Domain** | Point `www.foxwise.in` at the new host | Same domain preserved, hosting provider changes (owner sign-off needed — this is the one infra change from `gaurdrail.md`'s "MUST NOT change domain/hosting without explicit request," now explicitly requested by going dynamic). |
+### 2.3 Video hosting recommendation (researched)
 
-## 5. Data Model Additions (high level)
+Self-hosting raw video files in Supabase Storage (or any object storage tied to the app's own budget) gets expensive fast on bandwidth and isn't necessary for a portfolio use case. **Recommendation**: video work is uploaded to **YouTube (unlisted) or Vimeo**, and the CMS stores only the **embed URL** + a cover thumbnail — the admin panel just needs a "paste video link" field, not a heavy video-upload pipeline. This keeps hosting cost near-zero and playback performance/CDN handled by a purpose-built video platform, while the CMS still fully owns the metadata (title, client, category, description, thumbnail).
 
-Beyond the existing `Project`/`Blog`/`Certificate` shapes already documented in `brd.md` §3, the dynamic version adds:
+### 2.4 Information architecture recommendation
 
-- `status` (draft/published), `seo_title`, `seo_description`, `slug`, `created_at`, `updated_at` on every content type.
-- `Lead`/`Inquiry` table: `name`, `contact_method` (email/phone), `message`, `status`, `notes`, `created_at` — only if the CRM/Leads scope from §2 is confirmed.
-- `AdminUser`: managed by Supabase Auth, not a custom table.
-- File references (image/PDF URLs) point to Supabase Storage objects rather than repo-relative paths.
+Default recommendation (confirm with owner, this is a design decision not fully locked): keep **one "Work" page** with **category filter tabs** (e.g., "UI/UX" / "Graphic Design" / "Video Editing" / "All") rather than three separate top-level nav items — keeps the nav simple (still Home/Work/Certifications/About/Insights/Contact) while letting each visitor self-filter to what they came for. The Home page's "Selected Work" section can pull a small mixed or curated set across categories. `graphic.html`'s existing content becomes the seed data for the `graphic_design`/`video_editing` categories rather than a separate orphan page.
 
-## 6. Feature Parity (updated ownership)
+## 3. Leads/CRM Refinement (job vs. freelance)
 
-Same feature list as `brd.md`/v1.0 of this document — every public page/feature is unchanged in what the visitor sees. What changes is **who edits it and how**:
+Since the owner is evaluated differently by recruiters (job leads) vs. freelance/creative clients (project leads), the Leads module from v2.0 §3.1 gains one more field:
+
+- `inquiry_type`: `job_opportunity` | `freelance_project` | `general` — lets the owner triage the CRM's Leads list by what kind of opportunity it is, which is genuinely useful given the dual job+freelance context. Simple dropdown on the contact form, stored with the lead.
+
+## 4. Domain Change — Implementation Notes
+
+- `CNAME` file (currently `www.foxwise.in`) must be updated to `www.mohaneesh.com` once the new domain is registered/ready and pointed at the new host (Vercel, per v2.0 §4).
+- All canonical URLs, Open Graph URLs, sitemap entries, and JSON-LD `url` fields (planned in `plan.md`'s SEO section) must use `www.mohaneesh.com` from the start — no point building SEO infrastructure against a domain that's being retired.
+- If `www.foxwise.in` has any existing inbound links/search-engine indexing (recruiters may have it bookmarked, it may be indexed), a **redirect from the old domain to the new one** is worth setting up post-migration to preserve any existing SEO equity — flagged as a recommended step, not yet confirmed as required (owner to confirm if `foxwise.in` should be kept alive as a redirect or simply dropped).
+- This is a real infrastructure change, not just a docs update — it should happen as part of the deployment phase once the domain is actually registered/DNS-ready, not before.
+
+## 5. Updated Content/Data Model Summary
+
+Building on v2.0 §5:
+
+```
+projects
+  id, title, slug, category (ui_ux | graphic_design | video_editing),
+  description, long_description (nullable, mainly for ui_ux),
+  cover_image_url, gallery_image_urls[], video_embed_url (nullable),
+  tags[], external_link (nullable), status (draft|published),
+  seo_title, seo_description, display_order, created_at, updated_at
+
+blogs
+  (unchanged from v2.0 §5)
+
+certificates
+  (unchanged from v2.0 §5)
+
+leads
+  id, name, contact_method, message, inquiry_type (job_opportunity | freelance_project | general),
+  status (new|contacted|closed), notes, created_at
+```
+
+## 6. Feature Parity (updated)
 
 | Content | Old way | New way |
 |---|---|---|
-| Projects | Hand-edit `Project.json` + HTML files, commit, deploy | Create/edit in the CRM → saved to Postgres → public pages update immediately (SSR/ISR) |
-| Blogs | Hand-edit `Blogs.json` (and `Blogs.html` didn't even read it) | Rich-text editor in the CRM → draft/publish workflow → listing page always reflects real published posts |
-| Certificates | Hardcoded in `certificate.html`, PDFs manually placed in repo | Upload PDF + fill form in the CRM → stored in Supabase Storage + DB |
-| Leads (new) | None — no record of inquiries | Captured from Contact form (if added) into the CRM's Leads module |
+| UI/UX Projects | Hand-edit `Project.json` | CMS, `category = ui_ux` |
+| Graphic Design work | Static, disconnected `graphic.html` | CMS, `category = graphic_design`, image-gallery-first form |
+| Video Editing work | Didn't exist as structured content | CMS, `category = video_editing`, embed-link-first form (YouTube/Vimeo) |
+| Blogs, Certificates | (unchanged from v2.0) | (unchanged from v2.0) |
+| Leads | None | CRM, now with job-vs-freelance triage |
 
-## 7. Non-Goals (unchanged from v1.0)
+## 7. Non-Goals (unchanged)
 
-- Visual design/branding/layout is not being redesigned — this is a data + admin-tooling change.
-- `nyaysetu/` remains fully out of scope.
-- No multi-user/team roles in the CRM — single admin (the owner) is sufficient unless stated otherwise.
+- Visual redesign is still not the point of this migration — new categories get their own sensible layout/templates, but the overall brand/look stays consistent with the existing design direction.
+- `nyaysetu/` remains out of scope.
+- No self-hosted video file storage (per §2.3 — deliberately out of scope in favor of YouTube/Vimeo embeds).
 
-## 8. Open Questions (narrower now that Option B is confirmed)
+## 8. Open Questions (updated)
 
-1. **Leads/CRM scope** — confirm the Contact page should get a real form that feeds the Leads module (§2), or keep Contact link-only and drop the CRM-proper (inquiry-tracking) part, keeping the admin panel to Content (CMS) only.
-2. **Blog view counts** — `Blogs.json` already has a `views` field today (currently meaningless/static); should the dynamic version track real page views per post?
-3. **Settings module scope** — is editing resume/social links/hero stats via the CRM wanted for v1, or is that an acceptable manual/code-level edit for now (keeps v1 scope smaller)?
-4. **Notifications** — should a new Lead or a specific event (e.g., contact form submission) trigger an email notification to the owner, or is checking the CRM dashboard manually enough?
-5. **Hosting/budget confirmation** — Vercel + Supabase both have generous free tiers suitable for a solo portfolio; confirm no objection before committing to this pairing over self-hosting.
-6. Still-unresolved items carried from `brd.md`/v1.0: fate of `graphic.html`/`figma.html`/`index2.html`, and the canonical version of the duplicate project pages (`smartcity` vs `smartcityproto`, `S-touch` vs `stouchproto`).
+1. **Domain readiness** — is `mohaneesh.com` already registered and ready to point DNS at the new host, or does that need to happen first before deployment can go live?
+2. **Old domain handling** — keep `www.foxwise.in` alive as a redirect to preserve any existing SEO/links, or fully retire it (§4)?
+3. **Category taxonomy** — is `ui_ux` / `graphic_design` / `video_editing` the right split, or does the owner want finer categories (e.g., branding split out from graphic design, motion graphics split from video editing)?
+4. **Video platform preference** — YouTube (unlisted) vs. Vimeo for embeds (§2.3) — any existing channel/account to reuse?
+5. Still open from v2.0 §8: real blog view-count tracking, Settings module scope (editing resume/social links via CMS vs. code-level), notification-on-new-lead preference, and the still-unresolved fate of `figma.html`/`index2.html` and the duplicate project pages (`smartcity`/`smartcityproto`, `S-touch`/`stouchproto`) from `brd.md`.
 
 ## 9. Relationship to Other Documents
 
-- `brd.md` — content/feature scope still valid; add the CRM/Leads module as a new functional area once §8 Q1 is answered.
-- `plan.md` — **needs a revision pass**: replace the `vite-react-ssg` static-build section with the Next.js + Supabase architecture from §4 above; the component/page inventory (§3–4 of `plan.md`) is still reusable, but the "Data Layer Plan" (§5) and "Deployment Plan" (§10) sections are now outdated and should be rewritten to reflect a real API + database instead of build-time JSON imports.
-- `gaurdrail.md` — all guardrails still apply and become *more* load-bearing now: the security section (§4) is no longer a hypothetical "if admin.html is rebuilt" — it is now an active requirement for the CRM being built.
+- `brd.md` — its open question on `graphic.html`'s fate is now resolved (in scope, becomes real content); scope section should eventually be updated to reflect the three-discipline Work section.
+- `plan.md` — still needs the Next.js + Supabase revision from v2.0 §9, and now additionally needs: the `category`-aware Projects schema/admin form (§2.2), the video-embed-only media strategy (§2.3), and all SEO/canonical/sitemap work built against `www.mohaneesh.com` instead of `www.foxwise.in` (§4).
+- `gaurdrail.md` — no new guardrails required yet, but a future addition worth considering: **"MUST NOT store raw video files in the project's own storage — video content MUST be embedded via YouTube/Vimeo"** should be added as a guardrail once §8 Q4 is answered, to stop anyone in the future re-introducing an expensive self-hosted video pipeline.
 
-**Next step**: once §8's open questions are answered, update `plan.md` (or create `plan-v2.md`) with the concrete Next.js + Supabase implementation plan, database schema, and API route list before implementation begins.
+**Next step**: once §8's remaining questions are answered (domain readiness is the most time-sensitive one, since it gates deployment), revise `plan.md` into a concrete implementation plan covering the Next.js + Supabase architecture, the multi-category Projects schema, and the domain-aware SEO setup.
