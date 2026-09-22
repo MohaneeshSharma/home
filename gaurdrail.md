@@ -1,10 +1,12 @@
 # Guardrails
 ## Mohaneesh Sharma Portfolio — Dynamic Rebuild
 
-Version: 3.0
+Version: 3.1
 Companion to: `intent.md`, `brd.md`, `spec.md`, `plan.md`
 
 **What's new in v3.0**: adds a React Code Quality section (§3) distilling the project's "Impeccable React" contract — component contract, state-placement rules, effect discipline, React 19 idioms, TypeScript strictness, and a pre-delivery review gate — into hard MUST/MUST NOT rules, since `plan.md` v2.0 adopted it as the Build-stage standard.
+
+**What's new in v3.1**: adds local-dev-phase security guardrails (`.env.local`/`/uploads` never committed, local MongoDB never exposed beyond localhost) to match `intent.md` v4.0's local-first stack (`plan.md` v3.0).
 
 These are the rules the implementation must follow. Anything marked **MUST** blocks a phase from being considered done; anything marked **MUST NOT** is a hard stop that needs the owner's explicit sign-off to override.
 
@@ -17,7 +19,7 @@ These are the rules the implementation must follow. Anything marked **MUST** blo
 - **MUST NOT** migrate both `smartcity`/`smartcityproto` and both `S-touch`/`stouchproto` as separate live entries — confirm the canonical version with the owner first; the other is reference-only.
 - **MUST NOT** touch or migrate `nyaysetu/` as part of this work — it is a separate sub-project (out of scope).
 - **MUST** preserve the resume PDF and all certificate PDFs exactly as real assets (uploaded into the CMS, not deleted).
-- **MUST** point the live domain at `www.mohaneesh.com` (per `intent.md` v3.0 §4), not the old `www.foxwise.in` — update `CNAME`/DNS as part of deployment, and confirm with the owner whether the old domain redirects or is retired.
+- **MUST** point the live domain at `www.mohaneesh.com` (per `intent.md` v3.0 §4) once the site is actually deployed — update `CNAME`/DNS at that time, and confirm with the owner whether the old `www.foxwise.in` redirects or is retired. Deployment/hosting itself is deferred per `intent.md` v4.0 (local-first phase) — this guardrail applies when Phase 6 (`plan.md` §9) is reached, not now.
 - **MUST** preserve all existing static-page content as CMS seed data (`spec.md` §4) — no content invented from scratch during migration.
 - **MUST** reconcile the About page's professional history against `Mohaneesh_UX_Designer.pdf` (`spec.md` §5) — the CV is the source of truth for roles/dates/skills; any mismatch between the current `About.html` copy and the CV **MUST** be flagged to the owner, not silently resolved either way.
 
@@ -68,6 +70,9 @@ Per `spec.md` §1–3, these are hard requirements, not style preferences:
 - **MUST** enforce auth checks server-side on every write endpoint (create/update/delete for projects, blogs, certificates, leads) — a hidden route is not access control.
 - **MUST NOT** commit API keys, tokens, or credentials to the repo.
 - **MUST** review any new npm dependency before adding it (maintenance status, bundle size, no unnecessary transitive bloat).
+- **MUST NOT** commit `.env.local` or the `/uploads` directory (per `plan.md` §2/§10) — both are gitignored; `MONGODB_URI`/`NEXTAUTH_SECRET` live only in the local environment file.
+- **MUST NOT** expose the local MongoDB instance's port beyond `localhost` during the local-dev phase (no `0.0.0.0` bind, no port-forwarding it to the public internet) — it currently has no network-level access control of its own.
+- **MUST** hash the admin password with bcrypt before storing it in the `AdminUser` collection — **MUST NOT** store it in plaintext, even locally.
 
 ## 7. Required Libraries (locked-in choices, per `spec.md` §6)
 

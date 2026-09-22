@@ -1,11 +1,22 @@
-# Intent Document (v3.0)
-## Confirmed Direction: Dynamic Multi-Discipline Portfolio + CMS + CRM on a New Domain
+# Intent Document (v4.0)
+## Confirmed Direction: Dynamic Multi-Discipline Portfolio + CMS + CRM, Local-First Stack
 
-Version: 3.0 — resolves v2.0 open question §8 Q1 and adds two new confirmed requirements: domain change, multi-discipline work sections
+Version: 4.0 — supersedes v3.0 §4's Supabase/Vercel recommendation with a local-first stack (owner decision at Build-stage kickoff)
 Date: 2026-09-22
-Context: v2.0 locked in a real dynamic backend (DB + API) and proposed a unified CMS+CRM admin panel, leaving several questions open. The owner has now answered and added scope: **both CMS and CRM are wanted**, the site is moving to a **new domain (`www.mohaneesh.com`)**, and — because the owner works both a job and freelance, across **UI/UX design, graphic design, and video editing** — the Work section must support **multiple creative disciplines**, not just UI/UX case studies.
+Context: v2.0–v3.0 locked in a real dynamic backend (DB + API), a unified CMS+CRM, a new domain, and multi-discipline work. At the start of the Build stage (`plan.md` v2.0), the owner made one more architecture call: **run entirely locally for now** — a local MongoDB instance instead of hosted Supabase/Postgres, no cloud deployment yet. This version records that decision so `plan.md`/`gaurdrail.md` build against the real target, not the superseded one.
 
 ---
+
+## 0. v4.0 — Local-First Stack (NEW, supersedes v3.0 §4's DB/hosting row)
+
+| v3.0 decision | v4.0 replacement |
+|---|---|
+| PostgreSQL via **Supabase** (managed) | **MongoDB**, running locally (local `mongod` or a local Docker container) — no managed/cloud DB for now. |
+| **Supabase Auth** | A self-contained local auth solution (e.g. NextAuth.js/Auth.js with a Credentials provider, admin password hashed with bcrypt, stored in the local Mongo instance) — single admin user, no third-party auth service. |
+| **Supabase Storage** | Local filesystem storage (project's own `/uploads` or `public/` directory) for images, certificate PDFs, and the resume — served by the Next.js dev server. |
+| **Vercel** hosting | **Local only** — the app runs via `npm run dev` (or a local production build) on the owner's own machine. No cloud deployment is happening yet; when the owner is ready to go live, hosting/deployment (Vercel vs. something Mongo-friendly like Render/Railway, since Vercel's serverless functions don't hold a persistent local Mongo connection well) becomes a new decision at that time — not decided now. |
+
+**Why this changes prior guidance**: Supabase was originally recommended specifically because it bundled DB+Auth+Storage into one managed service to minimize solo-dev ops (v3.0 §4's rationale). Going local-only removes that bundling — auth and file storage now need their own (simple, local) solutions rather than coming for free, which is reflected in the replacements above. This is a legitimate trade for a **local development/prototyping phase**: zero cost, zero account setup, full control — the trade-off is that auth and storage are now the owner's/this project's own responsibility, and moving to production later will need a deployment decision that a local Mongo instance can't fulfill on its own (flagged, not solved, here).
 
 ## 1. Decisions Confirmed in This Update
 
@@ -34,7 +45,7 @@ The current site (per the original audit in `brd.md`) only really represents UI/
 
 ### 2.3 Video hosting recommendation (researched)
 
-Self-hosting raw video files in Supabase Storage (or any object storage tied to the app's own budget) gets expensive fast on bandwidth and isn't necessary for a portfolio use case. **Recommendation**: video work is uploaded to **YouTube (unlisted) or Vimeo**, and the CMS stores only the **embed URL** + a cover thumbnail — the admin panel just needs a "paste video link" field, not a heavy video-upload pipeline. This keeps hosting cost near-zero and playback performance/CDN handled by a purpose-built video platform, while the CMS still fully owns the metadata (title, client, category, description, thumbnail).
+Self-hosting raw video files — whether in cloud object storage or on local disk (per v4.0 §0's local-storage decision) — gets expensive/impractical fast (bandwidth in the cloud case, disk space and no CDN in the local case) and isn't necessary for a portfolio use case. **Recommendation**: video work is uploaded to **YouTube (unlisted) or Vimeo**, and the CMS stores only the **embed URL** + a cover thumbnail — the admin panel just needs a "paste video link" field, not a heavy video-upload pipeline. This keeps hosting cost near-zero and playback performance/CDN handled by a purpose-built video platform, while the CMS still fully owns the metadata (title, client, category, description, thumbnail).
 
 ### 2.4 Information architecture recommendation
 
@@ -48,7 +59,7 @@ Since the owner is evaluated differently by recruiters (job leads) vs. freelance
 
 ## 4. Domain Change — Implementation Notes
 
-- `CNAME` file (currently `www.foxwise.in`) must be updated to `www.mohaneesh.com` once the new domain is registered/ready and pointed at the new host (Vercel, per v2.0 §4).
+- `CNAME` file (currently `www.foxwise.in`) must be updated to `www.mohaneesh.com` once the new domain is registered/ready and pointed at wherever the app is eventually deployed — deferred for now since v4.0 §0 keeps everything local; not needed until a real hosting decision is made.
 - All canonical URLs, Open Graph URLs, sitemap entries, and JSON-LD `url` fields (planned in `plan.md`'s SEO section) must use `www.mohaneesh.com` from the start — no point building SEO infrastructure against a domain that's being retired.
 - If `www.foxwise.in` has any existing inbound links/search-engine indexing (recruiters may have it bookmarked, it may be indexed), a **redirect from the old domain to the new one** is worth setting up post-migration to preserve any existing SEO equity — flagged as a recommended step, not yet confirmed as required (owner to confirm if `foxwise.in` should be kept alive as a redirect or simply dropped).
 - This is a real infrastructure change, not just a docs update — it should happen as part of the deployment phase once the domain is actually registered/DNS-ready, not before.
