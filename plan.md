@@ -205,9 +205,30 @@ AdminUser
 
 ## 10. Local Development Setup
 
-- **MongoDB**: run locally via `mongod` (native install) or `docker run -d -p 27017:27017 --name portfolio-mongo mongo` — either is fine; document whichever the owner's machine ends up using in the repo's own setup notes once chosen.
-- **Environment variables** (`.env.local`, gitignored, never committed per `gaurdrail.md` §6): `MONGODB_URI` (e.g. `mongodb://localhost:27017/portfolio`), `NEXTAUTH_SECRET`, `NEXTAUTH_URL` (`http://localhost:3000`).
-- **Seeding**: a one-off seed script populates the `AdminUser` collection with a bcrypt-hashed password (owner sets it interactively, not hardcoded in the script) and optionally seeds sample/migrated content for local testing.
+**Environment**: the owner develops on their own Windows machine, with the repo cloned at a path like `D:\2026\mohaneesh.com\home` — not inside a cloud session. `lib/db.ts`, `.env.local.example`, and this section are written for that machine.
+
+### Windows: MongoDB inside the project folder (no system-wide install, no Docker)
+
+MongoDB's own Windows service installer (the MSI) installs system-wide and runs as a background Windows Service. Since the ask is to keep MongoDB local to the project folder instead, use the **portable ZIP build** and point it at a data folder inside the repo:
+
+1. Download **MongoDB Community Server** for Windows as the **ZIP** package (not the MSI) from `https://www.mongodb.com/try/download/community` — select Platform: Windows, Package: `zip`.
+2. Extract it into the project folder, e.g. `D:\2026\mohaneesh.com\home\mongodb\` (so `mongod.exe` ends up at `D:\2026\mohaneesh.com\home\mongodb\bin\mongod.exe`).
+3. Create a data folder next to it: `D:\2026\mohaneesh.com\home\mongodb-data\`.
+4. Both `mongodb\` and `mongodb-data\` are already covered by `.gitignore` — they're machine-local runtime state, never committed.
+5. Start it (from a terminal, each time you want the DB running — this ZIP build isn't installed as an auto-starting service):
+   ```
+   D:\2026\mohaneesh.com\home\mongodb\bin\mongod.exe --dbpath "D:\2026\mohaneesh.com\home\mongodb-data" --port 27017 --bind_ip 127.0.0.1
+   ```
+   `--bind_ip 127.0.0.1` keeps it unreachable from outside the machine, per `gaurdrail.md` §6. Leave this terminal window running while developing; `Ctrl+C` to stop it.
+6. `MONGODB_URI=mongodb://127.0.0.1:27017/portfolio` in `.env.local` (already the default in `.env.local.example`) then just works — no path changes needed, since `mongod` listens on the same `localhost:27017` regardless of where its files live on disk.
+
+(An `mongod --install` Windows-service variant, or Docker Desktop, both remain valid alternatives if the owner later prefers not to start it manually each session — not needed for now.)
+
+### All platforms
+
+- **Environment variables** (`.env.local`, gitignored, never committed per `gaurdrail.md` §6): copy `.env.local.example` to `.env.local`, fill in `MONGODB_URI`, `NEXTAUTH_SECRET` (generate with `openssl rand -base64 32`, or any 32+ byte random string if `openssl` isn't on the PATH on Windows), `NEXTAUTH_URL`.
+- **Install dependencies**: `npm install`.
+- **Seeding**: `npm run seed:admin` — prompts for the admin email/password interactively and creates the single `AdminUser` document (bcrypt-hashed, never plaintext).
 - **Running the app**: `npm run dev` — no deployment step exists yet; "done" for this phase means it runs correctly on `localhost`.
 
 ## 11. Testing & Acceptance

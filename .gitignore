@@ -14,6 +14,11 @@ next-env.d.ts
 # Local file storage (runtime state, not source — plan.md §10)
 /uploads/
 
+# Local MongoDB binaries/data, if installed portably inside the project
+# folder (plan.md §10) — never committed, machine-specific runtime state.
+/mongodb/
+/mongodb-data/
+
 # Build/debug
 *.tsbuildinfo
 npm-debug.log*
