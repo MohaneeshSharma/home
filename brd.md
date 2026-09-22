@@ -1,117 +1,163 @@
 # Business Requirements Document (BRD)
-## Project: Mohaneesh Sharma — Portfolio Website React Migration
+## Project: Mohaneesh Sharma — Portfolio Website (Dynamic, Multi-Discipline, World-Class Standard)
 
-Version: 1.0
-Date: 2026-09-21
+Version: 2.0 — supersedes v1.0's static-migration framing; aligns with `intent.md` v3.0 (dynamic CMS+CRM, multi-discipline work, new domain)
+Date: 2026-09-22
 Author: Prepared with Claude Code from a full audit of the existing repository
+
+**What's new in v2.0**: (1) clarifies that content today is split across static HTML pages **and** external platforms (Medium, LinkedIn) and sets the content-sourcing strategy accordingly; (2) adds an explicit **quality bar** — this portfolio is meant to read as the work of a **world-class UI/UX and graphic designer**, not a competent personal site, and that standard now shapes the functional and non-functional requirements below.
 
 ---
 
 ## 1. Purpose & Background
 
-The current portfolio website (`www.foxwise.in`) is a static, hand-written HTML/CSS/JS site (11+ pages) styled with the Tailwind **Play CDN / browser-JIT script**, with no real build pipeline, no shared component system in practice, and no SEO infrastructure (no meta descriptions on several pages, no Open Graph tags, no canonical tags, no structured data, no `robots.txt`).
+The current portfolio website (`www.foxwise.in`, moving to `www.mohaneesh.com` per `intent.md` v3.0) is a static, hand-written HTML/CSS/JS site with no real build pipeline, no working shared-component system, no SEO infrastructure, and — per `intent.md` — no real backend (JSON files masquerading as data, an unauthenticated non-persistent "admin" page).
 
-The owner (a UX/UI Designer) wants the site **rebuilt in React** so that:
-- The codebase is **component-based** — shared UI (header, footer, cards, nav) is written once and reused, instead of being copy-pasted across 11 files.
-- The site becomes **well optimized** (smaller/controlled bundle, real Tailwind build instead of the 478KB Play CDN script, image optimization, lazy loading).
-- Because this is a **portfolio site whose entire value depends on being found and read by recruiters/clients via search engines**, the rebuild must ship with an **SEO-friendly setup** from day one, not bolted on later.
+The owner is rebuilding it as a **dynamic, database-backed application** (React/Next.js + Supabase, per `intent.md`) with a **CMS + CRM admin panel**, covering **three disciplines** (UI/UX design, graphic design, video editing) across **both job and freelance** positioning. This version of the BRD adds two things the earlier draft didn't fully account for:
+
+1. **Where the content actually lives today** — not just the repo's static HTML/JSON, but also posts already published on **Medium** and **LinkedIn**.
+2. **The bar this site needs to clear** — the owner's explicit ask is that the finished product should look, read, and perform like the portfolio of **the world's best UI/UX and graphic designer**, not a template-driven personal site. That's a standard, not a slogan, and §4 below breaks it into concrete, checkable requirements.
 
 ## 2. Current State Summary (from full repo audit)
 
 | Area | Finding |
 |---|---|
 | Pages | index, About, Projects, Blogs, Detailed_blog (+ duplicate copy in `/blogs/`), contact, certificate, graphic, figma, admin, index2 |
-| Styling | Tailwind via 3 different, inconsistent delivery methods (local Play CDN script, `cdn.tailwindcss.com`, and an unused local build in `nyaysetu/`); no shared Tailwind config |
-| Components | `components/header.html` + `load-header.js` exist but are **not actually used by any page** — every page hardcodes its own nav markup |
-| Data | `Project.json` (used), `Blogs.json` (25 posts, only used by the detail page — the listing page `Blogs.html` is hardcoded and out of sync), `Certificates.json` and `Contact.json` (both orphaned/unused) |
-| SEO | No meta description on index/About/Projects/graphic; no canonical/OG/JSON-LD anywhere; `robots.txt` missing; `sitemap.xml` references files that don't exist or are mis-cased |
-| Contact | No `<form>` anywhere — contact page is `mailto:` / `tel:` / WhatsApp link only |
-| Admin | `admin.html` is an unauthenticated, non-persistent blog editor (mutates an in-memory array and console.logs it) — not production-safe |
-| Orphan pages | `graphic.html`, `figma.html`, `index2.html`, `admin.html` are not linked from nav or sitemap — likely leftovers, need an in/out decision |
-| Sub-project | `nyaysetu/` is a large, independent legal-tech prototype with its own Tailwind build and a Postgres schema — **not part of the personal portfolio** and out of scope unless the owner says otherwise |
-| Known bugs | `assets/css/inter.css` path is broken on 6+ pages (real file is at repo root `/inter.css`); `Detailed_blog.html` renders JSON `content` via raw `innerHTML` (XSS risk if content is ever user-editable) |
+| Styling | Tailwind via 3 inconsistent delivery methods; no shared config |
+| Components | `components/header.html` exists but is unused — every page hardcodes its own nav |
+| Data | `Project.json`, `Blogs.json` (25 posts, only partly used), `Certificates.json`/`Contact.json` orphaned |
+| SEO | Missing meta descriptions on several pages; no canonical/OG/JSON-LD; stale `sitemap.xml`; no `robots.txt` |
+| Contact | Link-only (`mailto:`/`tel:`/WhatsApp), no form, no lead capture |
+| Admin | `admin.html` has zero auth and no real persistence |
+| Orphan pages | `graphic.html` (now in scope, see `intent.md` v3.0), `figma.html`, `index2.html`, `admin.html` — decisions pending |
+| Sub-project | `nyaysetu/` — separate, out of scope |
+
+### 2.1 Content Source Reality — Static Pages + Medium + LinkedIn
+
+This is the key addition in v2.0. The owner's actual writing/content footprint is **not fully captured in the repo**:
+
+- **On-site (static HTML/JSON)**: project case studies (`Project.json` + `projects/*.html`), the 25 entries in `Blogs.json`, certificate records — this is what the earlier audit and `brd.md` v1.0 focused on.
+- **Off-site — Medium**: `Blogs.html`'s hardcoded teaser cards already link out to **external Medium articles** — confirming the owner publishes long-form writing on Medium today, outside the repo entirely. This content does not exist as structured data anywhere in this project.
+- **Off-site — LinkedIn**: the owner also publishes on LinkedIn (posts/articles) — again, not represented as structured content in the repo; only a LinkedIn *profile* link exists on the Contact page today.
+
+**Implication**: a "same features, but dynamic and world-class" rebuild cannot treat `Blogs.json` as the full picture. The Blogs/Insights module's data requirements (§8) must account for content that currently lives on third-party platforms the owner doesn't control.
 
 ## 3. Business Goals & Objectives
 
-1. **G1 — Credibility & discoverability**: Recruiters/clients searching the owner's name, skills, or case studies should find the site easily on Google, with rich, correct previews when shared (LinkedIn, WhatsApp, etc.).
-2. **G2 — Maintainability**: Adding a new project, blog post, or certificate should require touching one data file / one component, not editing markup in multiple HTML files.
-3. **G3 — Performance**: Fast load on mobile (recruiters often open links from LinkedIn on phones); no more shipping a 478KB unused Tailwind compiler to the browser.
-4. **G4 — Visual/brand consistency**: One design system (colors, type scale, spacing) instead of a duplicated, drifting `tailwind.config` per page.
-5. **G5 — Content integrity**: No existing case study, blog post, certificate, or CTA should be silently lost in the migration without the owner's sign-off.
+1. **G1 — Credibility & discoverability**: recruiters/clients finding the site via search or shared links get a fast, polished, correct experience.
+2. **G2 — Maintainability**: content changes happen through the CMS, not code edits (per `intent.md`).
+3. **G3 — Performance**: fast, optimized, no dead weight (e.g. the unused 478KB Tailwind CDN script).
+4. **G4 — Visual/brand consistency**: one design system across all three disciplines (UI/UX, graphic design, video).
+5. **G5 — Content integrity**: no existing case study, blog post, certificate, or CTA lost without sign-off.
+6. **G6 — World-class craft (new)**: the finished site should be portfolio-of-record quality — the kind of site that itself functions as a UI/UX and graphic design *work sample*, since for a designer, the portfolio site **is** a deliverable, not just a container for other deliverables. See §4.
+7. **G7 — Owned content (new)**: the owner's best writing (currently scattered on Medium/LinkedIn) should live natively on the owner's own domain as the canonical source, with external platforms used for distribution/reach — not the other way around. See §8.1.
 
-## 4. Stakeholders
+## 4. Quality Bar: "World's Best UI/UX & Graphic Designer" Standard
 
-- **Owner / decision-maker**: Mohaneesh Sharma (mohaneesh.uiux@gmail.com) — site owner, content author, final approver.
-- **End users**: Recruiters, hiring managers, potential clients, and search engine crawlers.
+Research basis: top-tier design portfolios (Awwwards/CSS Design Awards honorees, Dribbble/Behance-featured designers, well-known independent UI/UX and graphic-design portfolios) consistently share a specific set of traits. This section translates that pattern into concrete, buildable requirements — not vague inspiration — so it can actually be checked against, not just aspired to.
 
-## 5. Scope
+| Trait of elite portfolios | What it means for this rebuild |
+|---|---|
+| **The site itself is a design artifact** | Every screen — including admin-generated blog/case-study pages — must reflect intentional layout, type, spacing, and motion choices, not default component styling. This is a stricter bar than "looks nice": it means design review happens on the *rebuilt site itself*, not just on the projects it showcases. |
+| **Case studies tell a story, not just show screenshots** | Each project (across all three categories from `intent.md` §2) should follow a **Problem → Process → Decisions → Outcome/Impact** structure with real specifics (role, timeline, tools, and — where possible — measurable outcomes), not a screenshot gallery with a paragraph of description. This is a content requirement for the CMS's project form, not just a template requirement. |
+| **Purposeful motion & micro-interactions** | Scroll-triggered reveals, hover states, page transitions — present, but performance-budgeted (must not compromise the Lighthouse Performance ≥ 90 target already set in `plan.md`/`gaurdrail.md`). Motion should support storytelling (e.g., revealing a before/after), not be decorative noise. |
+| **A distinct, consistent visual voice** | One type scale, one color system, one spacing system applied consistently across UI/UX case studies, graphic design galleries, and video work — this directly reinforces `intent.md`'s multi-discipline IA recommendation (one Work section, category-filtered) rather than three visually disconnected sub-sites. |
+| **Credibility signals** | Client/employer logos (already present — Subharti University, 010 Softwares, Pactap), testimonials (already present on About), and — new — space for **press/feature mentions, awards, or notable publication credits** if any exist now or later (e.g., a Medium piece that performed well, a LinkedIn post that got traction) should have a place to be surfaced, not buried. |
+| **Writing quality signals expertise** | Blog/Insights content should be substantive, native to the site (see §8.1), and well-edited — quantity (25 stale JSON entries) is worth less than a smaller set of genuinely good, correctly-migrated pieces. |
+| **Technical excellence is part of the craft** | For a designer's own portfolio, slow load times or broken responsive behavior are not neutral bugs — they contradict the claim of design skill. This elevates `plan.md`/`gaurdrail.md`'s existing performance/accessibility targets from "good practice" to "core credibility requirement." |
+| **Nothing feels templated or generic** | No unstyled default components, no placeholder Lorem Ipsum in the shipped product, no visibly unfinished sections (e.g., today's dead search bar on `Blogs.html`, or the orphaned `graphic.html` inconsistency) — everything visible must be intentional and finished. |
 
-### 5.1 In scope (default — confirmed content of the live portfolio)
-- Home (index)
-- About
-- Projects (listing) + individual case study pages (121vibes, S-touch, mentora, subhartian; `smartcity`/`smartcityproto` and `stouchproto` to be reviewed as likely duplicate drafts)
-- Blogs (listing) + Blog detail page (dynamic, by id)
-- Certificates page
-- Contact page
-- Resume/CV download (PDF)
-- SEO infrastructure: meta tags, sitemap, robots.txt, Open Graph, structured data
+**How this is enforced**: §4's traits become acceptance criteria alongside §11's metrics — a page is not "done" when it matches the old static site's content; it's done when it also clears this bar. `gaurdrail.md` should get a corresponding "Design Quality" guardrail section referencing this table.
 
-### 5.2 Needs owner decision before build starts
-- `graphic.html` ("Visuals & Content" sub-portfolio) — include as a real nav page, or drop?
-- `figma.html` (internal "Figma Plans Comparison" doc) — not portfolio content; likely **excluded**.
-- `index2.html` (AQAR university report, unrelated content) — likely **excluded**.
-- `admin.html` — rebuild properly (with auth + real persistence, e.g. a headless CMS or simple backend) as an editing tool, or **drop entirely** and edit JSON/CMS content by hand/PR?
-- `Certificates.json` / `Contact.json` — currently orphaned; either wire them up for real or remove.
-- Duplicate/near-duplicate project case studies (`smartcity` vs `smartcityproto`, `S-touch` vs `stouchproto`) — which is canonical?
+## 5. Stakeholders
 
-### 5.3 Out of scope
-- `nyaysetu/` sub-project — separate product, separate scope/BRD if it is ever migrated.
-- Any real backend/database work (contact form backend, CMS backend) is out of scope unless explicitly requested — default plan keeps the site static/serverless.
+- **Owner / decision-maker**: Mohaneesh Sharma (mohaneesh.uiux@gmail.com) — designer, content author, final approver.
+- **End users**: Recruiters, hiring managers, freelance/creative clients (job + freelance, per `intent.md`), and search engines.
 
-## 6. Functional Requirements
+## 6. Scope
+
+### 6.1 In scope
+- Home, About, Work/Projects (UI/UX + Graphic Design + Video Editing, per `intent.md` §2), Blogs/Insights, Certificates, Contact, Resume download.
+- CMS + CRM admin panel (per `intent.md`).
+- SEO infrastructure (meta, sitemap, robots, OG, JSON-LD) on the new domain `www.mohaneesh.com`.
+- **Content migration strategy for Medium/LinkedIn posts** (new — see §8.1).
+
+### 6.2 Needs owner decision before build starts
+- `figma.html`, `index2.html` — likely excluded (non-portfolio content).
+- Duplicate project drafts (`smartcity` vs `smartcityproto`, `S-touch` vs `stouchproto`) — canonical version to confirm.
+- `Certificates.json`/`Contact.json` — resurrect via CMS or drop as dead weight (largely resolved: CMS now owns this data per `intent.md`).
+- **Medium/LinkedIn content**: full republish on-site vs. continue linking out vs. hybrid (§8.1) — owner's call, with a recommendation given below.
+- Exact taxonomy/finer categories within graphic design and video (per `intent.md` §8 Q3).
+
+### 6.3 Out of scope
+- `nyaysetu/` — separate product.
+- Any backend work beyond what `intent.md`'s CMS+CRM architecture requires.
+
+## 7. Functional Requirements
+
+(Carried forward from v1.0, plus new/updated items marked **NEW**)
 
 | ID | Requirement |
 |---|---|
-| FR1 | Shared `<Header>`/`<Nav>` and `<Footer>` React components rendered on every in-scope page, with active-link highlighting and a working mobile menu. |
-| FR2 | Home page: hero, stats, "trusted by" logos, expertise grid, selected-work section (project cards), blog preview carousel, footer CTA — content-driven from data files where it makes sense (project cards from `Project.json`, not hardcoded). |
-| FR3 | Projects listing page reads from a typed data source (JSON or TS module) and renders cards; each card links to its case-study route. |
-| FR4 | Each project case study is its own route/page (kept as rich, mostly-static content, since these are long-form case studies). |
-| FR5 | Blogs listing page must actually render from `Blogs.json` (fixing the current hardcoded/out-of-sync bug), with working search/filter if the search bar is retained. |
-| FR6 | Blog detail page renders a post by id/slug from `Blogs.json`; any HTML content field must be sanitized before rendering (no raw `dangerouslySetInnerHTML` without sanitization). |
-| FR7 | Certificates page lists all certificates with a PDF viewer/modal; content should come from one source of truth (fix the `Certificates.json` vs hardcoded-HTML mismatch). |
-| FR8 | Contact page: WhatsApp, phone, email, LinkedIn CTAs preserved; a real contact form is optional/future (out of scope by default — confirm with owner if desired). |
-| FR9 | Resume PDF remains downloadable from the Home hero (and ideally also from About/Contact). |
-| FR10 | 404 page for unmatched routes (does not exist today — new requirement for a proper SPA/SSG build). |
-| FR11 | `sitemap.xml` and `robots.txt` are generated correctly from the real route list at build time, not hand-maintained. |
+| FR1 | Shared `<Header>`/`<Nav>`/`<Footer>` on every page. |
+| FR2 | Home page sections driven by real CMS data, not hardcoded content. |
+| FR3 | Work/Projects listing renders from the CMS, filterable by discipline (UI/UX / Graphic Design / Video Editing per `intent.md`). |
+| FR4 | Each project has its own case-study page, following the Problem→Process→Decisions→Outcome structure from §4. |
+| FR5 | Blogs/Insights listing renders from real, CMS-owned data (fixes the current hardcoded/out-of-sync `Blogs.html` bug). |
+| FR6 | Blog detail page renders sanitized rich content by id/slug. |
+| FR7 | Certificates page is CMS-driven with PDF viewer/modal. |
+| FR8 | Contact page keeps existing CTAs; gains a real form feeding the CRM's Leads module (per `intent.md` v3.0), with a job-vs-freelance inquiry type. |
+| FR9 | Resume PDF downloadable from Home (and ideally About/Contact). |
+| FR10 | Proper 404 page. |
+| FR11 | `sitemap.xml`/`robots.txt` generated from the real route list, targeting `www.mohaneesh.com`. |
+| **FR12 (NEW)** | The Blogs/Insights module supports **migrating existing Medium and LinkedIn post content** into the CMS as native, owned entries (see §8.1 for the recommended approach), rather than only linking out to third-party URLs. |
+| **FR13 (NEW)** | Where a piece of content originated on Medium/LinkedIn and is republished natively, the page includes a visible "originally published on Medium/LinkedIn" attribution/link (good practice, and avoids the appearance of erasing where it was first shared) and a `rel=canonical`/cross-posting-safe SEO setup so it isn't penalized as duplicate content. |
+| **FR14 (NEW)** | Every project/case-study/blog page meets the qualitative bar in §4 before being considered complete — this is a functional gate on "done," not just a style suggestion. |
 
-## 7. Non-Functional Requirements
+## 8. Non-Functional Requirements
 
-- **NFR1 — SEO**: Every page must have a unique `<title>`, meta description, canonical URL, Open Graph + Twitter Card tags, and (for the home and case-study pages) JSON-LD structured data (`Person`, `CreativeWork`/`Article` as applicable). Content must be crawlable/indexable — pure client-side-rendered React without pre-rendering is **not acceptable** for a portfolio site (see plan.md for the technical approach).
-- **NFR2 — Performance**: Target Lighthouse Performance/SEO/Accessibility/Best-Practices scores of 90+ on mobile; images served as optimized WebP with lazy loading; no shipping the Tailwind Play CDN script to production.
-- **NFR3 — Accessibility**: WCAG 2.1 AA baseline — semantic HTML, alt text on all images, sufficient color contrast, keyboard-navigable nav/menu/modal.
-- **NFR4 — Responsiveness**: Full parity across mobile/tablet/desktop breakpoints (site is already mobile-first Tailwind; must not regress).
-- **NFR5 — Maintainability**: One Tailwind config, one design-token set, no per-page duplicated config or CSS.
-- **NFR6 — Security**: Any HTML rendered from data (blog content) must be sanitized; no secrets/API keys committed; if `admin.html` is rebuilt, it must be properly authenticated.
-- **NFR7 — Hosting continuity**: Final build must deploy to the existing custom domain (`www.foxwise.in`, per `CNAME`) with no broken links relative to today's URLs where reasonably possible (or with redirects for changed paths).
+- **NFR1 — SEO**: unique title/description/canonical/OG/JSON-LD per page; content must be crawlable (real static/SSR HTML, per `intent.md`'s Next.js recommendation), targeting `www.mohaneesh.com`.
+- **NFR2 — Performance**: Lighthouse Performance/SEO/Accessibility/Best-Practices ≥ 90 mobile; optimized images; no CDN-script bloat.
+- **NFR3 — Accessibility**: WCAG 2.1 AA baseline.
+- **NFR4 — Responsiveness**: full parity across breakpoints.
+- **NFR5 — Maintainability**: one design system, CMS-driven content, no duplicated config.
+- **NFR6 — Security**: sanitized rendered content, authenticated CMS/CRM (per `intent.md`).
+- **NFR7 — Hosting continuity**: deploys to the new domain per `intent.md` §4; old-domain redirect handling per that document's open question.
+- **NFR8 — Design craft (NEW)**: every shipped page is held to the §4 quality bar — this is treated as a non-functional acceptance gate equal in weight to performance/accessibility, not a "nice to have."
 
-## 8. Data Requirements
+## 9. Data Requirements
 
-- `Project.json`, `Blogs.json` are the real sources of truth and should be migrated as typed data (or kept as JSON consumed by typed loaders).
-- `Certificates.json` and `Contact.json`: owner to decide — resurrect (wire up certificate cards from JSON) or delete as dead weight.
-- Certificate PDFs (`assets/Certificates/*.pdf`) and project images (`assets/images/*`, `projects/assets/images/mentora/*`) carry over as static assets; mentora screenshots should be reviewed/compressed (currently large, unoptimized raw screenshots).
+### 9.1 Content Migration Strategy (Medium & LinkedIn) — Recommendation
 
-## 9. Success Metrics / Acceptance Criteria
+Given G7 (owned content) and the SEO work already planned, the recommended approach is a **hybrid**:
 
-- All in-scope pages exist as React routes with 1:1 (or better, sign-off'd) content parity with the current live site.
-- Lighthouse SEO score ≥ 95, Performance ≥ 90 (mobile) on Home, Projects, and a sample case study.
-- Google Search Console can successfully index the key pages (verified post-launch via a fetch/render test or a prerendered HTML check).
-- No hardcoded/duplicated nav markup remains — header/footer are single shared components.
-- No broken asset paths (the known `inter.css` bug and similar issues fixed).
-- Site builds and deploys via a single `npm run build` producing a static, deployable output.
+1. **Republish full content natively** in the site's own Blogs/Insights CMS module as the canonical version (best for SEO — content lives on the owner's own domain and benefits it directly; best for UX — no bounce to a third-party site; best for the "world-class" bar in §4 — a visitor exploring the site's writing doesn't get redirected away mid-experience).
+2. **Keep a visible attribution link** back to the original Medium/LinkedIn post (per FR13) — preserves any existing engagement/comments on those platforms and is standard, honest practice for republished content.
+3. **Continue cross-posting new writing to Medium/LinkedIn** for distribution/reach after or alongside publishing natively on-site, with a canonical tag pointing to the on-site version to avoid duplicate-content SEO issues.
+4. **Practical step**: the owner will need to supply the existing Medium/LinkedIn post content (export, copy-paste, or links to migrate from) since neither platform's content exists in this repo today — this is a real content-gathering task, not just an engineering one, and should be scheduled into the project plan.
 
-## 10. Assumptions & Open Questions
+(Owner sign-off needed on this approach — see §11 Open Questions.)
 
-- Assumption: Hosting remains static (GitHub Pages or similar static host) — no server/backend is introduced unless the owner asks for a real contact form or CMS backend.
-- Open question: Should the contact page get a real form (e.g., via a form-as-a-service provider) or stay link-only?
-- Open question: Fate of `admin.html`, `graphic.html`, `figma.html`, `index2.html` (see §5.2).
-- Open question: Canonical project case study for the duplicate-looking `smartcity`/`stouchproto` files.
+### 9.2 Other Data
+- `Project.json`/`Blogs.json` are real sources of truth for what's already structured; migrate into the CMS's database per `intent.md`.
+- `Certificates.json`/`Contact.json`: CMS now owns this (superseded by `intent.md`'s CMS module — no longer "delete or resurrect," just "build properly").
+- Certificate PDFs and project images carry over as assets (uploaded via CMS per `intent.md`); `mentora` screenshots should be reviewed/compressed.
+
+## 10. Success Metrics / Acceptance Criteria
+
+- All in-scope pages exist with 1:1-or-better content parity with the current live site **and** clear the §4 quality bar.
+- Lighthouse SEO ≥ 95, Performance ≥ 90 (mobile) on Home, Work, and a sample case study.
+- Google Search Console successfully indexes key pages on the new domain.
+- No hardcoded/duplicated nav; single shared components.
+- No broken asset paths (known bugs from the original audit fixed).
+- CMS/CRM functioning: content changes reflect on the live site without a code deploy; leads are captured and visible.
+- **At least the highest-value existing Medium/LinkedIn posts are migrated natively** (exact count/priority to be set with the owner) with correct attribution and canonical SEO handling.
+- A reviewer unfamiliar with the project, shown the finished site cold, should be able to tell it was built by someone who takes UI/UX and graphic design seriously — this is deliberately qualitative and is the practical test of §4's bar, meant to be checked via a real design review pass before launch, not just automated metrics.
+
+## 11. Assumptions & Open Questions
+
+- Assumption: hosting stays static/serverless-friendly (Vercel + Supabase per `intent.md`) — no heavier backend introduced beyond that.
+- **Open question (NEW)**: confirm the hybrid Medium/LinkedIn migration approach in §9.1 — does the owner want *all* existing posts migrated natively, only a curated subset, or none (keep purely as external links as today)?
+- **Open question (NEW)**: can the owner export/provide the existing Medium and LinkedIn post content (text, images, dates) for migration, and roughly how many pieces are we talking about?
+- Open question (carried): fate of `figma.html`/`index2.html`, and the canonical duplicate project pages.
+- Open question (carried from `intent.md`): domain readiness, video platform choice, finer category taxonomy.
