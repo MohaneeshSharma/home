@@ -1,84 +1,113 @@
-# Intent Document
-## From "Static Portfolio" → "Same Features, but Dynamic"
+# Intent Document (v2.0)
+## Confirmed Direction: Real Dynamic Site (DB + API) + Admin CRM
 
-Version: 1.0
+Version: 2.0 — supersedes v1.0's open "Option A vs Option B" question
 Date: 2026-09-22
-Context: Builds on the earlier audit/plan (`brd.md`, `plan.md`, `gaurdrail.md`), which scoped a **static** React rebuild (Vite + `vite-react-ssg`). This document captures the owner's updated intent: keep the exact same feature set and pages, but make the site **dynamic** instead of static.
+Context: `brd.md` / `plan.md` / `gaurdrail.md` scoped a static React rebuild. v1.0 of this document flagged that "dynamic" conflicts with a pure static build and left the rendering strategy open (Option A: rebuild-on-publish vs Option B: real backend). **The owner has now decided**: build a genuinely dynamic site — real database, real API — plus a dedicated **admin CRM** to manage all content (projects, blogs, certificates) without touching code.
 
 ---
 
-## 1. Owner's Stated Intent (in their own words)
+## 1. Decision Confirmed
 
-> "Same features ke sath dynamic banani hai" — Rebuild the current static portfolio with the **same features**, but as a **dynamic** site instead of hardcoded static HTML/JSON.
+- v1.0 §5 **Option B is chosen**: this is a real server-backed dynamic application, not a static site with an auto-rebuild trigger.
+- The current site is explicitly **fake-dynamic** (owner's own words, confirmed): `Project.json`/`Blogs.json`/`Certificates.json`/`Contact.json` are static files in the repo; `admin.html` has no auth and doesn't persist anything (it just `console.log`s an updated in-memory array for manual copy-paste). None of this carries forward.
+- A **new, explicit requirement** is added on top of everything in v1.0: a proper **CRM (admin panel)** so the owner can create/edit/delete Projects, Blog posts, and Certificates directly from the browser, backed by a real database and a real authenticated API — no code change, no redeploy, no manual JSON editing.
 
-## 2. What "Dynamic" Means Here (clarified from repo audit)
+## 2. Terminology: "CRM" in This Context
 
-Today, "dynamic-looking" content is actually **fake-dynamic**: JSON files (`Project.json`, `Blogs.json`, `Certificates.json`, `Contact.json`) sit in the repo and are either `fetch()`-ed client-side or, in several places, not even read at all (`Blogs.html` hardcodes 3 posts instead of reading the 25 in `Blogs.json`; `certificate.html` hardcodes its list instead of reading `Certificates.json`). The only "admin" tool (`admin.html`) edits an **in-memory array** and `console.log`s the result for the owner to hand-paste back into the JSON file — there is no real database, no API, and no auth.
+The owner asked for a "CRM" to manage content dynamically. Taken literally, CRM (Customer Relationship Management) is about managing customer/lead relationships, while what manages Projects/Blogs/Certificates content is technically a CMS (Content Management System). Business-requirements research for a solo portfolio site shows these two needs are small enough to **merge into one admin panel** rather than build/host two separate systems:
 
-**Dynamic**, for this rewrite, means:
-- Content (projects, blog posts, certificates, and optionally testimonials/timeline/stats) lives in a **real database**, not static JSON files committed to the repo.
-- Content is served through a **real API**, not a build-time-baked data import.
-- The site owner can **add/edit/delete** a project, blog post, or certificate **without a code change or redeploy** — through a proper authenticated admin panel that actually persists.
-- The **public-facing pages still need to be fast and SEO-indexable** (this was the whole point of the SEO work already planned in `plan.md`) — "dynamic" must not mean "regressing to a slow, unindexable client-side-only app." This is the central engineering tension this document flags (see §5).
+- **CMS function** (the owner's primary ask): manage Projects, Blog posts, Certificates.
+- **CRM function** (a natural extension, and arguably the more literal reading of "CRM"): the Contact page today only offers `mailto:`/`tel:`/WhatsApp links — there is no record of who reached out. Once a real backend exists, capturing and tracking inbound inquiries (name, message, date, status: new/contacted/closed) is a near-zero-cost addition that makes "CRM" true in the literal sense too, and is genuinely useful for a freelance/portfolio site where every inquiry is a lead worth not losing track of.
 
-## 3. Feature Parity — What Must Carry Over Unchanged
+**Recommendation**: build one unified **Admin Panel** with two areas — **Content** (CMS) and **Leads** (CRM) — rather than a content-only tool. This is called "the CRM" throughout the rest of this document per the owner's naming, but functionally covers both. Confirm scope in §8 if the Leads/inquiry-tracking piece is not wanted.
 
-Per the full repo audit already captured in `brd.md`, every in-scope feature must still exist, now backed by real data instead of static files:
+## 3. CRM / Admin Panel — Business Requirements (researched)
 
-| Feature (today) | Dynamic version |
+### 3.1 Core Modules
+
+| Module | Purpose |
 |---|---|
-| Home hero, stats, "trusted by" logos, expertise grid | Same UI; stats/logos can stay static content or become editable fields — owner to decide (see open questions). |
-| Selected Work section (hardcoded on Home) | Pulled dynamically from the same Projects data source used on `/projects`. |
-| Projects listing + individual case study pages | Projects stored in DB, served via API, rendered as before. |
-| Blogs listing + blog detail page | Blog posts stored in DB; listing page actually reflects all published posts (fixes today's hardcoded/out-of-sync bug); detail page fetches by id/slug from the API. |
-| Certificates page + PDF viewer modal | Certificates stored in DB (fixes today's orphaned-JSON bug) with PDF files stored as real uploaded assets (not just repo files). |
-| Contact page (WhatsApp/tel/mailto/LinkedIn) | Same CTAs kept; optionally a **real contact form** that writes a "lead"/message to the database (this was optional/future in `plan.md` — "dynamic" makes it a natural fit now, to be confirmed). |
-| Resume/CV PDF download | Unchanged — static asset download. |
-| `admin.html` (currently unauthenticated, non-persistent) | Rebuilt as a **real, authenticated admin panel** with actual create/update/delete against the database — this is the single biggest functional gap being closed. |
+| **Dashboard** | At-a-glance overview on login: total projects, published vs draft blog posts, total certificates, new/unread leads count, recent activity. |
+| **Projects manager** | Full CRUD for case studies: title, short/long description, cover image + gallery images, tags, external links, **slug** (for the public URL), status (draft/published), display order (for "Selected Work" ordering on Home). |
+| **Blogs manager** | Full CRUD for posts: title, slug, summary, **rich-text body** (not raw HTML pasted by hand — see §3.3), cover image, author, tags, **status (draft/scheduled/published)**, published date, view count (the existing `Blogs.json` already has a `views` field — decide in §8 whether this becomes a real tracked counter). |
+| **Certificates manager** | Full CRUD: title, issuing category (matches the current grouping on `certificate.html`), description, **PDF upload** (replacing today's manually-placed files in `assets/Certificates/`). |
+| **Leads / Inquiries** (CRM proper) | List of contact-page submissions (if a real contact form is added per v1.0 §7 Q5): name, email/phone, message, received date, status (new/contacted/closed), notes field. |
+| **Settings** | Editable site-level fields the owner currently has to hand-edit in HTML: resume PDF (replace/upload), social links, hero stats, "trusted by" logos — scope to be confirmed (could be minimal for v1, expanded later). |
+| **Auth** | Single-admin login (email/password or magic link) gating the entire admin panel. No public sign-up. |
 
-Everything flagged as "needs owner decision" in `brd.md` §5.2 (`graphic.html`, `figma.html`, `index2.html`, duplicate project drafts) carries the **same open status** here — going dynamic doesn't resolve those; it only affects data that's genuinely content (projects/blogs/certificates).
+### 3.2 Functional Requirements (per module)
 
-## 4. Non-Goals (explicitly NOT changing)
+- **FR-C1**: Every content type (Project, Blog, Certificate) supports Create, Read, Update, Delete, and the public site reflects changes without a code deploy.
+- **FR-C2**: Blog and Project records have a **draft/published** state; only `published` records are ever served to the public site/API — this gives the owner a safe way to prepare content before it goes live.
+- **FR-C3**: Every content type has its own **SEO fields** (meta title, meta description, slug) editable in the admin panel — this directly extends the SEO work already planned in `plan.md`, so SEO isn't just a one-time build-time setup but something the owner can tune per post/project going forward.
+- **FR-C4**: Image/file uploads (project images, certificate PDFs, blog cover images) go through a real upload flow with type/size validation — not "commit a file to the repo."
+- **FR-C5**: The Blogs manager uses a **rich text / WYSIWYG editor** (e.g., a block or Markdown editor) instead of the current pattern of hand-writing raw HTML into a `content` JSON field — removes the XSS-prone raw-HTML-paste pattern flagged in `gaurdrail.md` §4 at the source, since the editor produces sanitized structured content rather than arbitrary pasted HTML.
+- **FR-C6**: If Leads/CRM is in scope (see §2), every Contact-page form submission is stored and visible in the admin panel with a status the owner can update.
+- **FR-C7**: Admin panel is **fully separate from and inaccessible without** authentication — replacing `admin.html`'s current zero-auth state, this is a hard requirement, not a nice-to-have (already a MUST in `gaurdrail.md` §4).
+- **FR-C8**: Deleting a Project/Blog/Certificate should be a confirmed, soft-delete-or-archived action where reasonable (avoid one mis-click permanently destroying content with no recovery).
 
-- Visual design, layout, branding, and page structure stay as-is — this is a data/architecture change, not a redesign.
-- `nyaysetu/` remains out of scope, as in `brd.md`.
-- No change to the custom domain (`www.foxwise.in` / `CNAME`) unless the new hosting model requires it (flagged in §6).
+### 3.3 Non-Functional Requirements Specific to the CRM
 
-## 5. Key Technical Implication: This Changes the Stack Decision in `plan.md`
+- **Security**: server-side auth checks on every write endpoint (never trust a hidden admin route alone); rate-limit the login endpoint; sanitize/validate all incoming content server-side (extends `gaurdrail.md`'s sanitization guardrail from "the blog content field" to "every field coming from the admin panel's API").
+- **Usability**: admin panel should be usable from a phone/tablet too (the owner may want to publish a blog post or check a new lead on the go) — responsive admin UI, not desktop-only.
+- **Reliability**: uploads and content edits should give clear success/error feedback; no silent failures (a real regression from today's admin.html, which silently just logs to console).
+- **Auditability (nice-to-have, not a blocker)**: basic "last updated" timestamps on every record are enough for v1; a full audit log/history is a possible future enhancement, not required now.
 
-`plan.md` recommended **`vite-react-ssg`** — a **build-time static site generator**. That choice assumed the data (`projects.ts`, `blogs.ts`) was fixed at build time. It directly conflicts with "dynamic": if content lives in a database and can change anytime without a redeploy, a pure static-generation approach means the owner would have to **trigger a rebuild every time they add a blog post** — workable, but not truly dynamic, and it's worth naming explicitly rather than leaving implicit.
+## 4. Updated Technical Architecture
 
-Two realistic paths, to be decided with the owner before implementation starts:
+This confirms and replaces v1.0 §5's open question with a concrete recommendation:
 
-| Option | How it works | Trade-off |
+| Layer | Recommendation | Why |
 |---|---|---|
-| **A — Rebuild-on-publish (stays close to current plan)** | Keep `vite-react-ssg`, but the admin panel writes to a DB and triggers a rebuild/redeploy (e.g., via a webhook to a CI/CD pipeline) whenever content changes. | Simple hosting (still static output), still excellent SEO, but "dynamic" is really "static + auto-rebuild" — a short delay between publishing and it going live. |
-| **B — True server-rendered dynamic app** (likely the better fit for "dynamic") | Move to **Next.js** (still React, as originally requested) with a real backend API + database, using SSR or ISR (Incremental Static Regeneration) so pages are still fast and SEO-friendly but reflect live data without a full redeploy, and add authenticated API routes for the admin panel. | Needs real hosting (not GitHub Pages — a Node-capable host like Vercel/Render/Railway) and a real database, but delivers genuine dynamic behavior + keeps SEO strong. |
+| **Frontend framework** | **Next.js** (React, App Router) | Still React as originally requested; unlike the earlier `vite-react-ssg` static plan, Next.js natively supports **SSR/ISR**, so public pages stay fast and SEO-crawlable (title/meta/OG/JSON-LD present in real server-rendered HTML) while reflecting live database content — this is the piece that resolves v1.0's static-vs-dynamic conflict. |
+| **Backend/API** | Next.js **API routes / Route Handlers** (no separate backend service needed) | Keeps one codebase/one deploy for both the public site and the admin CRM's API — appropriate for a single-owner portfolio, avoids over-engineering with a separate microservice. |
+| **Database** | **PostgreSQL via Supabase** (managed) | Supabase bundles Postgres + Auth + File Storage + auto-generated APIs in one managed service — for a solo-owner project this cuts setup time significantly versus self-hosting Postgres + rolling custom auth + wiring S3 separately, while still being a "real" database (not a toy). Prisma (or Supabase's client) as the ORM/query layer for type-safe access from Next.js. |
+| **Auth (admin login)** | **Supabase Auth** (email/password or magic link), a single admin user | Matches FR-C7; no need for a custom auth system or third-party identity provider for a one-person CRM. |
+| **File storage** (images, certificate PDFs, resume) | **Supabase Storage** | Same platform as the DB/auth — one bill, one dashboard, avoids adding a second vendor (e.g. Cloudinary/S3) unless a specific need (image transforms/CDN) justifies it later. |
+| **Rich text editor (blogs)** | **Tiptap** (or similar block/Markdown editor) | Produces structured, sanitizable content — satisfies FR-C5. |
+| **Hosting** | **Vercel** (first-party Next.js host) + Supabase (DB/Auth/Storage) | Moves off GitHub Pages (which cannot run a backend) — this was already flagged as a consequence of "dynamic" in v1.0 §6; Vercel + Supabase is a well-trodden, low-ops pairing for exactly this kind of app. |
+| **Domain** | Point `www.foxwise.in` at the new host | Same domain preserved, hosting provider changes (owner sign-off needed — this is the one infra change from `gaurdrail.md`'s "MUST NOT change domain/hosting without explicit request," now explicitly requested by going dynamic). |
 
-This document does not pick one on the owner's behalf — it flags that **the earlier plan.md needs to be revisited/updated** once the owner confirms they want Option A or Option B, since it materially changes hosting, backend, and database requirements.
+## 5. Data Model Additions (high level)
 
-## 6. New Requirements Introduced by "Dynamic" (not present in the original static plan)
+Beyond the existing `Project`/`Blog`/`Certificate` shapes already documented in `brd.md` §3, the dynamic version adds:
 
-- **Database**: needed to store projects, blog posts, certificates, and (if added) contact messages/leads. (e.g., Postgres/MySQL/SQLite via an ORM such as Prisma, or a managed BaaS like Supabase/Firebase — to be decided.)
-- **API layer**: CRUD endpoints for each content type, consumed by both the public pages and the admin panel.
-- **Authentication**: the admin panel **must** be behind real login (this was already a hard guardrail in `gaurdrail.md` §4 — "MUST NOT ship `admin.html`'s current pattern... If an admin/editing UI is rebuilt, it MUST have real authentication"). Going dynamic makes this requirement active rather than hypothetical.
-- **File/asset storage**: certificate PDFs and project images need a real upload mechanism (not "drop a file in the repo") if the admin panel is meant to let the owner add new projects/certificates without a developer's help.
-- **Hosting change**: static hosting (GitHub Pages) cannot run a database-backed API — hosting will need to move to a platform that supports a backend (see Option B above), or Option A's rebuild-on-publish keeps static hosting but adds a CI/CD trigger.
-- **Content sanitization & validation**: now doubly important — user-entered content (via the admin panel) flowing into the public site must be validated and sanitized server-side, not just client-side (extends the existing `dompurify` guardrail to the API layer too).
+- `status` (draft/published), `seo_title`, `seo_description`, `slug`, `created_at`, `updated_at` on every content type.
+- `Lead`/`Inquiry` table: `name`, `contact_method` (email/phone), `message`, `status`, `notes`, `created_at` — only if the CRM/Leads scope from §2 is confirmed.
+- `AdminUser`: managed by Supabase Auth, not a custom table.
+- File references (image/PDF URLs) point to Supabase Storage objects rather than repo-relative paths.
 
-## 7. Open Questions for the Owner (block implementation until answered)
+## 6. Feature Parity (updated ownership)
 
-1. **Option A vs. Option B (§5)** — auto-rebuild-on-publish vs. a true server-rendered dynamic app (Next.js + DB)? This is the single biggest decision and changes hosting, cost, and complexity.
-2. **Database choice** — managed BaaS (e.g., Supabase/Firebase — fastest to build, less infra to manage) vs. self-hosted DB + custom API (more control, more setup)?
-3. **Hosting** — willing to move off GitHub Pages if Option B is chosen? Any budget/platform preference (Vercel, Render, Railway, etc.)?
-4. **Admin auth** — simple single-owner login (email/password or magic link) is likely sufficient (this isn't a multi-user CMS) — confirm that's all that's needed, no multi-role/team access.
-5. **Contact form** — now that a backend exists, should the Contact page gain a real form that saves messages to the database (in addition to today's WhatsApp/tel/mailto/LinkedIn links)?
-6. Everything already open in `brd.md` §5.2 (`graphic.html`, `figma.html`, `index2.html`, duplicate project pages, `nyaysetu/`) — still unresolved, independent of the dynamic decision.
+Same feature list as `brd.md`/v1.0 of this document — every public page/feature is unchanged in what the visitor sees. What changes is **who edits it and how**:
 
-## 8. Relationship to Existing Documents
+| Content | Old way | New way |
+|---|---|---|
+| Projects | Hand-edit `Project.json` + HTML files, commit, deploy | Create/edit in the CRM → saved to Postgres → public pages update immediately (SSR/ISR) |
+| Blogs | Hand-edit `Blogs.json` (and `Blogs.html` didn't even read it) | Rich-text editor in the CRM → draft/publish workflow → listing page always reflects real published posts |
+| Certificates | Hardcoded in `certificate.html`, PDFs manually placed in repo | Upload PDF + fill form in the CRM → stored in Supabase Storage + DB |
+| Leads (new) | None — no record of inquiries | Captured from Contact form (if added) into the CRM's Leads module |
 
-- `brd.md` — the feature/content audit and business goals remain valid and are the source of truth for **what** the site must contain.
-- `plan.md` — the frontend framework choice (React) and SEO intent (per-page meta/OG/JSON-LD, real crawlable HTML) remain valid, but its **rendering strategy** (`vite-react-ssg`, static-only) needs to be revisited once §5's Option A/B is decided; the component/page inventory and migration mapping in `plan.md` §3–4 stay reusable regardless of which option is chosen.
-- `gaurdrail.md` — all existing guardrails still apply; §4 (Security) becomes stricter and immediately relevant now that a real API and database exist (server-side validation, real auth, no unauthenticated write endpoints).
+## 7. Non-Goals (unchanged from v1.0)
 
-**Next step**: once the owner answers §7, `plan.md` should be updated (or a `plan-v2.md` added) with the concrete backend/database/hosting architecture before implementation begins.
+- Visual design/branding/layout is not being redesigned — this is a data + admin-tooling change.
+- `nyaysetu/` remains fully out of scope.
+- No multi-user/team roles in the CRM — single admin (the owner) is sufficient unless stated otherwise.
+
+## 8. Open Questions (narrower now that Option B is confirmed)
+
+1. **Leads/CRM scope** — confirm the Contact page should get a real form that feeds the Leads module (§2), or keep Contact link-only and drop the CRM-proper (inquiry-tracking) part, keeping the admin panel to Content (CMS) only.
+2. **Blog view counts** — `Blogs.json` already has a `views` field today (currently meaningless/static); should the dynamic version track real page views per post?
+3. **Settings module scope** — is editing resume/social links/hero stats via the CRM wanted for v1, or is that an acceptable manual/code-level edit for now (keeps v1 scope smaller)?
+4. **Notifications** — should a new Lead or a specific event (e.g., contact form submission) trigger an email notification to the owner, or is checking the CRM dashboard manually enough?
+5. **Hosting/budget confirmation** — Vercel + Supabase both have generous free tiers suitable for a solo portfolio; confirm no objection before committing to this pairing over self-hosting.
+6. Still-unresolved items carried from `brd.md`/v1.0: fate of `graphic.html`/`figma.html`/`index2.html`, and the canonical version of the duplicate project pages (`smartcity` vs `smartcityproto`, `S-touch` vs `stouchproto`).
+
+## 9. Relationship to Other Documents
+
+- `brd.md` — content/feature scope still valid; add the CRM/Leads module as a new functional area once §8 Q1 is answered.
+- `plan.md` — **needs a revision pass**: replace the `vite-react-ssg` static-build section with the Next.js + Supabase architecture from §4 above; the component/page inventory (§3–4 of `plan.md`) is still reusable, but the "Data Layer Plan" (§5) and "Deployment Plan" (§10) sections are now outdated and should be rewritten to reflect a real API + database instead of build-time JSON imports.
+- `gaurdrail.md` — all guardrails still apply and become *more* load-bearing now: the security section (§4) is no longer a hypothetical "if admin.html is rebuilt" — it is now an active requirement for the CRM being built.
+
+**Next step**: once §8's open questions are answered, update `plan.md` (or create `plan-v2.md`) with the concrete Next.js + Supabase implementation plan, database schema, and API route list before implementation begins.
