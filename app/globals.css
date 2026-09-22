@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+/* UX4G's own CSS bundle (components, tokens, dark theme, utilities) is
+   imported directly in app/layout.tsx per the package's documented React
+   setup. Tailwind here is scoped to layout utilities only (plan.md §1/§2) —
+   UX4G owns components; do not recreate a UX4G component with Tailwind
+   classes (gaurdrail.md §4). */
+
+@import "../styles/ux4g-theme.css";
+@import "../styles/glass.css";
+
+html {
+  color-scheme: light dark;
+}
+
+body {
+  min-height: 100dvh;
+}

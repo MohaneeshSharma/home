@@ -1,0 +1,51 @@
+/**
+ * UX4G token overrides — brand palette (spec.md §1.1).
+ *
+ * Confirmed from the installed ux4g-web-components@2.1.0 package
+ * (node_modules/ux4g-web-components/styles/ux4g.css): the design system's
+ * primitive color scale is `--ux4g-color-{role}-{50..950}`, defined once at
+ * :root and reused by both light and dark semantic tokens (dark mode just
+ * points semantic tokens at different stops of the same scale — e.g.
+ * brand-primary-default uses primary-300 in dark vs primary-600 in light).
+ * So overriding the primitive scale once, here, is correct for both themes.
+ *
+ * Primary (Royal Blue) 50/100/500/600/900 are the site's existing confirmed
+ * brand values (index.html's old Tailwind config); the unconfirmed stops
+ * (200/300/400/700/800/950) are filled from Tailwind's own default "blue"
+ * palette, since 500/600 already match it exactly. Secondary (Purple) 600 is
+ * the confirmed value (#9333ea = Tailwind's purple-600); the full scale is
+ * Tailwind's default "purple" palette for the same reason.
+ */
+:root {
+  /* Primary — Royal Blue */
+  --ux4g-color-primary-50: #eff4ff !important;
+  --ux4g-color-primary-100: #dbe6fe !important;
+  --ux4g-color-primary-200: #bfdbfe !important;
+  --ux4g-color-primary-300: #93c5fd !important;
+  --ux4g-color-primary-400: #60a5fa !important;
+  --ux4g-color-primary-500: #3b82f6 !important;
+  --ux4g-color-primary-600: #2563eb !important;
+  --ux4g-color-primary-700: #1d4ed8 !important;
+  --ux4g-color-primary-800: #1e40af !important;
+  --ux4g-color-primary-900: #1e3a8a !important;
+  --ux4g-color-primary-950: #172554 !important;
+
+  /* Secondary — Purple accent */
+  --ux4g-color-secondary-50: #faf5ff !important;
+  --ux4g-color-secondary-100: #f3e8ff !important;
+  --ux4g-color-secondary-200: #e9d5ff !important;
+  --ux4g-color-secondary-300: #d8b4fe !important;
+  --ux4g-color-secondary-400: #c084fc !important;
+  --ux4g-color-secondary-500: #a855f7 !important;
+  --ux4g-color-secondary-600: #9333ea !important;
+  --ux4g-color-secondary-700: #7e22ce !important;
+  --ux4g-color-secondary-800: #6b21a8 !important;
+  --ux4g-color-secondary-900: #581c87 !important;
+  --ux4g-color-secondary-950: #3b0764 !important;
+
+  /* Dark base surface (#0f172a, per spec.md §1.1) — overrides the
+     default near-black neutral-900 (#171717) with a blue-tinted slate,
+     matching the brand palette. Flows into --ux4g-bg-neutral and other
+     neutral-900-derived tokens in dark mode automatically. */
+  --ux4g-color-neutral-900: #0f172a !important;
+}

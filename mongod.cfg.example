@@ -1,0 +1,14 @@
+# Copy to mongod.cfg (gitignored) if using the Windows-service install
+# method in plan.md §10. Edit the two paths below only if your clone isn't
+# at D:\2026\mohaneesh.com\home.
+
+systemLog:
+  destination: file
+  path: D:\2026\mohaneesh.com\home\mongodb-logs\mongod.log
+
+storage:
+  dbPath: D:\2026\mohaneesh.com\home\mongodb-data
+
+net:
+  bindIp: 127.0.0.1
+  port: 27017
