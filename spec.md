@@ -28,23 +28,20 @@ SDLC stage: **Design** — per Anthropic's AI-native SDLC playbook, this artifac
 | Timeline | About page experience timeline |
 | Rich text renderer | Blog post body (Tiptap output, see §6) |
 
-### 1.1 Theme Tokens — Custom Brand Palette (confirmed with owner)
+### 1.1 Theme Tokens — Custom Brand Palette (confirmed, implemented)
 
-The existing site's brand palette (`index.html`'s Tailwind config) is reused as the UX4G theme override, applied once at the application root per the UX4G token-override contract (root-level `!important` overrides, tokens overridden — never individual components):
+The existing site's brand palette (`index.html`'s Tailwind config) is reused as the UX4G theme override, applied once at the application root per the UX4G token-override contract. **Resolved during Build** (`plan.md` §9 Phase 0): the installed `ux4g-web-components@2.1.0` package was inspected directly — its real primitive scale is `--ux4g-color-{role}-{50..950}` (not the placeholder `--ux4g-primary-*` shorthand guessed here in v1.0), defined once at `:root` and shared by both themes (dark mode remaps semantic tokens to different stops of the same scale, e.g. `primary-300` instead of `primary-600`). Dark mode itself is driven by `[data-theme="dark"]` on `<html>`, confirming the mechanism assumed in §3. Implemented in `styles/ux4g-theme.css`:
 
 ```css
 :root {
-  --ux4g-primary-50: #eff4ff !important;
-  --ux4g-primary-100: #dbe6fe !important;
-  --ux4g-primary-500: #3b82f6 !important;
-  --ux4g-primary-600: #2563eb !important;  /* Royal Blue — primary */
-  --ux4g-primary-900: #1e3a8a !important;
-  --ux4g-secondary-600: #9333ea !important; /* Purple — secondary accent */
-  --ux4g-dark-base: #0f172a !important;     /* Dark theme base surface */
+  --ux4g-color-primary-600: #2563eb !important;  /* Royal Blue — primary */
+  --ux4g-color-secondary-600: #9333ea !important; /* Purple — secondary accent */
+  --ux4g-color-neutral-900: #0f172a !important;    /* Dark theme base surface */
+  /* full 50–950 stops for primary/secondary also overridden — see the file */
 }
 ```
 
-Exact `--ux4g-*` token names above are placeholders pending confirmation against the real UX4G package/docs during Build — **the design intent (Royal Blue primary, Purple secondary accent, `#0f172a` dark base) is locked; the literal token names are not.** UX4G's own semantic/status tokens (success/warning/error/info) are left at their defaults unless a specific need arises.
+UX4G's own semantic/status tokens (success/warning/error/info) are left at their defaults unless a specific need arises.
 
 ## 2. Visual Style: Glassmorphism
 
@@ -96,4 +93,5 @@ Every screen in §1's component list is designed with all of its real states, no
 
 - Reads from: `intent.md` v3.0 (Plan-stage decisions: dynamic backend, CMS+CRM, multi-discipline work, new domain), `brd.md` v2.0 (business requirements, quality bar).
 - Feeds into: `plan.md` v2.0 (Build-stage technical plan — UX4G component mapping, theme-token implementation, glassmorphism CSS strategy, pdf.js/Tiptap integrations, and the React Impeccable code-quality bar built on top of this spec's state-design requirements) and `gaurdrail.md` v3.0 (hard constraints derived from this spec — Design System and React Code Quality sections).
-- Open items carried to Build: exact `ux4g-web-components` component/token names (§1), exact glass CSS values validated for contrast (§2), CV-vs-About-page reconciliation pass (§5).
+- Resolved during Build (Phase 0): exact `ux4g-web-components` token names (§1.1) and the `[data-theme=dark]` mechanism (§3).
+- Still open: a manual contrast audit of the glass CSS values against real content in both themes (§2 — the recipe is implemented in `styles/glass.css` but not yet measured), CV-vs-About-page reconciliation pass (§5).
