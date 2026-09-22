@@ -82,8 +82,18 @@ All content currently live on the static pages — Home hero/stats/expertise/sel
 | **PDF viewing** (certificate PDFs, resume) | **pdf.js** (`pdfjs-dist`, Mozilla's official package) | Replaces today's native `<embed>`/browser-plugin `openModal()` pattern. Renders pages to canvas inside a UX4G Modal/Dialog + glass surface — a native browser PDF plugin can't be restyled to match the design system/glass theme, a canvas-rendered pdf.js viewer can. |
 | **Blog rich-text editing** (CMS) | **Tiptap** | Already recommended in `intent.md` v2.0 §4; now a locked spec decision. Produces structured, sanitizable output — replaces the current raw-HTML-paste `content` field pattern. Output is sanitized server-side before storage/render regardless of Tiptap's own escaping (defense in depth, per `gaurdrail.md`'s security guardrails). |
 
-## 7. Relationship to Other Documents
+## 7. Interaction & State Design (expert UX baseline)
+
+Every screen in §1's component list is designed with all of its real states, not just its "happy path" — this is what separates a merely functional UI from an expert one, and it is now enforced as a React-level rule too (`plan.md` §3.1, `gaurdrail.md` §3):
+
+- **Loading**: skeleton/placeholder states for Work/Blogs/Certificates grids and the CMS dashboard — never a blank screen or layout jump when content resolves.
+- **Empty**: a designed empty state for "no projects in this category yet," "no leads yet," etc. — not just an empty `<div>`.
+- **Error**: a designed error state for failed data loads and failed form submissions (contact form, CMS forms) — with a clear recovery action, not a silent failure or a raw error string.
+- **Interactive feedback**: every button/link has visible hover, focus, active, and disabled states from UX4G's own component states (§1) — glass surfaces (§2) never replace these, only sit behind them.
+- **Motion with purpose**: consistent with `brd.md` §4's "purposeful motion" quality-bar trait — reveals, transitions, and the PDF-modal open/close all use motion to clarify what changed, not as decoration.
+
+## 8. Relationship to Other Documents
 
 - Reads from: `intent.md` v3.0 (Plan-stage decisions: dynamic backend, CMS+CRM, multi-discipline work, new domain), `brd.md` v2.0 (business requirements, quality bar).
-- Feeds into: `plan.md` (Build-stage technical plan — must be updated to reflect the UX4G component mapping, theme-token implementation, glassmorphism CSS strategy, and the pdf.js/Tiptap integrations specified here) and `gaurdrail.md` (hard constraints derived from this spec — see that file's Design System Guardrails section).
+- Feeds into: `plan.md` v2.0 (Build-stage technical plan — UX4G component mapping, theme-token implementation, glassmorphism CSS strategy, pdf.js/Tiptap integrations, and the React Impeccable code-quality bar built on top of this spec's state-design requirements) and `gaurdrail.md` v3.0 (hard constraints derived from this spec — Design System and React Code Quality sections).
 - Open items carried to Build: exact `ux4g-web-components` component/token names (§1), exact glass CSS values validated for contrast (§2), CV-vs-About-page reconciliation pass (§5).
