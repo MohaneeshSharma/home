@@ -1,8 +1,10 @@
 # Guardrails
-## React Migration — Mohaneesh Sharma Portfolio
+## Mohaneesh Sharma Portfolio — Dynamic Rebuild
 
-Version: 1.0
-Companion to: `brd.md`, `plan.md`
+Version: 2.0
+Companion to: `intent.md`, `brd.md`, `spec.md`, `plan.md`
+
+**What's new in v2.0**: adds Design System guardrails (UX4G components, glassmorphism + accessibility, mandatory light/dark theming), locks in `pdf.js` and Tiptap as the required libraries for PDF viewing and blog editing, updates the domain reference to `www.mohaneesh.com`, and adds the About-page-must-match-the-CV rule.
 
 These are the rules the implementation must follow. Anything marked **MUST** blocks a phase from being considered done; anything marked **MUST NOT** is a hard stop that needs the owner's explicit sign-off to override.
 
@@ -10,51 +12,71 @@ These are the rules the implementation must follow. Anything marked **MUST** blo
 
 ## 1. Content & Scope Guardrails
 
-- **MUST NOT** silently drop any in-scope page, project case study, blog post, or certificate from `brd.md` §5.1 without the owner's explicit sign-off.
-- **MUST NOT** migrate `graphic.html`, `figma.html`, `index2.html`, or `admin.html` until the owner has answered the open questions in `brd.md` §5.2 — build them out of the default route list until then.
-- **MUST NOT** migrate both `smartcity`/`smartcityproto` and both `S-touch`/`stouchproto` as separate live routes — confirm the canonical file with the owner first; the other is reference-only.
-- **MUST NOT** touch or migrate `nyaysetu/` as part of this work — it is a separate sub-project (out of scope per BRD).
-- **MUST** preserve the resume PDF, all certificate PDFs, and the `CNAME` (`www.foxwise.in`) exactly — these are real external-facing assets/links.
+- **MUST NOT** silently drop any in-scope page, project case study, blog post, or certificate from `brd.md` §6.1 without the owner's explicit sign-off.
+- **MUST NOT** migrate `figma.html` or `index2.html` until the owner has answered the open questions in `brd.md` §6.2 — build them out of the default route list until then. (`graphic.html` is now in scope, per `intent.md` v3.0 — it becomes real `video_editing`/`graphic_design` category content, not a page port.)
+- **MUST NOT** migrate both `smartcity`/`smartcityproto` and both `S-touch`/`stouchproto` as separate live entries — confirm the canonical version with the owner first; the other is reference-only.
+- **MUST NOT** touch or migrate `nyaysetu/` as part of this work — it is a separate sub-project (out of scope).
+- **MUST** preserve the resume PDF and all certificate PDFs exactly as real assets (uploaded into the CMS, not deleted).
+- **MUST** point the live domain at `www.mohaneesh.com` (per `intent.md` v3.0 §4), not the old `www.foxwise.in` — update `CNAME`/DNS as part of deployment, and confirm with the owner whether the old domain redirects or is retired.
+- **MUST** preserve all existing static-page content as CMS seed data (`spec.md` §4) — no content invented from scratch during migration.
+- **MUST** reconcile the About page's professional history against `Mohaneesh_UX_Designer.pdf` (`spec.md` §5) — the CV is the source of truth for roles/dates/skills; any mismatch between the current `About.html` copy and the CV **MUST** be flagged to the owner, not silently resolved either way.
 
 ## 2. Architecture & Code Quality Guardrails
 
-- **MUST** use a single shared `<Header>`/`<Nav>`/`<Footer>` component set — **MUST NOT** reintroduce copy-pasted nav markup per page (this is the exact problem being fixed).
-- **MUST** use one Tailwind theme/config — **MUST NOT** duplicate `tailwind.config`-style objects or custom `.bg-primary`/`.text-primary` classes per page.
-- **MUST NOT** ship the Tailwind Play CDN script (`tailwind.min.js` / `cdn.tailwindcss.com`) in the production build — Tailwind must be compiled at build time.
+- **MUST** use a single shared `<Header>`/`<Nav>`/`<Footer>` component set — **MUST NOT** reintroduce copy-pasted nav markup per page.
 - **MUST** keep components small and single-purpose (a `ProjectCard` renders a card; it does not also own routing or data-fetching logic) — no God components.
-- **MUST NOT** add abstractions, config options, or "just in case" flexibility beyond what the current 11-page site actually needs (e.g., no generic CMS layer unless the owner asks for one).
-- **MUST** type the data layer (`projects`, `blogs`, `certificates`) — no untyped `any`-shaped JSON consumed ad hoc in components.
+- **MUST NOT** add abstractions, config options, or "just in case" flexibility beyond what the site actually needs.
+- **MUST** type the data layer (`projects`, `blogs`, `certificates`, `leads`) — no untyped `any`-shaped JSON consumed ad hoc in components.
 
-## 3. SEO Guardrails (non-negotiable given this is a portfolio site)
+## 3. Design System Guardrails (NEW — UX4G, glassmorphism, theming)
 
-- **MUST** ensure every page ships with a real static HTML `<title>` and meta description **in the actual build output** (verified via "view source", not devtools) — CSR-only output that leaves these empty is a failed build.
-- **MUST** include canonical, Open Graph, and Twitter Card tags on every page.
-- **MUST** generate `sitemap.xml` and `robots.txt` from the real, live route list at build time — **MUST NOT** hand-maintain a sitemap that can drift out of sync with actual routes (this is the exact bug found in the current site).
-- **MUST NOT** reference non-existent or mis-cased file paths in the sitemap (carry-forward of the current `Certificates.html`/`projects/Detail_project.html` bugs is not acceptable).
-- **MUST** add `Person`/`CreativeWork`/`BlogPosting` JSON-LD where specified in `plan.md` §6.
-- Target Lighthouse SEO score ≥ 95 as an acceptance gate before calling the migration done.
+Per `spec.md` §1–3, these are hard requirements, not style preferences:
 
-## 4. Security Guardrails
+- **MUST** build all UI from **UX4G Design System** components (`ux4g-web-components` npm package) — use documented components, classes, variants, sizes, and semantic tokens wherever an equivalent exists.
+- **MUST NOT** recreate a UX4G component with custom markup. Custom CSS is allowed only where UX4G genuinely provides no equivalent (e.g. the bento-grid layout, blob animation, glassmorphism surface treatment) — and **MUST** be kept minimal and documented inline with the reason.
+- **MUST NOT** mix `ux4g-web-components` (npm) with UX4G's CDN assets in the same app.
+- **MUST** override brand colors as root-level UX4G *tokens* (Royal Blue `#2563eb` primary, Purple `#9333ea` secondary, `#0f172a` dark base, per `spec.md` §1.1) — **MUST NOT** override individual components or hard-code these colors ad hoc elsewhere in the codebase.
+- **MUST NOT** invent UX4G component or token names — confirm exact names against the real installed `ux4g-web-components` package/docs before use (per the project's UX4G skill contract).
+- **MUST** apply glassmorphism only as a decorative surface-level treatment (nav, hero/bento cards, stat badges, modals) — **MUST NOT** let it degrade text/interactive-element contrast below WCAG AA (4.5:1 body text, 3:1 large text/UI). Contrast **MUST** be verified against the *effective* rendered backdrop, separately in light and dark theme, not assumed from the panel's nominal color.
+- **MUST** ship both light and dark themes fully working — a page or component that only looks right in one theme is not done. Every new UI addition **MUST** be checked in both themes before merge (per `spec.md` §3).
 
-- **MUST** sanitize any HTML rendered from data (`Blogs.json` `content` field) using a library such as `dompurify` — **MUST NOT** carry forward the current raw `innerHTML` pattern unsanitized.
-- **MUST NOT** ship `admin.html`'s current pattern (no auth, mutates an in-memory array, no real persistence) as-is. If an admin/editing UI is rebuilt, it **MUST** have real authentication before it is deployed publicly.
-- **MUST NOT** commit any API keys, tokens, or credentials to the repo, even for optional integrations (e.g., a future contact-form service).
-- **MUST** review any new npm dependency before adding it (check maintenance status, bundle size, no unnecessary transitive bloat) — keep the dependency list lean, matching the site's actual needs.
+## 4. SEO Guardrails (non-negotiable given this is a portfolio site)
 
-## 5. Performance Guardrails
+- **MUST** ensure every page ships with a real, crawlable `<title>` and meta description **in the actual rendered/server output** (verified via "view source", not devtools-rendered DOM).
+- **MUST** include canonical, Open Graph, and Twitter Card tags on every page, targeting `www.mohaneesh.com`.
+- **MUST** generate `sitemap.xml` and `robots.txt` from the real, live route list at build/deploy time — **MUST NOT** hand-maintain a sitemap that can drift out of sync with actual routes.
+- **MUST** add `Person`/`CreativeWork`/`BlogPosting` JSON-LD per `plan.md`'s SEO section.
+- **MUST** set `rel=canonical` correctly on any blog post republished from Medium/LinkedIn (per `brd.md` v2.0 §9.1) to avoid duplicate-content penalties, and **MUST** include the visible source attribution link required by `brd.md` FR13.
+- Target Lighthouse SEO score ≥ 95 as an acceptance gate.
 
-- **MUST NOT** regress load performance versus a reasonable modern baseline — target Lighthouse Performance ≥ 90 (mobile) on Home, Projects, and a sample case study.
-- **MUST** lazy-load below-the-fold images and compress/convert oversized assets (the `mentora` screenshot set flagged in the audit) before shipping.
-- **MUST NOT** introduce heavy, unnecessary libraries where a lighter option covers the need (e.g., prefer `lucide-react`/`react-icons` over a full Font Awesome kit if bundle size becomes an issue — confirm visual parity with the owner first).
+## 5. Security Guardrails
 
-## 6. Accessibility Guardrails
+- **MUST** sanitize any rich-text/HTML content rendered from the CMS (blog post bodies, including Tiptap output — see §6) server-side before storage or render — **MUST NOT** trust client-side escaping alone, and **MUST NOT** reintroduce the old raw-`innerHTML` pattern.
+- **MUST NOT** ship an admin/CMS/CRM surface without real authentication — the old `admin.html` pattern (no auth, no real persistence) **MUST NOT** carry forward in any form.
+- **MUST** enforce auth checks server-side on every write endpoint (create/update/delete for projects, blogs, certificates, leads) — a hidden route is not access control.
+- **MUST NOT** commit API keys, tokens, or credentials to the repo.
+- **MUST** review any new npm dependency before adding it (maintenance status, bundle size, no unnecessary transitive bloat).
 
-- **MUST** meet WCAG 2.1 AA basics: semantic HTML landmarks, alt text on every image, sufficient color contrast, full keyboard operability of nav/mobile-menu/PDF modal.
+## 6. Required Libraries (NEW — locked-in choices, per `spec.md` §6)
+
+- **MUST** use **pdf.js** (`pdfjs-dist`) for all in-app PDF rendering (certificate PDFs, resume) — **MUST NOT** fall back to a native `<embed>`/`<iframe>` browser PDF plugin or a different PDF library; the viewer must render inside a themed UX4G Modal/glass surface, which a native plugin cannot do.
+- **MUST** use **Tiptap** for the CMS's blog rich-text editor — **MUST NOT** hand-roll a `contentEditable` editor or substitute a different rich-text library without owner sign-off.
+
+## 7. Performance Guardrails
+
+- **MUST NOT** regress load performance versus a modern baseline — target Lighthouse Performance ≥ 90 (mobile) on Home, Work, and a sample case study.
+- **MUST** lazy-load below-the-fold images and compress/convert oversized assets (the `mentora` screenshot set flagged in the audit).
+- **MUST NOT** introduce heavy, unnecessary libraries where a lighter option covers the need.
+- **MUST NOT** let glassmorphism's `backdrop-filter`/blur usage tank scroll/animation performance — profile on a mid-range mobile device before shipping any glass-heavy view.
+
+## 8. Accessibility Guardrails
+
+- **MUST** meet WCAG 2.1 AA basics: semantic HTML landmarks, alt text on every image, sufficient color contrast (including through glass surfaces — see §3), full keyboard operability of nav/mobile-menu/PDF modal/Tiptap editor.
 - **MUST NOT** rely on color alone to convey state (e.g., active nav link) — pair with an additional visual/semantic cue.
 
-## 7. Process Guardrails
+## 9. Process Guardrails
 
-- **MUST** keep `brd.md` / `plan.md` / this file up to date if scope changes mid-build (e.g., an owner decision on an out-of-scope page flips it to in-scope) — these docs are the source of truth for what "done" means.
-- **MUST** get explicit owner confirmation before deleting any currently-live page, asset, or data file (`Certificates.json`, `Contact.json`, duplicate project pages) even if it looks unused — "orphaned in the audit" is a flag to ask about, not permission to delete unilaterally.
-- **MUST NOT** change the deployed domain/CNAME or hosting provider without the owner's explicit request.
-- Every migrated page **MUST** be checked side-by-side against the corresponding live page before being marked complete (content-parity guardrail, per `plan.md` §11 QA phase).
+- **MUST** keep `intent.md` / `brd.md` / `spec.md` / `plan.md` / this file up to date if scope or design decisions change mid-build — these docs are the source of truth for what "done" means, per the project's AI-native SDLC flow (each stage's artifact is read by the next).
+- **MUST** get explicit owner confirmation before deleting any currently-live page, asset, or data file, even if it looks unused.
+- **MUST NOT** change the deployed domain or hosting provider beyond what's already confirmed (`www.mohaneesh.com`, per `intent.md` v3.0) without further owner sign-off.
+- Every migrated page **MUST** be checked side-by-side against the corresponding live page for content parity, **and** against `spec.md` §1–3 for design-system/theme/glassmorphism compliance, before being marked complete.
